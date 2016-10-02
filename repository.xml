@@ -1,0 +1,19 @@
+<repositories xmlns="" version="1.0">
+<repo quality="experimental" status="unofficial">
+<name>argent-desktop</name>
+<description>romanian Argent distro desktop-oriented ebuilds</description>
+<homepage>
+https://github.com/Rogentos/argent-desktop/wiki/
+</homepage>
+<owner type="project">
+<email>stefan.cristian@rogentos.ro</email>
+<name>Steven Cristian</name>
+</owner>
+<source type="git">git://github.com/Rogentos/argent-desktop.git</source>
+<source type="git">
+https://BlackNoxis@github.com/Rogentos/argent-desktop.git
+</source>
+<feed>
+</feed>
+</repo>
+</repositories>

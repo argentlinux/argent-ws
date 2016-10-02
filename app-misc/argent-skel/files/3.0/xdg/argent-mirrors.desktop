@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+
+Exec=xdg-open http://bpr.bluepink.ro/~rogentos/iso/argent/
+Icon=/usr/share/pixmaps/argent-weblink.png
+
+Name=Download
+Name[ro]=Descarcare

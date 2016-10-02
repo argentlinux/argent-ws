@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+
+Exec=xdg-open http://rogentos.ro/
+Icon=/usr/share/pixmaps/argent-weblink.png
+
+Name=Argent Homepage
+Name[ro]=Pagina Web Argent
+

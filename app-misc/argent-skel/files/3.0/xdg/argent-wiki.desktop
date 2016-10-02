@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+
+Exec=xdg-open http://wiki.rogentos.ro/wiki/Categorie:Argent_Linux
+Icon=/usr/share/pixmaps/argent-weblink.png
+
+Name=Argent Documentation
+Name[ro]=Documentație Argent
+

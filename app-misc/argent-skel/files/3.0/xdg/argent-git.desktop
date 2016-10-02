@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+
+Exec=xdg-open https://gitlab.com/groups/argent
+Icon=/usr/share/pixmaps/argent-weblink.png
+
+Name=Argent Git Repos
+Name[ro]=Depozite Argent
