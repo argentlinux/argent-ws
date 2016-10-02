@@ -2,13 +2,13 @@
 <!DOCTYPE repositories SYSTEM "repositories.dtd">
 <repositories xmlns="" version="1.0">
   <repo quality="experimental" status="unofficial">
-    <name>argent-desktop</name>
+    <name>argent-work</name>
     <description>Argent Desktop oriented overlay of ebuilds</description>
-    <homepage>https://gitlab.com/argent/argent-desktop</homepage>
+    <homepage>https://gitlab.com/argent/argent-work</homepage>
     <owner type="project">
       <email>stefan.cristian at rogentos.ro</email>
-      <name>Steven Cristian</name>
+      <name>Stefan Cristian</name>
     </owner>
-    <source type="git">https://gitlab.com/argent/argent-desktop.git</source>
+    <source type="git">https://gitlab.com/argent/argent-work.git</source>
   </repo>
 </repositories>
