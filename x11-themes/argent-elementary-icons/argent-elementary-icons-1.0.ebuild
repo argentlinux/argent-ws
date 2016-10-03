@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="Argent elementary icons"
 HOMEPAGE="https://github.com/bionel/argent-src"
-SRC_URI="http://pkg.rogentos.ro/distfiles/${CATEGORY}/${PN}/${PN}-${PVR}.tar.gz"
+SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/${PN}-${PVR}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"

@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Argent Linux 3.0 branding component for Calamares"
 HOMEPAGE="http://rogentos.ro"
-SRC_URI="http://pkg.rogentos.ro/distfiles/${CATEGORY}/${PN}/${PN}-${PV}.tar.bz2"
+SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/${PN}-${PV}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"

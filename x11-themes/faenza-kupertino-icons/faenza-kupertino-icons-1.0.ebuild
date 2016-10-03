@@ -7,7 +7,7 @@ inherit gnome2-utils
 
 DESCRIPTION="Argent faenza icons"
 HOMEPAGE="http://rogentos.ro"
-SRC_URI="http://pkg.rogentos.ro/distfiles/${CATEGORY}/${PN}/${P}.tar.gz"
+SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~arm amd64 x86"

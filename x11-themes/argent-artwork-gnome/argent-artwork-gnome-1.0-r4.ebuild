@@ -9,7 +9,7 @@ inherit gnome2-utils
 
 DESCRIPTION="Argent Linux Official GNOME artwork"
 HOMEPAGE="http://www.rogentos.ro"
-SRC_URI="http://pkg.rogentos.ro/~rogentos/distro/${CATEGORY}/${PN}/"${PN}"-${PV}.tar.gz
+SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/"${PN}"-${PV}.tar.gz
 	mirror://argent/${CATEGORY}/"${PN}"/${P}.tar.gz"
 
 
