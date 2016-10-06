@@ -1,17 +1,17 @@
 <repositories xmlns="" version="1.0">
 <repo quality="experimental" status="unofficial">
-<name>argent-work</name>
+<name>argent-ws</name>
 <description>Romanian Argent distro workstation desktop-oriented ebuilds</description>
 <homepage>
-https://gitlab.com/Rogentos/argent-work/wiki/
+https://gitlab.com/Rogentos/argent-ws/wiki/
 </homepage>
 <owner type="project">
 <email>stefan.cristian@rogentos.ro</email>
 <name>Steven Cristian</name>
 </owner>
-<source type="git">git://gitlab.com/Rogentos/argent-work.git</source>
+<source type="git">git://gitlab.com/Rogentos/argent-ws.git</source>
 <source type="git">
-https://StefanCristian@gitlab.com/Rogentos/argent-work.git
+https://StefanCristian@gitlab.com/Rogentos/argent-ws.git
 </source>
 <feed>
 </feed>
