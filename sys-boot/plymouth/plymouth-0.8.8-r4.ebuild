@@ -80,6 +80,9 @@ src_install() {
 	dosym /usr/sbin/plymouthd /sbin/plymouthd
 
 	readme.gentoo_create_doc
+	systemd_newunit "${FILESDIR}"/lightdm-plymouth.service lightdm-plymouth.service
+	systemd_newunit "${FILESDIR}"/gdm-plymouth.service gdm-plymouth.service
+	systemd_newunit "${FILESDIR}"/slim-plymouth.service slim-plymouth.service
 }
 
 pkg_postinst() {
