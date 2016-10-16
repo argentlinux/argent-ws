@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python3_4 )
 
 inherit eutils cmake-utils python-r1
 
-SRC_URI="https://github.com/calamares/calamares/releases/download/v2.3/calamares-2.3.tar.gz"
+SRC_URI="https://github.com/calamares/calamares/releases/download/v${PV}/${P}.tar.gz"
 
 DESCRIPTION="Distribution-independent installer framework"
 HOMEPAGE="http://calamares.io"
@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+python"
 
-S="${WORKDIR}/${PN}-${PV}"
+S="${WORKDIR}/${P}"
 
 DEPEND="
 	dev-vcs/git
@@ -51,8 +51,8 @@ RDEPEND=">=app-misc/calamares-runtime-3.1[branding]"
 src_prepare() {
 	# patch dracut module to be called the way we want it, until the module becomes configurable
 	epatch ${FILESDIR}/${PN}-argent-dracut-call.patch
-	# patch portage backend to properly remove reverse dependencies (submitted by Kogaion, merged upstream in commit 9dfaca175dfdc8bc5d64a258af26a142c184b29e)
-	epatch ${FILESDIR}/${PN}-portage-backend-properly-remove-revdeps.patch
+	# calamares dracut luks patch
+	epatch ${FILESDIR}/${P}-dracut-luks-fde.patch
 	# replace calamares installer desktop icon
 	sed -i "s/Icon=calamares/Icon=start-here/g" "${S}/calamares.desktop"
 	# fix installer doesn't start from desktop launcher (IMPROVE THIS UGLY THINGY)
