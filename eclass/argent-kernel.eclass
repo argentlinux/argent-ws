@@ -848,6 +848,8 @@ argent-kernel_pkg_postinst() {
 			_dracut_initramfs_create
 		fi
 
+		argent-kernel_grub2_mkconfig
+
 		kernel-2_pkg_postinst
 		local depmod_r=$(_get_release_level)
 		_update_depmod "${depmod_r}"
@@ -864,8 +866,6 @@ argent-kernel_pkg_postinst() {
 	else
 		kernel-2_pkg_postinst
 	fi
-
-	argent-kernel_grub2_mkconfig
 }
 
 argent-kernel_pkg_prerm() {
