@@ -746,6 +746,18 @@ argent-kernel_pkg_preinst() {
 	fi
 }
 
+argent-kernel_grub2_mkconfig() {
+    if [ -x "${ROOT}usr/sbin/grub2-mkconfig" ]; then
+        # Grub 2.00
+        "${ROOT}usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
+    else
+        echo
+        ewarn "Please, be warned, GRUB2 is NOT installed!"
+        ewarn "Grub2 bootloader configuration will not update"
+        echo
+    fi
+}
+
 _get_real_extraversion() {
 	make_file="${ROOT}${KV_OUT_DIR}/Makefile"
 	local extraver=$(grep -r "^EXTRAVERSION =" "${make_file}" | cut -d "=" -f 2 | head -n 1)
@@ -852,6 +864,8 @@ argent-kernel_pkg_postinst() {
 	else
 		kernel-2_pkg_postinst
 	fi
+
+	argent-kernel_grub2_mkconfig
 }
 
 argent-kernel_pkg_prerm() {
