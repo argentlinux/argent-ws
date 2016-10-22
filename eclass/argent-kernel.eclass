@@ -224,20 +224,11 @@ _get_real_kv_full() {
 		# need to add another final .0 to the version part
 		#echo "${ORIGINAL_KV_FULL/-/.0-}"
 		echo "${ORIGINAL_KV_FULL}"
-    elif [[ "${OKV/.*}" = "4" ]]; then
-	    # Linux 4.x support, KV_FULL is set to: 4.0-argent
-		# need to add another final .0 to the version part
-		#echo "${ORIGINAL_KV_FULL/-/.0-}"
-		echo "${ORIGINAL_KV_FULL}"
 	else
 		echo "${ORIGINAL_KV_FULL}"
 	fi
 }
 
-# replace "linux" with K_ROGKERNEL_NAME, usually replaces
-# "linux" with "argent" or "server" or "openvz"
-KV_FULL="${KV_FULL/${PN/-*}/${K_ROGKERNEL_NAME}}"
-KV_FULL="${PV}-${K_ROGKERNEL_NAME}"
 EXTRAVERSION="${EXTRAVERSION/${PN/-*}/${K_ROGKERNEL_NAME}}"
 # drop -rX if exists
 if [[ -n "${PR//r0}" ]] && [[ "${K_KERNEL_DISABLE_PR_EXTRAVERSION}" = "1" ]] \
@@ -312,23 +303,9 @@ _is_config_file_set() {
 	[[ ${_config_file_set} = 1 ]]
 }
 
-# Returns the arm kernel config file extension for the current subarch
-_get_arm_subarch() {
-	local target="${CTARGET:-${CHOST}}"
-	local arm_arch=${target%%-*}
-	if [[ ${arm_arch} == armv7? ]]; then
-		echo "armv7"
-	elif [[ ${arm_arch} == armv6? ]]; then
-		echo "armv6"
-	elif [[ ${arm_arch} == armv5? ]]; then
-		echo "armv5"
-	fi
-}
 
 _get_arch() {
-	if use arm; then
-		_get_arm_subarch
-	elif use amd64; then
+	if use amd64; then
 		echo "amd64"
 	elif use x86; then
 		echo "x86"
@@ -369,7 +346,6 @@ else
 		sys-devel/autoconf
 		sys-devel/make
 		|| ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
-		arm? ( dev-embedded/u-boot-tools )
 		amd64? ( sys-apps/v86d )
 		x86? ( sys-apps/v86d )
 		splash? ( x11-themes/argent-artwork-core )
@@ -545,15 +521,9 @@ _kernel_src_compile() {
 
 	if [ -n "${K_KERNEL_IMAGE_NAME}" ]; then
 		GKARGS+=( "--kernel-target=${K_KERNEL_IMAGE_NAME}" )
-	elif use arm; then
-		# backward compat + provide sane defaults.
-		GKARGS+=( "--kernel-target=uImage" )
 	fi
 	if [ -n "${K_KERNEL_IMAGE_PATH}" ]; then
 		GKARGS+=( "--kernel-binary=${K_KERNEL_IMAGE_PATH}" )
-	elif use arm; then
-		# backward compat + provide sane defaults.
-		GKARGS+=( "--kernel-binary=arch/arm/boot/uImage" )
 	fi
 
 	# Workaround bug in splash_geninitramfs corrupting the initramfs
@@ -594,23 +564,6 @@ _kernel_src_compile() {
 	ARCH=${OLDARCH}
 }
 
-_setup_mkimage_ramdisk() {
-	local initramfs=$(ls "${WORKDIR}"/boot/${KERN_INITRAMFS_SEARCH_NAME}* 2> /dev/null)
-	if [ ! -e "${initramfs}" ] || [ ! -f "${initramfs}" ]; then
-		ewarn "No initramfs at ${initramfs}, cannot run mkimage on it!"
-	elif [ "${K_MKIMAGE_WRAP_INITRAMFS}" = "1" ]; then
-		einfo "Setting up u-boot initramfs for: ${initramfs}"
-		mkimage -A arm -O linux -T ramdisk -C none -a \
-			"${K_MKIMAGE_RAMDISK_ADDRESS}" \
-			-e "${K_MKIMAGE_RAMDISK_ENTRYPOINT}" -d "${initramfs}" \
-			"${initramfs}.u-boot" || return 1
-		mv "${initramfs}.u-boot" "${initramfs}" || return 1
-	else
-		einfo "mkimage won't be called for: ${initramfs}"
-	fi
-	return 0
-}
-
 argent-kernel_src_install() {
 	if [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 		_firmwares_src_install
@@ -648,9 +601,6 @@ _kernel_sources_src_install() {
 }
 
 _kernel_src_install() {
-	if use arm; then
-		_setup_mkimage_ramdisk || die "cannot setup mkimage"
-	fi
 
 	dodir "${KV_OUT_DIR}"
 	insinto "${KV_OUT_DIR}"
@@ -688,24 +638,7 @@ _kernel_src_install() {
 	doins "${WORKDIR}"/boot/* || die "cannot copy /boot over"
 	cp -Rp "${WORKDIR}"/lib/* "${D}/" || die "cannot copy /lib over"
 
-	# Install dtbs if found
-	if use arm; then
-		local dtb_dir="/lib/dts/${KV_FULL}"
-		elog "Installing .dtbs (if any) into ${dtb_dir}"
-		insinto "${dtb_dir}"
-		local dtb=
-		for dtb in "${S}/arch/arm/boot/dts"/*.dtb; do
-			if [ -f "${dtb}" ]; then
-				elog "Installing dtb: ${dtb}"
-				doins "${dtb}"
-			fi
-		done
-	fi
 
-	# This doesn't always work because KV_FULL (when K_NOSETEXTRAVERSION=1) doesn't
-	# reflect the real value used in Makefile
-	#dosym "../../..${KV_OUT_DIR}" "/lib/modules/${KV_FULL}/source" || die "cannot install source symlink"
-	#dosym "../../..${KV_OUT_DIR}" "/lib/modules/${KV_FULL}/build" || die "cannot install build symlink"
 	cd "${D}"/lib/modules/* || die "cannot enter /lib/modules directory, more than one element?"
 	# cleanup previous
 	rm -f build source || die
@@ -775,45 +708,8 @@ _get_release_level() {
 		# need to add another final .0 to the version part
 		#echo "${KV_FULL/-/.0-}"
 		echo "${KV_FULL}"
-    elif [[ "${OKV/.*}" = "4" ]] && [[ "${KV_PATCH}" = "0" ]]; then
-	    # Linux 4.x support, KV_FULL is set to: 4.0-argent
-		# need to add another final .0 to the version part
-		#echo "${KV_FULL/-/.0-}"
-		echo "${KV_FULL}"
 	else
 		echo "${KV_FULL}"
-	fi
-}
-
-argent-kernel_uimage_config() {
-	# Two cases here:
-	# 1. /boot/uImage symlink is broken (pkg_postrm)
-	# 2. /boot/uImage symlink doesn't exist (pkg_postinst)
-
-	if ! has_version app-eselect/uimage; then
-		ewarn "app-eselect/uimage not installed"
-		ewarn "If you are using this tool, please install it"
-		return 0
-	fi
-
-	local uimage_file=$(eselect uimage show --quiet 2> /dev/null)
-	if [ -z "${uimage_file}" ]; then
-		# pick the first listed, sorry!
-		local eselect_list=$(eselect uimage list --quiet 2> /dev/null)
-		if [ -n "${eselect_list}" ]; then
-			eselect uimage set 1
-		else
-			echo
-			ewarn "No more kernels available, you won't be able to boot"
-			echo
-		fi
-	else
-		echo
-		elog "If you use eselect-bzimage, you are currently booting with kernel:"
-		elog "${uimage_file}"
-		elog
-		elog "Use 'eselect uimage' in order to switch between the available ones"
-		echo
 	fi
 }
 
@@ -839,10 +735,6 @@ argent-kernel_pkg_postinst() {
 		# Update kernel initramfs to match user customizations
 		use splash && update_argent_kernel_initramfs_splash
 
-		# Setup newly installed kernel on ARM
-		if use arm; then
-			argent-kernel_uimage_config
-		fi
 		# generate initramfs with dracut
 		if use dracut ; then
 			_dracut_initramfs_create
@@ -855,7 +747,7 @@ argent-kernel_pkg_postinst() {
 		_update_depmod "${depmod_r}"
 
 		elog "Please report kernel bugs at:"
-		elog "http://bugs.rogentos.ro"
+		elog "http://forum.rogentos.ro"
 
 		elog "The source code of this kernel is located at"
 		elog "=${K_KERNEL_SOURCES_PKG}."
@@ -877,9 +769,6 @@ argent-kernel_pkg_prerm() {
 argent-kernel_pkg_postrm() {
 	if _is_kernel_binary; then
 		# Setup newly installed kernel on ARM
-		if use arm; then
-			argent-kernel_uimage_config
-		fi
 	fi
 }
 
