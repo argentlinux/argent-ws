@@ -679,6 +679,22 @@ argent-kernel_pkg_preinst() {
 	fi
 }
 
+_initramfs_delete() {
+	if use amd64 || use x86; then
+		if use amd64; then
+			local kern_arch="x86_64"
+		else
+			local kern_arch="x86"
+		fi
+	fi
+	if [ "${PR}" == "r0" ]; then
+		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
+		else
+		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
+	fi
+	rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+}
+
 argent-kernel_grub2_mkconfig() {
     if [ -x "${ROOT}usr/sbin/grub2-mkconfig" ]; then
         # Grub 2.00
@@ -768,7 +784,9 @@ argent-kernel_pkg_prerm() {
 
 argent-kernel_pkg_postrm() {
 	if _is_kernel_binary; then
-		# Setup newly installed kernel on ARM
+		_initramfs_delete
+	else
+		_initramfs_delete
 	fi
 }
 
