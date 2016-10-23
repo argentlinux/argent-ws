@@ -230,16 +230,12 @@ _get_real_kv_full() {
 }
 
 EXTRAVERSION="${EXTRAVERSION/${PN/-*}/${K_ROGKERNEL_NAME}}"
-# drop -rX if exists
-if [[ -n "${PR//r0}" ]] && [[ "${K_KERNEL_DISABLE_PR_EXTRAVERSION}" = "1" ]] \
-		&& [[ -z "${K_NOSETEXTRAVERSION}" ]]; then
-	EXTRAVERSION="${EXTRAVERSION%-r*}"
-	KV_FULL="${KV_FULL%-r*}"
-	KV="${KV%-r*}"
+if [ "${PR}" == "r0" ] ; then
+	KV_FULL="${PV}-${K_ROGKERNEL_NAME}"
+	else
+	KV_FULL="${PV}-${K_ROGKERNEL_NAME}-${PR}"
 fi
-# rewrite it
 ORIGINAL_KV_FULL="${KV_FULL}"
-KV_FULL="$(_get_real_kv_full)"
 
 # Starting from linux-3.0, we still have to install
 # sources stuff into /usr/src/linux-3.0.0-argent (example)
@@ -497,7 +493,6 @@ _kernel_src_compile() {
 	cd "${S}" || die
 	local GKARGS=()
 	GKARGS+=( "--no-menuconfig" "--all-ramdisk-modules" "--no-save-config" "--e2fsprogs" "--udev" )
-	# use splash && GKARGS+=( "--splash=argent" ) #NO MORE fbsplash!!!
 	use btrfs && GKARGS+=( "--btrfs" )
 	use plymouth && GKARGS+=( "--plymouth" "--plymouth-theme=${PLYMOUTH_THEME}" ) #reverted to use variable (check the eclass)
 	use dmraid && GKARGS+=( "--dmraid" )
@@ -661,16 +656,6 @@ _kernel_src_install() {
 			rm -f "${D}/${make_file}"
 		fi
 	fi
-
-	# Install kernel configuration information
-	# useful for Entropy kernel-switcher
-	# release level is enough for now
-	base_dir="/etc/kernels/${P}"
-	dodir "${base_dir}"
-	insinto "${base_dir}"
-	echo "${KV_FULL}" > "RELEASE_LEVEL"
-	doins "RELEASE_LEVEL"
-	einfo "Installing ${base_dir}/RELEASE_LEVEL file: ${KV_FULL}"
 }
 
 argent-kernel_pkg_preinst() {
@@ -743,7 +728,7 @@ _dracut_initramfs_create() {
 	elog "Generating initramfs for ${kver}, please wait"
 	elog ""
 	addpredict /etc/ld.so.cache~
-	dracut -N -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --kver="${kver}" "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+	dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --kver="${kver}" "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
 }
 
 argent-kernel_pkg_postinst() {
