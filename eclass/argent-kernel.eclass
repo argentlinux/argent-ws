@@ -770,8 +770,6 @@ argent-kernel_pkg_prerm() {
 argent-kernel_pkg_postrm() {
 	if _is_kernel_binary; then
 		_initramfs_delete
-	else
-		_initramfs_delete
 	fi
 }
 
