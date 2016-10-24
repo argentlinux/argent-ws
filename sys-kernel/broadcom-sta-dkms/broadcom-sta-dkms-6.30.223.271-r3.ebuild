@@ -38,7 +38,7 @@ src_prepare() {
 }
 
 src_compile(){
-    einfo 'There is no need for compilation here'
+    :
 }
 
 src_install() {
