@@ -4,10 +4,10 @@
 "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
 <policyconfig>
 
- <vendor>Kogaion</vendor>
+ <vendor>Argent</vendor>
  <vendor_url>http://rogentos.ro</vendor_url>
 
- <action id="ro.kogaion.unetbootin-static.pkexec.run">
+ <action id="ro.argent.unetbootin-static.pkexec.run">
     <description>Run Unetbootin</description>
     <message>Authentication is required to run Unetbootin</message>
     <icon_name>drive-harddisk</icon_name>
