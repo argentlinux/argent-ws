@@ -3,15 +3,15 @@
 <name>argent-ws</name>
 <description>Romanian Argent distro workstation desktop-oriented ebuilds</description>
 <homepage>
-https://gitlab.com/Rogentos/argent-ws/wiki/
+https://gitlab.com/argent/argent-ws/wiki/
 </homepage>
 <owner type="project">
 <email>stefan.cristian@rogentos.ro</email>
 <name>Steven Cristian</name>
 </owner>
-<source type="git">git://gitlab.com/Rogentos/argent-ws.git</source>
+<source type="git">git://gitlab.com/argent/argent-ws.git</source>
 <source type="git">
-https://StefanCristian@gitlab.com/Rogentos/argent-ws.git
+https://StefanCristian@gitlab.com/argent/argent-ws.git
 </source>
 <feed>
 </feed>
