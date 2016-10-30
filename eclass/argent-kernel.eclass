@@ -674,7 +674,7 @@ _initramfs_delete() {
 	fi
 	if [ "${PR}" == "r0" ]; then
 		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
-		else
+	else
 		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
 	fi
 	rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
@@ -691,6 +691,21 @@ argent-kernel_grub2_mkconfig() {
         echo
     fi
 }
+
+
+_remove_dkms_modules() {
+	if [ "${PR}" == "r0" ] ; then
+		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
+	else
+		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
+	fi
+	if [[ -x $(which dkms) ]] ; then
+		for i in $(dkms status | cut -d , -f1,2 | sed -e 's/, /\//' | uniq) ; do
+			dkms remove $i -k "${kver}"
+		done
+	fi
+}
+
 
 _get_real_extraversion() {
 	make_file="${ROOT}${KV_OUT_DIR}/Makefile"
@@ -741,6 +756,7 @@ argent-kernel_pkg_postinst() {
 			_dracut_initramfs_create
 		fi
 
+		_remove_dkms_modules
 		argent-kernel_grub2_mkconfig
 
 		kernel-2_pkg_postinst
