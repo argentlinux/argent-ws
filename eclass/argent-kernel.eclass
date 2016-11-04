@@ -664,35 +664,6 @@ argent-kernel_pkg_preinst() {
 	fi
 }
 
-_initramfs_delete() {
-	if use amd64 || use x86; then
-		if use amd64; then
-			local kern_arch="x86_64"
-		else
-			local kern_arch="x86"
-		fi
-	fi
-	if [ "${PR}" == "r0" ]; then
-		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
-	else
-		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
-	fi
-	rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
-}
-
-argent-kernel_grub2_mkconfig() {
-    if [ -x "${ROOT}usr/sbin/grub2-mkconfig" ]; then
-        # Grub 2.00
-        "${ROOT}usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
-    else
-        echo
-        ewarn "Please, be warned, GRUB2 is NOT installed!"
-        ewarn "Grub2 bootloader configuration will not update"
-        echo
-    fi
-}
-
-
 _remove_dkms_modules() {
 	if [ "${PR}" == "r0" ] ; then
 		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
@@ -737,13 +708,43 @@ _dracut_initramfs_create() {
 			local kern_arch="x86"
 		fi
 	fi
-	local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
+	if [ "${PR}" == "r0" ] ; then
+       	local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
+        else
+       	local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
+	fi
+ 	elog "Generating initramfs for ${kver}, please wait"
 
-	elog ""
-	elog "Generating initramfs for ${kver}, please wait"
-	elog ""
 	addpredict /etc/ld.so.cache~
 	dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --kver="${kver}" "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+}
+
+_initramfs_delete() {
+    if use amd64 || use x86; then
+        if use amd64; then
+            local kern_arch="x86_64"
+        else
+            local kern_arch="x86"
+        fi
+    fi
+    if [ "${PR}" == "r0" ]; then
+        local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
+    else
+        local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
+    fi
+    rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+}
+
+argent-kernel_grub2_mkconfig() {
+    if [ -x "${ROOT}usr/sbin/grub2-mkconfig" ]; then
+        # Grub 2.00
+        "${ROOT}usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
+    else
+        echo
+        ewarn "Please, be warned, GRUB2 is NOT installed!"
+        ewarn "Grub2 bootloader configuration will not update"
+        echo
+    fi
 }
 
 argent-kernel_pkg_postinst() {
@@ -764,9 +765,6 @@ argent-kernel_pkg_postinst() {
 
 		elog "Please report kernel bugs at:"
 		elog "http://forum.rogentos.ro"
-
-		elog "The source code of this kernel is located at"
-		elog "=${K_KERNEL_SOURCES_PKG}."
 		elog "RogentOS Team recommends that portage users install"
 		elog "${K_KERNEL_SOURCES_PKG} if you want"
 		elog "to build any packages that install kernel modules"
