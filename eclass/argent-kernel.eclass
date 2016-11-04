@@ -787,6 +787,8 @@ argent-kernel_pkg_postrm() {
 	if _is_kernel_binary; then
 		_initramfs_delete
 	fi
+	_remove_dkms_modules
+	argent-kernel_grub2_mkconfig
 }
 
 # export all the available functions here
