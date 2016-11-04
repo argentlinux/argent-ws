@@ -756,7 +756,6 @@ argent-kernel_pkg_postinst() {
 			_dracut_initramfs_create
 		fi
 
-		_remove_dkms_modules
 		argent-kernel_grub2_mkconfig
 
 		kernel-2_pkg_postinst
