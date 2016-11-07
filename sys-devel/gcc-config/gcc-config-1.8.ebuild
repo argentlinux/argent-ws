@@ -20,7 +20,6 @@ DEPEND="
 src_prepare() {
 	unpacker_src_unpack
 	cd "${S}" || die
-	epatch "${FILESDIR}/${PN}-argent-base-gcc-support-2.patch"
 	# systemd-only systems (Argent/Sabayon) support
 	if use systemd; then
 		epatch "${FILESDIR}/${PN}-systemd.patch"
