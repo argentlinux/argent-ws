@@ -8,8 +8,8 @@
 +		short="Argent"
 +		long="$(cat "$dir/etc/argent-release")"
 +	elif [ -e "$dir/etc/argent-release" ]; then
-+		short="Argent"
-+		long="$(cat "$dir/etc/argent-release")"
++               short="Kogaion"
++               long="$(cat "$dir/etc/kogaion-release")"
  	elif [ -e "$dir/etc/cobalt-release" ]; then
  		short="Cobalt"
  		long="$(cat "$dir/etc/cobalt-release")"
