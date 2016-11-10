@@ -6,7 +6,7 @@ diff -Nur a/data/lightdm-gtk-greeter.conf b/data/lightdm-gtk-greeter.conf
  #
  [greeter]
 -#background=
-+background=#005fce
++background=#c4ad00
  #user-background=
 -#theme-name=
 +theme-name=Argent-daylight
