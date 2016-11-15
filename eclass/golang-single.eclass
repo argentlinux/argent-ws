@@ -63,7 +63,7 @@
 # @CODE
 
 
-inherit golang-base
+inherit golang-base-r1
 
 EXPORT_FUNCTIONS src_prepare src_unpack src_configure src_compile src_install src_test
 
