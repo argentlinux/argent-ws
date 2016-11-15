@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
-inherit qmake-utils
+EAPI=5
+inherit qmake-utils qt4-r2
 
 DESCRIPTION="LiteIDE is a simple, open source, cross-platform Go IDE."
 HOMEPAGE="http://code.google.com/p/liteide"
