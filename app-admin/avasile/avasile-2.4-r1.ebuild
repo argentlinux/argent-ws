@@ -27,16 +27,9 @@ RDEPEND="${DEPEND}"
 src_install() {
 	dodir /usr/bin
 	exeinto /usr/bin
-	doexe ${S}/${PN}
-	dodir /usr/$(get_libdir)/${PN}
-	insinto /usr/$(get_libdir)/${PN}
-	doins ${S}/libavasile
-	dodir /usr/share/${PN}
-	insinto /usr/share/${PN}
-	insopts -m 755
-	doins ${S}/make*
-	doins ${S}/devmodeset
-	doins ${S}/usermodeset
-	doins ${S}/modereset
+	doexe "${S}"/"${PN}"
+	dodir /usr/$(get_libdir)/"${PN}"
+	insinto /usr/$(get_libdir)/"${PN}"
+	doins "${S}/libavasile"
 }
 
