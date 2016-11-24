@@ -670,10 +670,12 @@ _remove_dkms_modules() {
 	else
 		local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
 	fi
-	if [[ -x $(which dkms) ]] ; then
-		for i in $(dkms status | cut -d , -f1,2 | sed -e 's/, /\//' | uniq) ; do
+	if [[ -x "/usr/bin/dkms" ]] ; then
+		for i in $(dkms status | cut -d " " -f1,2 | sed -e 's/,//g' |  sed -e 's/://g' | sed -e 's/ /\//g') ; do
 			dkms remove $i -k "${kver}"
 		done
+		else
+			echo "Skipping DKMS modules removal."
 	fi
 }
 
