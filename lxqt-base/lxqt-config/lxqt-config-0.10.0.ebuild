@@ -18,7 +18,7 @@ fi
 LICENSE="GPL-2 LGPL-2.1+"
 SLOT="0"
 
-PATCHES="lxqt-config-0.10.0-cmake-3.8.patch"
+PATCHES=( "${FILESDIR}/${P}-cmake-3.8.patch" )
 
 CDEPEND="
 	>=dev-libs/libqtxdg-1.0.0
