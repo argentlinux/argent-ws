@@ -26,6 +26,7 @@ src_prepare() {
 	if ! use arm; then
 		rm -rf bin/fsnotifier-arm || die
 	fi
+	epatch "${FILESDIR}"/${PN}-173.patch
 }
 
 src_install() {

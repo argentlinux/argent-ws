@@ -1,0 +1,19 @@
+diff -Nur bin.old/goland.sh bin/goland.sh
+--- bin.old/goland.sh	2017-11-18 23:10:04.629261859 +0200
++++ bin/goland.sh	2017-11-18 23:10:26.842364779 +0200
+@@ -133,6 +133,15 @@
+ fi
+ 
+ JAVA_BIN="$JDK/bin/java"
++
++if [ -z "$JAVA_HOME" ] ; then
++  if [ -r /etc/gentoo-release ] ; then
++    JAVA_HOME=`java-config --jre-home`
++    JDK=`java-config --jre-home`
++    JAVA_BIN="${JDK}/bin/java"
++  fi
++fi
++
+ if [ -z "$JDK" -o ! -x "$JAVA_BIN" ]; then
+   message "No JDK found. Please validate either GOLAND_JDK, JDK_HOME or JAVA_HOME environment variable points to valid JDK installation."
+   exit 1
