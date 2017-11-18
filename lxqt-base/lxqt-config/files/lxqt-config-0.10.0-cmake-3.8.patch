@@ -1,0 +1,32 @@
+diff --git a/lxqt-config-appearance/CMakeLists.txt b/lxqt-config-appearance/CMakeLists.txt
+index e0e842c..7586597 100644
+--- a/lxqt-config-appearance/CMakeLists.txt
++++ b/lxqt-config-appearance/CMakeLists.txt
+@@ -5,6 +5,11 @@ include_directories(
+     "${CMAKE_CURRENT_SOURCE_DIR}/../liblxqt-config-cursor"
+     "${CMAKE_CURRENT_BINARY_DIR}/../liblxqt-config-cursor"
+ )
++if(CMAKE_VERSION VERSION_GREATER 3.8.0 OR CMAKE_VERSION VERSION_EQUAL 3.8.0)
++    include_directories(
++        "${CMAKE_CURRENT_BINARY_DIR}/../liblxqt-config-cursor/lxqt-config-cursor_autogen/include"
++    )
++endif()
+ 
+ set(H_FILES
+     iconthemeinfo.h
+diff --git a/lxqt-config-input/CMakeLists.txt b/lxqt-config-input/CMakeLists.txt
+index e19386c..ecaada2 100644
+--- a/lxqt-config-input/CMakeLists.txt
++++ b/lxqt-config-input/CMakeLists.txt
+@@ -6,6 +6,11 @@ include_directories(
+     "${CMAKE_CURRENT_SOURCE_DIR}/../liblxqt-config-cursor"
+     "${CMAKE_CURRENT_BINARY_DIR}/../liblxqt-config-cursor"
+ )
++if(CMAKE_VERSION VERSION_GREATER 3.8.0 OR CMAKE_VERSION VERSION_EQUAL 3.8.0)
++    include_directories(
++        "${CMAKE_CURRENT_BINARY_DIR}/../liblxqt-config-cursor/lxqt-config-cursor_autogen/include"
++    )
++endif()
+ 
+ set(lxqt-config-input_HDRS
+     keyboardconfig.h
