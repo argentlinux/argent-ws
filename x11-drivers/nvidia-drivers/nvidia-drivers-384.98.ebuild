@@ -391,7 +391,9 @@ src_install() {
 		newexe "${FILESDIR}"/95-nvidia-settings-r1 95-nvidia-settings
 
 		insinto /etc/vulkan/icd.d
-		doins nvidia_icd.json
+		if [ -e "nvidia_icd.json" ]; then
+			doins nvidia_icd.json
+		fi
 	fi
 
 	dobin ${NV_OBJ}/nvidia-bug-report.sh
