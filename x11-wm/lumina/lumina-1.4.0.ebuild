@@ -26,7 +26,7 @@ COMMON_DEPEND="dev-qt/qtcore:5
 	x11-libs/xcb-util
 	x11-libs/xcb-util-image
 	x11-libs/xcb-util-wm
-	desktop-utils? ( qpp-text/poppler[qt5] )"
+	desktop-utils? ( app-text/poppler[qt5] )"
 
 DEPEND="$COMMON_DEPEND
 	dev-qt/linguist-tools:5"
