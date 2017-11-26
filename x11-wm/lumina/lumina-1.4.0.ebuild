@@ -71,7 +71,7 @@ src_install(){
 	mv "${D}/${D}"/usr/share/ "${D}"/usr/share/ || die
 	mv "${D}/${D}"/etc/ "${D}"/etc/ || die
 	
-	rm -rf "${D}"/var/ || die
+	rm -rf "${D}"/var/ "${ED%/}"/${PN}-* "${ED%/}"/liblthemeengine* || die
 	mv "${ED%/}"/etc/luminaDesktop.conf{.dist,} || die
 	rm "${ED%/}"/${PN}-* "${ED%/}"/start-${PN}-desktop || die
 	# dunno if I missed anything. please upgrade below
