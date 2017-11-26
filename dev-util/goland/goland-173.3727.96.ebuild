@@ -11,7 +11,7 @@ SRC_URI="http://download.jetbrains.com/go/${P}.tar.gz"
 DESCRIPTION="Golang IDE by JetBrains"
 HOMEPAGE="http://www.jetbrains.com/go"
 
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
 
