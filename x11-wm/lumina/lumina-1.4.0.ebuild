@@ -10,7 +10,7 @@ SRC_URI="https://github.com/trueos/${PN}/archive/v${PV/_/-}.tar.gz -> ${P}.tar.g
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 x86"
+KEYWORDS="amd64 x86"
 IUSE="desktop-utils"
 
 COMMON_DEPEND="dev-qt/qtcore:5
@@ -46,7 +46,7 @@ S="${WORKDIR}/${P/_/-}"
 PATCHES=(
 	"${FILESDIR}/1.2.0-desktop-files.patch"
 	"${FILESDIR}/1.3.0-OS-detect.patch"
-	"${FILESDIR}/1.4.0-popplerqt5-fix.patch"
+	"${FILESDIR}/1.4.0-poppler.patch"
 )
 
 src_prepare(){
