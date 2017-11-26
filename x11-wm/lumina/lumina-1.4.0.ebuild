@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit qmake-utils xdg-utils
+inherit qmake-utils xdg-utils l10n
 DESCRIPTION="Lumina desktop environment"
 HOMEPAGE="https://lumina-desktop.org/"
 SRC_URI="https://github.com/trueos/${PN}/archive/v${PV/_/-}.tar.gz -> ${P}.tar.gz"
