@@ -1,0 +1,11 @@
+--- a/src-qt5/desktop-utils/desktop-utils.pro.old	2017-11-26 00:40:45.993134610 +0200
++++ b/src-qt5/desktop-utils/desktop-utils.pro	2017-11-26 00:41:32.873058814 +0200
+@@ -12,6 +12,6 @@
+ 	lumina-archiver \
+ #	lumina-notify \
+ 	lumina-mediaplayer \
+-	lumina-xdg-entry \
+-	lumina-pdf
++	lumina-xdg-entry
++#	lumina-pdf
+ #	lumina-terminal
