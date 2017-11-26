@@ -70,7 +70,15 @@ src_install(){
 	mv "${D}/${D}"/usr/bin/ "${D}"/usr/bin/ || die
 	mv "${D}/${D}"/usr/share/ "${D}"/usr/share/ || die
 	mv "${D}/${D}"/etc/ "${D}"/etc/ || die
-	
+
+	einstalldocs
+
+	#cleaning sequence
+	remove_locale() {
+		rm -f "${D}"/usr/share/${PN}-desktop/i18n/l*_${1}.qm
+	}
+	l10n_for_each_disabled_locale_do remove_locale
+
 	if [[ -e "${ED%/}"/lumina ]] ; then
 		rm "${ED%/}"/${PN}* || die
 		rm "${ED%/}"/${PN}-* || die
@@ -81,7 +89,6 @@ src_install(){
 
 	mv "${ED%/}"/etc/luminaDesktop.conf{.dist,} || die
 	rm "${ED%/}"/${PN}-* "${ED%/}"/start-${PN}-desktop || die
-	# dunno if I missed anything. please upgrade below
 }
 
 pkg_postinst(){
