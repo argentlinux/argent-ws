@@ -28,15 +28,14 @@ RDEPEND="${DEPEND}
 	dev-libs/mux-src"
 
 EGO_PN="mux-src"
+GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)"
 
 src_unpack() {
 	git-r3_src_unpack
 	default
 }
 
-#src_install() {
-#	cd ${T}
-#	cd $(ls | grep go-build*)
-#	insinto /usr/lib/go/pkg/linux_amd64/mux-pkg/
-#	doins mux-src.a
-#}
+src_install() {
+    insinto "$(get_golibdir_gopath)"/mux-pkg/
+    doins mux-pkg/mux-pkg.a
+}
