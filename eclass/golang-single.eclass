@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -32,7 +32,7 @@
 # LICENSE="MIT"
 # KEYWORDS="~amd64 ~x86"
 # SLOT="0"
-# IUSE="debug doc qt4"
+# IUSE="doc qt4"
 #
 # CDEPEND="
 #   qt4? (
@@ -63,7 +63,7 @@
 # @CODE
 
 
-inherit golang-base-r1
+inherit golang-common
 
 EXPORT_FUNCTIONS src_prepare src_unpack src_configure src_compile src_install src_test
 
@@ -72,7 +72,7 @@ _GOLANG_SINGLE_ECLASS=1
 
 
 # This eclass uses GOLANG_PKG_IMPORTPATH to populate SRC_URI.
-SRC_URI="https://${GOLANG_PKG_IMPORTPATH}/${GOLANG_PKG_NAME}/archive/${GOLANG_PKG_ARCHIVEPREFIX}${GOLANG_PKG_VERSION}${GOLANG_PKG_ARCHIVESUFFIX} -> ${P}${GOLANG_PKG_ARCHIVESUFFIX}"
+SRC_URI="${SRC_URI:="https://${GOLANG_PKG_IMPORTPATH}/${GOLANG_PKG_NAME}/archive/${GOLANG_PKG_ARCHIVEPREFIX}${GOLANG_PKG_VERSION}${GOLANG_PKG_ARCHIVESUFFIX} -> ${P}${GOLANG_PKG_ARCHIVESUFFIX}"}"
 
 # This eclass uses GOLANG_PKG_DEPENDENCIES associative array to populate SRC_URI
 # with the required snapshots of the supplied GoLang dependencies.
@@ -143,7 +143,7 @@ golang-single_src_prepare() {
 	# Sets up GoLang build environment.
 	golang_setup
 
-	golang-base_src_prepare
+	golang-common_src_prepare
 }
 
 # @FUNCTION: golang-single_src_configure
@@ -152,7 +152,7 @@ golang-single_src_prepare() {
 golang-single_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	golang-base_src_configure
+	golang-common_src_configure
 }
 
 # @FUNCTION: golang-single_src_compile
@@ -161,7 +161,7 @@ golang-single_src_configure() {
 golang-single_src_compile() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	golang-base_src_compile
+	golang-common_src_compile
 }
 
 # @FUNCTION: golang-single_src_install
@@ -170,7 +170,7 @@ golang-single_src_compile() {
 golang-single_src_install() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	golang-base_src_install
+	golang-common_src_install
 }
 
 # @FUNCTION: golang-single_src_test
@@ -179,7 +179,7 @@ golang-single_src_install() {
 golang-single_src_test() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	golang-base_src_test
+	golang-common_src_test
 }
 
 fi
