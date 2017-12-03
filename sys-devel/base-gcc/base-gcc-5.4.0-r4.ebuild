@@ -22,7 +22,6 @@ SSP_UCLIBC_STABLE="x86 amd64 mips ppc ppc64 arm"
 inherit toolchain
 
 KEYWORDS="alpha amd64 arm arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd"
-
 RDEPEND=""
 DEPEND="${RDEPEND}
 	elibc_glibc? ( >=sys-libs/glibc-2.8 )
@@ -31,6 +30,8 @@ DEPEND="${RDEPEND}
 if [[ ${CATEGORY} != cross-* ]] ; then
 	PDEPEND="${PDEPEND} elibc_glibc? ( >=sys-libs/glibc-2.8 )"
 fi
+SLOT="5.4"
+
 
 src_prepare() {
 	if has_version '<sys-libs/glibc-2.12' ; then

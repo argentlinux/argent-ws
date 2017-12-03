@@ -31,6 +31,7 @@ DEPEND="${RDEPEND}
 if [[ ${CATEGORY} != cross-* ]] ; then
 	PDEPEND="${PDEPEND} elibc_glibc? ( >=sys-libs/glibc-2.8 )"
 fi
+SLOT="5.4"
 
 src_prepare() {
 	if has_version '<sys-libs/glibc-2.12' ; then
