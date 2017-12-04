@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit eutils readme.gentoo-r1
+inherit eutils
 
 DESCRIPTION="Intelligent Python IDE with unique code assistance and analysis"
 HOMEPAGE="http://www.jetbrains.com/pycharm/"
@@ -44,6 +44,4 @@ src_install() {
 	dosym ../../opt/${PN}/bin/pycharm.sh /usr/bin/${PN}
 	newicon "bin/${MY_PN}.png" ${PN}.png
 	make_desktop_entry ${PN} "${PN}" "${PN}"
-
-	readme.gentoo_create_doc
 }
