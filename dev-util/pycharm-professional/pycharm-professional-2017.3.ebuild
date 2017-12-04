@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit gnome2-utils
+inherit gnome2-utils xdg-utils
 
 DESCRIPTION="Intelligent Python IDE with unique code assistance and analysis"
 HOMEPAGE="http://www.jetbrains.com/pycharm/"
@@ -47,9 +47,11 @@ src_install() {
 }
 
 pkg_postinst() {
+	xdg_desktop_database_update
 	gnome2_icon_cache_update
 }
 
 pkg_postrm() {
+	xdg_desktop_database_update
 	gnome2_icon_cache_update
 }
