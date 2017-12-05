@@ -1,0 +1,74 @@
+#############################################
+# This is a list of valid profiles for each architecture.  This file is used by
+# repoman when doing a repoman scan or repoman full.
+# DO NOT ADD PROFILES WITH A "die" or "exit" IN THEM OR IT KILLS REPOMAN
+#
+#layout:
+#arch		profile_directory				status
+
+# AMD64 Profiles
+amd64           default/linux/amd64/13.0                           stable
+amd64           default/linux/amd64/13.0/selinux                   dev
+amd64           default/linux/amd64/13.0/desktop                   stable
+amd64           default/linux/amd64/13.0/desktop/gnome             stable
+amd64           default/linux/amd64/13.0/desktop/gnome/systemd     stable
+amd64           default/linux/amd64/13.0/desktop/plasma            stable
+amd64           default/linux/amd64/13.0/desktop/plasma/systemd    stable
+amd64           default/linux/amd64/13.0/developer                 stable
+amd64           default/linux/amd64/13.0/no-multilib               dev
+amd64           default/linux/amd64/13.0/systemd                   stable
+amd64           default/linux/amd64/13.0/x32                       dev
+
+# x86 Profiles
+x86             default/linux/x86/13.0                          stable
+x86             default/linux/x86/13.0/selinux                  dev
+x86             default/linux/x86/13.0/desktop                  stable
+x86             default/linux/x86/13.0/desktop/gnome            stable
+x86             default/linux/x86/13.0/desktop/gnome/systemd    stable
+x86             default/linux/x86/13.0/desktop/plasma           stable
+x86             default/linux/x86/13.0/desktop/plasma/systemd   stable
+x86             default/linux/x86/13.0/developer                stable
+x86		default/linux/x86/13.0/systemd			stable
+
+# Hardened Profiles
+amd64		hardened/linux/amd64					stable
+amd64		hardened/linux/amd64/selinux				stable
+amd64		hardened/linux/amd64/no-multilib			stable
+amd64		hardened/linux/amd64/no-multilib/selinux		stable
+amd64		hardened/linux/amd64/x32				dev
+amd64		hardened/linux/musl/amd64				exp
+amd64		hardened/linux/musl/amd64/x32				exp
+x86		hardened/linux/x86					stable
+x86		hardened/linux/x86/selinux				stable
+x86		hardened/linux/musl/x86					exp
+
+# Non-embedded uclibc profiles
+amd64		default/linux/uclibc/amd64				dev
+amd64		hardened/linux/uclibc/amd64				dev
+ppc		hardened/linux/uclibc/ppc				dev
+x86		default/linux/uclibc/x86				dev
+x86		hardened/linux/uclibc/x86				dev
+
+# These are Argent profiles, maintained by the Argent team
+
+# Linux Profiles
+amd64-linux		argent/linux/amd64				exp
+x86-linux		argent/linux/x86				exp
+
+# Linux Standalone Profiles
+amd64-linux		argent/linux-standalone/amd64			exp
+amd64-linux		argent/linux-standalone/amd64/legacy		exp
+x86-linux		argent/linux-standalone/x86			exp
+x86-linux		argent/linux-standalone/x86/legacy		exp
+
+# Windows Profiles
+x86-winnt		argent/windows/winnt/3.5/x86			exp
+x86-winnt		argent/windows/winnt/5.2/x86			exp
+x86-winnt		argent/windows/winnt/6.0/x86			exp
+x86-winnt		argent/windows/winnt/6.1/x86			exp
+
+# Cygwin Profiles
+x86-cygwin		argent/windows/cygwin/x86			exp
+x64-cygwin		argent/windows/cygwin/x64			exp
+
+# vim: set ts=8:
