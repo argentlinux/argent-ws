@@ -10,7 +10,7 @@ MV=${PV/\.*}
 MY_PN=${PN}${MV}
 DESCRIPTION="All-In-One Solution for Remote Access and Support over the Internet"
 HOMEPAGE="https://www.teamviewer.com"
-SRC_URI="https://download.teamviewer.com/download/linux/teamviewer_amd64.deb"
+SRC_URI="amd64? ( https://dl.tvcdn.de/download/linux/version_13x/${PN}_${PV}_amd64.tar.xz ) "
 
 IUSE="system-xdg"
 
@@ -39,7 +39,7 @@ RDEPEND="
 
 QA_PREBUILT="opt/teamviewer${MV}/*"
 
-S=${WORKDIR}/opt/teamviewer/tv_bin
+S="${WORKDIR}/teamviewer/tv_bin/"
 
 src_prepare() {
 	#epatch "${FILESDIR}/${P}-gentoo.patch"
