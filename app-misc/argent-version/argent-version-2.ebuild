@@ -10,7 +10,7 @@ HOMEPAGE="http://www.rogentos.ro"
 SRC_URI=""
 
 LICENSE="GPL-2"
-SLOT="0"
+SLOT="2.0"
 KEYWORDS="amd64 ~arm x86"
 
 IUSE=""
