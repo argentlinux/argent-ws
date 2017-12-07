@@ -1,6 +1,5 @@
-# Copyright 2004-2013 Argent
+# Copyright 2004-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
 EAPI=5
 
@@ -12,7 +11,7 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~arm x86"
+KEYWORDS="~amd64 ~arm ~x86"
 
 IUSE=""
 DEPEND=""
@@ -52,12 +51,4 @@ pkg_postinst() {
 	# Setup Python ${PYTHON_VER}
 	eselect python set python${PYTHON_VER}
 	# No need to set the GCC profile here, since it's done in base-gcc
-
-	# Improve systemd support
-	if [[ ! -L /etc/mtab ]] && [[ -e /proc/self/mounts ]]; then
-		rm -f /etc/mtab
-		einfo "Migrating /etc/mtab to a /proc/self/mounts symlink"
-		ln -sf /proc/self/mounts /etc/mtab
-	fi
-
 }
