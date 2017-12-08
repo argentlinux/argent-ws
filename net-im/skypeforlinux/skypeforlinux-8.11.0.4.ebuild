@@ -108,7 +108,6 @@ src_install() {
 		eqawarn "you suspect that ${PN} is being broken by this modification,"
 		eqawarn "please open a bug."
 	fi
-	die
 }
 
 pkg_postinst() {
