@@ -14,7 +14,7 @@ SRC_URI="https://dev.gentoo.org/~polynomial-c/virtualbox/${MY_P}.tar.xz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE=""
+IUSE="pax_kernel"
 
 DEPEND="sys-kernel/dkms"
 RDEPEND="${DEPEND}"
