@@ -63,6 +63,7 @@ src_prepare() {
 	sed -e "s!^Exec=.*!Exec=${EPREFIX}/opt/bin/${PN}!" \
 		-e "s!^Categories=.*!Categories=Network;InstantMessaging;Telephony;!" \
 		-i usr/share/applications/${PN}.desktop || die
+	epatch "${FILESDIR}"/"${PN}"-8.11-proxy.patch
 }
 
 src_install() {
@@ -107,6 +108,7 @@ src_install() {
 		eqawarn "you suspect that ${PN} is being broken by this modification,"
 		eqawarn "please open a bug."
 	fi
+	die
 }
 
 pkg_postinst() {
