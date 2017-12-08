@@ -37,7 +37,7 @@ src_compile() {
 }
 
 src_install() {
-	cp "${FILESDIR}"/dkms-"${PV}".conf "${S}"/dkms.conf
+	cp "${FILESDIR}"/dkms-"${PV}".conf "${S}"/dkms.conf || die
 	dodir /usr/src/"${P}"
 	insinto /usr/src/"${P}"
 	doins -r "${S}"/*
