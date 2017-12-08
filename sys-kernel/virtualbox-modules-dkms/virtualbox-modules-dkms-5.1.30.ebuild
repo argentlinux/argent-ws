@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils
+inherit linux-mod eutils
 
 MY_P="vbox-kernel-module-src-${PV}"
 DESCRIPTION="Kernel Modules source for Virtualbox"
