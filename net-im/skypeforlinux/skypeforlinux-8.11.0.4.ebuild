@@ -13,11 +13,11 @@ SRC_URI="https://repo.skype.com/rpm/stable/${P/-/_}-1.x86_64.rpm"
 
 LICENSE="Skype-TOS no-source-code"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="pax_kernel"
 
 S="${WORKDIR}"
-QA_PREBUILT=opt/${PN}/${PN}
+QA_PREBUILT=opt/"${PN}"/"${PN}"
 RESTRICT="mirror bindist strip" #299368
 
 RDEPEND="dev-libs/atk[${MULTILIB_USEDEP}]
@@ -58,54 +58,54 @@ src_unpack() {
 
 src_prepare() {
 	default
-	sed -e "s!^SKYPE_PATH=.*!SKYPE_PATH=${EPREFIX}/opt/${PN}/${PN}!" \
-		-i usr/bin/${PN} || die
-	sed -e "s!^Exec=.*!Exec=${EPREFIX}/opt/bin/${PN}!" \
+	sed -e "s!^SKYPE_PATH=.*!SKYPE_PATH=${EPREFIX}/opt/"${PN}"/"${PN}"!" \
+		-i usr/bin/"${PN}" || die
+	sed -e "s!^Exec=.*!Exec=${EPREFIX}/opt/bin/"${PN}"!" \
 		-e "s!^Categories=.*!Categories=Network;InstantMessaging;Telephony;!" \
-		-i usr/share/applications/${PN}.desktop || die
-	epatch "${FILESDIR}"/"${PN}"-8.11-proxy.patch
+		-i usr/share/applications/"${PN}".desktop || die
+	epatch "${FILESDIR}"/""${PN}""-8.11-proxy.patch
 }
 
 src_install() {
-	insinto /opt/${PN}/locales
-	doins usr/share/${PN}/locales/*.pak
+	insinto /opt/"${PN}"/locales
+	doins usr/share/"${PN}"/locales/*.pak
 
-	insinto /opt/${PN}
-	doins -r usr/share/${PN}/resources
+	insinto /opt/"${PN}"
+	doins -r usr/share/"${PN}"/resources
 
-	insinto /opt/${PN}/resources
-	doins usr/share/${PN}/resources/*.asar
+	insinto /opt/"${PN}"/resources
+	doins usr/share/"${PN}"/resources/*.asar
 
-	insinto /opt/${PN}
-	doins usr/share/${PN}/*.pak
-	doins usr/share/${PN}/*.bin
-	doins usr/share/${PN}/*.dat
-	doins usr/share/${PN}/*.html
-	doins usr/share/${PN}/version
-	exeinto /opt/${PN}
-	doexe usr/share/${PN}/*.so
-	doexe usr/share/${PN}/${PN}
+	insinto /opt/"${PN}"
+	doins usr/share/"${PN}"/*.pak
+	doins usr/share/"${PN}"/*.bin
+	doins usr/share/"${PN}"/*.dat
+	doins usr/share/"${PN}"/*.html
+	doins usr/share/"${PN}"/version
+	exeinto /opt/"${PN}"
+	doexe usr/share/"${PN}"/*.so
+	doexe usr/share/"${PN}"/"${PN}"
 
 	into /opt
-	dobin usr/bin/${PN}
+	dobin usr/bin/"${PN}"
 
-	dodoc -r usr/share/doc/${PN}/.
+	dodoc -r usr/share/doc/"${PN}"/.
 
-	doicon usr/share/pixmaps/${PN}.png
+	doicon usr/share/pixmaps/"${PN}".png
 
 	local res
 	for res in 16 32 256 512; do
-		newicon -s ${res} usr/share/icons/hicolor/${res}x${res}/apps/${PN}.png ${PN}.png
+		newicon -s "${res}" usr/share/icons/hicolor/"${res}"x"${res}"/apps/"${PN}".png "${PN}".png
 	done
 
-	domenu usr/share/applications/${PN}.desktop
+	domenu usr/share/applications/"${PN}".desktop
 
 	if use pax_kernel; then
-		pax-mark -Cm "${ED%/}"/opt/${PN}/${PN}
+		pax-mark -Cm "${ED%/}"/opt/"${PN}"/"${PN}"
 		eqawarn "You have set USE=pax_kernel meaning that you intend to run"
-		eqawarn "${PN} under a PaX enabled kernel. To do so, we must modify"
-		eqawarn "the ${PN} binary itself and this *may* lead to breakage! If"
-		eqawarn "you suspect that ${PN} is being broken by this modification,"
+		eqawarn ""${PN}" under a PaX enabled kernel. To do so, we must modify"
+		eqawarn "the "${PN}" binary itself and this *may* lead to breakage! If"
+		eqawarn "you suspect that "${PN}" is being broken by this modification,"
 		eqawarn "please open a bug."
 	fi
 }
