@@ -21,10 +21,13 @@ KEYWORDS="amd64 x86"
 RESTRICT="bindist mirror"
 
 RDEPEND="
-	sys-apps/dbus
-	dev-qt/qtcore:5
 	dev-qt/qtgui:5
 	dev-qt/qtwebkit:5
+	dev-qt/qtx11extras:5
+	dev-qt/qtwidgets:5
+	dev-qt/qtnetwork:5
+	dev-qt/qtdeclarative:5
+	dev-qt/qtdbus:5
 	media-libs/alsa-lib
 	x11-libs/libICE
 	x11-libs/libSM
