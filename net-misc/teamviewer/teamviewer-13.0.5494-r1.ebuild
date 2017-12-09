@@ -102,7 +102,6 @@ src_install () {
 
 pkg_preinst() {
 	gnome2_icon_savelist
-	xdg_desktop_database_update
 }
 
 pkg_postinst() {
