@@ -20,25 +20,26 @@ S="${WORKDIR}"
 QA_PREBUILT=opt/"${PN}"/"${PN}"
 RESTRICT="mirror bindist strip" #299368
 
-RDEPEND="dev-libs/atk[${MULTILIB_USEDEP}]
+RDEPEND="app-crypt/libsecret[${MULTILIB_USEDEP}]
+	dev-libs/atk[${MULTILIB_USEDEP}]
 	dev-libs/expat[${MULTILIB_USEDEP}]
 	dev-libs/glib:2[${MULTILIB_USEDEP}]
 	dev-libs/nspr[${MULTILIB_USEDEP}]
 	dev-libs/nss[${MULTILIB_USEDEP}]
 	gnome-base/gconf:2[${MULTILIB_USEDEP}]
-	gnome-base/libgnome-keyring[${MULTILIB_USEDEP}]
 	media-libs/alsa-lib[${MULTILIB_USEDEP}]
 	media-libs/fontconfig:1.0[${MULTILIB_USEDEP}]
 	media-libs/freetype:2[${MULTILIB_USEDEP}]
 	media-libs/libv4l[${MULTILIB_USEDEP}]
 	net-print/cups[${MULTILIB_USEDEP}]
 	sys-apps/dbus[${MULTILIB_USEDEP}]
-	sys-devel/gcc[cxx]
-	sys-libs/glibc
+	sys-devel/base-gcc[cxx]
 	virtual/ttf-fonts
 	x11-libs/cairo[${MULTILIB_USEDEP}]
 	x11-libs/gdk-pixbuf:2[${MULTILIB_USEDEP}]
 	x11-libs/gtk+:2[${MULTILIB_USEDEP}]
+	x11-libs/libxcb[${MULTILIB_USEDEP}]
+	x11-libs/libxkbfile[${MULTILIB_USEDEP}]
 	x11-libs/libX11[${MULTILIB_USEDEP}]
 	x11-libs/libXScrnSaver[${MULTILIB_USEDEP}]
 	x11-libs/libXcomposite[${MULTILIB_USEDEP}]
