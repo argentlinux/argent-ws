@@ -64,7 +64,7 @@ src_prepare() {
 	sed -e "s!^Exec=.*!Exec=${EPREFIX}/opt/bin/"${PN}"!" \
 		-e "s!^Categories=.*!Categories=Network;InstantMessaging;Telephony;!" \
 		-i usr/share/applications/"${PN}".desktop || die
-	epatch "${FILESDIR}"/""${PN}""-8.11-proxy.patch
+	epatch "${FILESDIR}"/"${PN}"-8.11-proxy.patch
 }
 
 src_install() {
@@ -106,7 +106,7 @@ src_install() {
 		pax-mark -m "${ED%/}"/opt/skypeforlinux/resources/app.asar.unpacked/node_modules/slimcore/bin/slimcore.node
 		pax-mark -Cm "${ED%/}"/opt/"${PN}"/"${PN}"
 		eqawarn "You have set USE=pax_kernel meaning that you intend to run"
-		eqawarn ""${PN}" under a PaX enabled kernel. To do so, we must modify"
+		eqawarn "${PN} under a PaX enabled kernel. To do so, we must modify"
 		eqawarn "the "${PN}" binary itself and this *may* lead to breakage! If"
 		eqawarn "you suspect that "${PN}" is being broken by this modification,"
 		eqawarn "please open a bug."
