@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name>argentws</name>
+    <description>Argent Desktop oriented overlay of ebuilds</description>
+    <homepage>https://gitlab.com/argent/argent-ws</homepage>
+    <owner type="project">
+      <email>stefan.cristian at rogentos.ro</email>
+      <name>Stefan Cristian</name>
+    </owner>
+    <source type="git">https://gitlab.com/argent/argent-ws.git</source>
+  </repo>
+</repositories>

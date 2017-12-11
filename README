@@ -2,7 +2,7 @@ Romanian Argent Workstation desktop ebuilds. For the moment it's in pre-alpha st
 
 To install it as an overlay in a Gentoo planet distro, use the command: 
 
-layman -f -a argent-ws -o https://gitlab.com/argent/argent-ws/raw/master/overlay.xml
+layman -f -a argentws -o https://gitlab.com/argent/argent-ws/raw/master/overlay-4layman.xml
 
 == Atention ==
 In order to have this repo stable enough, we propose adding the 'argent' overlay also!
