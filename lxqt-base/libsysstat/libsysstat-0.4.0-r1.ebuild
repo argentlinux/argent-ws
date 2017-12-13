@@ -1,11 +1,10 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit cmake-utils
 
-DESCRIPTION="LXQt themes"
+DESCRIPTION="A Qt-based interface to system statistics"
 HOMEPAGE="http://lxqt.org/"
 
 if [[ ${PV} = *9999* ]]; then
@@ -19,12 +18,9 @@ fi
 LICENSE="LGPL-2.1+"
 SLOT="0"
 
-DEPEND=">=lxqt-base/liblxqt-0.11.0
-	!lxqt-base/lxqt-common"
-RDEPEND="${DEPEND}"
-PDEPEND=">=lxqt-base/lxqt-session-0.11.0"
-
-src_configure() {
-	local mycmakeargs=( -DPULL_TRANSLATIONS=OFF )
-	cmake-utils_src_configure
-}
+RDEPEND="
+	dev-qt/qtcore:5
+"
+DEPEND="${RDEPEND}
+	dev-qt/linguist-tools:5
+"

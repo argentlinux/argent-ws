@@ -1,11 +1,10 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit cmake-utils
 
-DESCRIPTION="LXQt themes"
+DESCRIPTION="Daemon and library for global keyboard shortcuts registration"
 HOMEPAGE="http://lxqt.org/"
 
 if [[ ${PV} = *9999* ]]; then
@@ -16,13 +15,26 @@ else
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 fi
 
-LICENSE="LGPL-2.1+"
+LICENSE="GPL-2 LGPL-2.1+"
 SLOT="0"
 
-DEPEND=">=lxqt-base/liblxqt-0.11.0
-	!lxqt-base/lxqt-common"
-RDEPEND="${DEPEND}"
-PDEPEND=">=lxqt-base/lxqt-session-0.11.0"
+RDEPEND="
+	dev-qt/qtcore:5
+	dev-qt/qtdbus:5
+	dev-qt/qtgui:5
+	dev-qt/qtwidgets:5
+	dev-qt/qtx11extras:5
+	dev-qt/qtxml:5
+	~lxqt-base/liblxqt-${PV}
+	>=dev-libs/libqtxdg-3.1.0
+	x11-libs/libICE
+	x11-libs/libSM
+	x11-libs/libX11
+	x11-libs/libXext"
+DEPEND="${RDEPEND}
+	dev-qt/linguist-tools:5
+	!lxqt-base/lxqt-common
+"
 
 src_configure() {
 	local mycmakeargs=( -DPULL_TRANSLATIONS=OFF )
