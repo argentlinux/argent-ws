@@ -1,16 +1,17 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=6
 
 PYTHON_COMPAT=( python3_{4,5,6} )
+MY_PN="sisyphus"
 
 inherit eutils python-r1
 
 DESCRIPTION="A simple portage python wrapper which works like other package managers(apt-get/yum/dnf)"
-HOMEPAGE="http://redcorelinux.org"
-SRC_URI="https://github.com/redcorelinux/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="http://argentlinux.io"
+SRC_URI="https://github.com/rogentos/sisy-argent/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
@@ -41,14 +42,15 @@ src_install() {
 
 	python_foreach_impl inject_libsisyphus
 
-	dosym /usr/share/${PN}/${PN}-cli.py /usr/bin/${PN}
-	dodir /var/lib/${PN}/{csv,db}
+	dosym /usr/share/${MY_PN}/${MY_PN}-cli.py /usr/bin/${MY_PN}
+	dosym /usr/share/${MY_PN}/sisy-single-spmsync.py /usr/bin/sisy-single-spmsync
+	dodir /var/lib/${MY_PN}/{csv,db}
 	if ! use gui; then
-		rm -rf ${ED}usr/bin/${PN}-gui
-		rm -rf ${ED}usr/bin/${PN}-gui-pkexec
-		rm -rf ${ED}usr/share/${PN}/*py
-		rm -rf ${ED}usr/share/${PN}/icon
-		rm -rf ${ED}usr/share/${PN}/ui
+		rm -rf ${ED}usr/bin/${MY_N}-gui
+		rm -rf ${ED}usr/bin/${MY_PN}-gui-pkexec
+		rm -rf ${ED}usr/share/${MY_PN}/*py
+		rm -rf ${ED}usr/share/${MY_PN}/icon
+		rm -rf ${ED}usr/share/${MY_PN}/ui
 		rm -rf ${ED}usr/share/applications
 		rm -rf ${ED}usr/share/pixmaps
 		rm -rf ${ED}usr/share/polkit-1
