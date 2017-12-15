@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit eutils
+inherit eutils xdg-utils gnome2-utils
 
 SLOT=0
 
@@ -43,4 +43,14 @@ src_install() {
 	# recommended by: https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
 	mkdir -p "${D}/etc/sysctl.d/" || die
 	echo "fs.inotify.max_user_watches = 524288" > "${D}/etc/sysctl.d/30-idea-inotify-watches.conf" || die
+}
+
+pkg_postinst() {
+    xdg_desktop_database_update
+    gnome2_icon_cache_update
+}
+
+pkg_postrm() {
+    xdg_desktop_database_update
+    gnome2_icon_cache_update
 }
