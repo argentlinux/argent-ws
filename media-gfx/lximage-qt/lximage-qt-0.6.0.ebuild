@@ -2,7 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-inherit cmake-utils
+
+inherit cmake-utils gnome2-utils xdg-utils
 
 DESCRIPTION="LXImage Image Viewer - GPicView replacement"
 HOMEPAGE="http://lxqt.org/"
@@ -42,4 +43,16 @@ src_configure() {
 		-DPULL_TRANSLATIONS=OFF
 	)
 	cmake-utils_src_configure
+}
+
+pkg_postinst() {
+    gnome2_icon_cache_update
+    xdg_desktop_database_update
+    xdg_mimeinfo_database_update
+}
+
+pkg_postrm() {
+    gnome2_icon_cache_update
+    xdg_desktop_database_update
+    xdg_mimeinfo_database_update
 }
