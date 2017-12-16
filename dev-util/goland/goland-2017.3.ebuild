@@ -38,7 +38,7 @@ src_install() {
 
 	make_wrapper "${PN}" "${dir}/bin/${PN}.sh"
 	newicon "bin/${PN}.png" "${PN}.png"
-	make_desktop_entry "${PN}" "gogland" "${PN}" "Development;IDE;"
+	make_desktop_entry "${PN}" "Goland" "${PN}" "Development;IDE;"
 
 	# recommended by: https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
 	mkdir -p "${D}/etc/sysctl.d/" || die
