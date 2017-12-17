@@ -5,13 +5,13 @@
 EAPI=6
 
 PYTHON_COMPAT=( python3_{4,5,6} )
-MY_PN="sisyphus"
+MY_PN="apkg"
 
 inherit eutils python-r1
 
 DESCRIPTION="A simple portage python wrapper which works like other package managers(apt-get/yum/dnf)"
 HOMEPAGE="http://argentlinux.io"
-SRC_URI="https://github.com/rogentos/sisy-argent/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/rogentos/argent-apkg/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
@@ -27,23 +27,22 @@ RDEPEND="${DEPEND}
 
 src_prepare() {
 	default
-	eapply ${FILESDIR}/${P}-r3.patch
 }
 
 src_install() {
 	default
 
-	inject_libsisyphus() {
+	inject_libapkg() {
 		# FIXME, ugly hack
 		python_moduleinto "$(python_get_sitedir)/.."
-		python_domodule src/backend/libsisyphus.py
+		python_domodule src/backend/libapkg.py
 		rm -rf ${D}$(python_get_sitedir)
 	}
 
-	python_foreach_impl inject_libsisyphus
+	python_foreach_impl inject_libapkg
 
 	dosym /usr/share/${MY_PN}/${MY_PN}-cli.py /usr/bin/${MY_PN}
-	dosym /usr/share/${MY_PN}/sisy-single-spmsync.py /usr/bin/sisy-single-spmsync
+	dosym /usr/share/${MY_PN}/apkg-single-spmsync.py /usr/bin/apkg-single-spmsync
 	dodir /var/lib/${MY_PN}/{csv,db}
 	if ! use gui; then
 		rm -rf ${ED}usr/bin/${MY_N}-gui
@@ -58,5 +57,5 @@ src_install() {
 }
 
 pkg_postinst() {
-	sisyphus rescue
+	apkg rescue
 }
