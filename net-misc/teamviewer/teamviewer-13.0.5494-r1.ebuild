@@ -110,6 +110,7 @@ pkg_preinst() {
 pkg_postinst() {
 	gnome2_icon_cache_update
 	xdg_desktop_database_update
+	xdg_mimeinfo_database_update
 
 	elog "TeamViewer from upstream uses an overly-complicated set of bash"
 	elog "scripts to start the program.  This has been simplified for Gentoo"
@@ -120,4 +121,5 @@ pkg_postinst() {
 pkg_postrm() {
 	gnome2_icon_cache_update
 	xdg_desktop_database_update
+	xdg_mimeinfo_database_update
 }
