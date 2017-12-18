@@ -121,9 +121,7 @@ src_prepare() {
 			-i "${S}/dracut.conf.d/gentoo.conf.example" || die
 	fi
 
-	epatch "${PATCHES[@]}"
-
-	epatch_user
+	default
 }
 
 src_configure() {
