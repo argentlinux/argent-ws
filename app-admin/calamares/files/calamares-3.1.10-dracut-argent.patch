@@ -1,0 +1,12 @@
+diff -burN src.old/modules/dracut/main.py src/modules/dracut/main.py
+--- a/src.old/modules/dracut/main.py	2017-12-18 15:52:16.890604874 +0200
++++ b/src/modules/dracut/main.py	2017-12-18 15:51:16.148937384 +0200
+@@ -30,7 +30,7 @@
+ 
+     :return:
+     """
+-    return target_env_call(['dracut', '-f'])
++    return target_env_call(['dracut', '-H', '-f', '-o', 'systemd', '-o', 'systemd-initrd', '-o', 'systemd-networkd', '-o', 'dracut-systemd', '--kver', '4.8.5-argent', '/boot/initramfs-genkernel-x86_64-4.8.5-argent'])
+ 
+ 
+ def run():
