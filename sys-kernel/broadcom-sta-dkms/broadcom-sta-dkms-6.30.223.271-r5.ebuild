@@ -5,7 +5,7 @@
 EAPI=5
 inherit eutils linux-info linux-mod
 
-DESCRIPTION="Broadcom Linux driver source"
+DESCRIPTION="Broadcom's IEEE 802.11a/b/g/n hybrid Linux device driver source"
 HOMEPAGE="http://www.broadcom.com/support/802.11/"
 SRC_BASE="http://www.broadcom.com/docs/linux_sta/hybrid-v35"
 SRC_URI="x86? ( ${SRC_BASE}-nodebug-pcoem-${PV//\./_}.tar.gz )
@@ -32,7 +32,11 @@ src_prepare() {
 		"${FILESDIR}/broadcom-sta-6.30.223.248-r3-Wno-date-time.patch" \
 		"${FILESDIR}/broadcom-sta-6.30.223.271-r1-linux-3.18.patch" \
 		"${FILESDIR}/broadcom-sta-6.30.223.271-r2-linux-4.3-v2.patch" \
-		"${FILESDIR}/broadcom-sta-6.30.223.271-r3-linux-4.7.patch"
+		"${FILESDIR}/broadcom-sta-6.30.223.271-r3-linux-4.7.patch" \
+		"${FILESDIR}/broadcom-sta-6.30.223.271-r4-linux-4.7.patch" \
+		"${FILESDIR}/broadcom-sta-6.30.223.271-r4-linux-4.8.patch" \
+		"${FILESDIR}/broadcom-sta-6.30.223.271-r4-linux-4.11.patch" \
+		"${FILESDIR}/broadcom-sta-6.30.223.271-r4-linux-4.12.patch" \
 
 	epatch_user
 }

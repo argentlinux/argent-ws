@@ -2,7 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
+
 inherit eutils linux-info linux-mod
 
 DESCRIPTION="Broadcom's IEEE 802.11a/b/g/n hybrid Linux device driver"
@@ -19,6 +20,14 @@ DEPEND="sys-kernel/broadcom-sta-dkms"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
+
+src_prepare() {
+	:
+}
+
+src_compile() {
+	:
+}
 
 src_install() {
 	echo 'Dummy install'
