@@ -16,7 +16,7 @@ KEYWORDS="amd64 ~arm x86"
 IUSE=""
 DEPEND=""
 GCC_VER="5.4"
-PYTHON_VER="2.7"
+PYTHON_VER="3.5"
 RDEPEND="!app-admin/eselect-init
 	!sys-apps/hal
 	!sys-auth/consolekit
@@ -50,5 +50,6 @@ src_install () {
 pkg_postinst() {
 	# Setup Python ${PYTHON_VER}
 	eselect python set python${PYTHON_VER}
+	gcc-config $(gcc-config -l | grep x86_64-pc-linux-gnu-${GCC_VER}.0 | awk '{print $1}' | cut -d "[" -f2 | cut -d "]" -f1)
 	# No need to set the GCC profile here, since it's done in base-gcc
 }
