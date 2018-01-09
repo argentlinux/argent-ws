@@ -12,7 +12,7 @@ SRC_URI="https://dl.discordapp.net/apps/linux/${PV}/${MY_PN}-${PV}.deb"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE=""
 
 RDEPEND="
