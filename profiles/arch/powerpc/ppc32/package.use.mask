@@ -1,10 +1,6 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-# Arfrever Frehtes Taifersar Arahesis <arfrever.fta@gmail.com> (15 Nov 2017)
-# Macro Editor requires unkeyworded app-i18n/fcitx-qt5:4.
->=app-i18n/fcitx-unikey-0.2.7 macro-editor
-
 # Sergei Trofimovich <slyfox@gentoo.org> (3 Oct 2017)
 # Incomplete support, bug #605878.
 net-vpn/tor seccomp
@@ -56,7 +52,6 @@ sci-astronomy/stellarium sound
 # Requires unkeyworded dev-qt/qtwebkit:5, which is a PITA to maintain on
 # minor arches and has been declared deprecated by upstream. So we'd like
 # to avoid keywording it, unless requested by users.
-app-office/texmaker qt5
 dev-qt/designer webkit
 net-irc/quassel webkit
 kde-plasma/libksysguard detailedmemory
@@ -121,8 +116,3 @@ media-libs/coin simage
 #nixnut <nixnut@gentoo.org> (24 jan 2009)
 #don't want zemberek for enchant for ppc32
 app-text/enchant zemberek
-
-# Chí-Thanh Christopher Nguyễn (11 Jul 2016)
-# Requires unkeyworded kde-frameworks packages
-net-irc/quassel qt5
-

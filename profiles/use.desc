@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # Keep them sorted
 
@@ -31,6 +30,7 @@ bash-completion - Enable bash-completion support
 bcmath - Add support for libbcmath
 berkdb - Add support for sys-libs/db (Berkeley DB for MySQL)
 bidi - Enable bidirectional language support
+big-endian - Big-endian toolchain support
 bindist - Flag to enable or disable options for prebuilt (GRP) packages (eg. due to licensing issues)
 blas - Add support for the virtual/blas numerical library
 bluetooth - Enable Bluetooth Support
@@ -62,7 +62,6 @@ css - Enable reading of encrypted DVDs
 ctype - Enable ctype functions
 cups - Add support for CUPS (Common Unix Printing System)
 curl - Add support for client-side URL transfer library
-curlwrappers - Add support for using curl in streams
 custom-cflags - Build with user-specified CFLAGS (unsupported)
 cvs - Enable CVS (Concurrent Versions System) integration
 cxx - Build support for C++ (bindings, extra libraries, code generation, ...)
@@ -105,12 +104,12 @@ foomaticdb - Add support for the foomatic printing driver database
 fortran - Add support for fortran
 freetds - Add support for the TDS protocol to connect to MSSQL/Sybase databases
 freewnn - Add support for FreeWnn kana to kanji conversion engine
-frontbase - Add support for the frontbase sql server
 ftp - Add FTP (File Transfer Protocol) support
 gcj - Enable building with gcj (The GNU Compiler for the Javatm Programming Language)
 gd - Add support for media-libs/gd (to generate graphics on the fly)
 gdbm - Add support for sys-libs/gdbm (GNU database libraries)
 geoip - Add geoip support for country and city lookup based on IPs
+geolocation - Enable physical position determination
 ggi - Add support for media-libs/libggi (non-X video api/drivers)
 gif - Add GIF image support
 gimp - Build a plugin for the GIMP
@@ -124,6 +123,7 @@ gnutls - Add support for net-libs/gnutls (TLS 1.0 and SSL 3.0 support)
 gphoto2 - Add digital camera support
 gpm - Add support for sys-libs/gpm (Console-based mouse driver)
 gps - Add support for Global Positioning System
+graphicsmagick - Build and link against GraphicsMagick instead of ImageMagick (might require USE=imagemagick if optional)
 graphviz - Add support for the Graphviz library
 gsl - Use the GNU scientific library for calculations
 gsm - Add support for the gsm lossy speech compression codec
@@ -131,10 +131,11 @@ gstreamer - Add support for media-libs/gstreamer (Streaming media)
 gtk - Add support for x11-libs/gtk+ (The GIMP Toolkit)
 guile - Add support for the guile Scheme interpreter
 gzip - Compress files with Lempel-Ziv coding (LZ77)
-handbook - Enable handbooks generation for KDE4.
+handbook - Enable handbooks generation for packages by KDE
 hardened - Activate default security enhancements for toolchain (gcc, glibc, binutils)
 hddtemp - Enable monitoring of hdd temperature (app-admin/hddtemp)
 hdf5 - Add support for the Hierarchical Data Format v5
+headers-only - Install only C headers instead of whole package. Mainly used by sys-devel/crossdev for toolchain bootstrap.
 hscolour - Include coloured haskell sources to generated documentation (dev-haskell/hscolour)
 ibm - Add support for IBM ppc64 specific systems
 iconv - Enable support for the iconv character set conversion library
@@ -142,7 +143,7 @@ icq - Enable ICQ IM protocol support
 icu - Enable ICU (Internationalization Components for Unicode) support, using dev-libs/icu
 idn - Enable support for Internationalized Domain Names
 ieee1394 - Enable FireWire/iLink IEEE1394 support (dv, camera, ...)
-imagemagick - Enable support for Imagemagick (image converter)
+imagemagick - Enable optional support for the ImageMagick or GraphicsMagick image converter
 imap - Add support for IMAP (Internet Mail Application Protocol)
 imlib - Add support for imlib, an image loading and rendering library
 infiniband - Enable Infiniband RDMA transport support
@@ -165,8 +166,6 @@ jpeg - Add JPEG image support
 jpeg2k - Support for JPEG 2000, a wavelet-based image compression format
 kde - Add support for KDE (K Desktop Environment)
 kerberos - Add kerberos support
-kolab - Add support for the Kolab groupware server
-kontact - Enable support for the KDE personal information manager (kde-apps/kdepim*)
 ladspa - Enable the ability to support ladspa plugins
 lame - Prefer using LAME libraries for MP3 encoding support
 lapack - Add support for the virtual/lapack numerical library
@@ -183,6 +182,128 @@ libnotify - Enable desktop notification support
 libressl - Use dev-libs/libressl as SSL provider (might need ssl USE flag), packages should not depend on this USE flag
 libsamplerate - Build with support for converting sample rates using libsamplerate
 libwww - Add libwww support (General purpose WEB API)
+linguas_af - Afrikaans locale
+linguas_af_ZA - Afrikaans locale for South Africa
+linguas_ar - Arabic locale
+linguas_be_BY - Belarusian locale
+linguas_bg - Bulgarian locale
+linguas_bg_BG - Bulgarian locale
+linguas_br - Breton locale
+linguas_bs - Bosnian locale
+linguas_ca - Catalan locale
+linguas_ca@valencia - Catalan locale (Valencia)
+linguas_ca_ES - Catalan locale for Spain
+linguas_cs - Czech locale
+linguas_cs_CZ - Czech locale for Czech Republic
+linguas_cy - Welsh locale
+linguas_cy_GB - Welsh locale
+linguas_da - Danish locale
+linguas_da_DK - Danish locale for Denmark
+linguas_de - German locale
+linguas_de@1901 - German locale with old spelling
+linguas_de_CH - German locale for Switzerland
+linguas_de_DE - German locale for Germany
+linguas_el - Greek locale
+linguas_el_GR - Greek locale
+linguas_en - English locale
+linguas_en_AU - English locale for Australia
+linguas_en_GB - English locale for Britain
+linguas_en_US - English locale for America
+linguas_eo - Esperanto locale
+linguas_es - Spanish locale
+linguas_es_AR - Spanish locale for Argentina
+linguas_es_CL - Spanish locale for Chile
+linguas_es_CO - Spanish locale for Columbia
+linguas_es_DO - Spanish locale for Dominican Republic
+linguas_es_ES - Spanish locale for Spain
+linguas_es_MX - Spanish locale for Mexico
+linguas_es_UY - Spanish locale for Uruguay
+linguas_es_VE - Spanish locale for Venezuela
+linguas_et - Estonian locale
+linguas_et_EE - Estonian locale
+linguas_eu - Basque locale
+linguas_eu_ES - Basque locale for Spain
+linguas_fa - Persian locale
+linguas_fa_IR - Persian locale for Iran
+linguas_fi - Finnish locale
+linguas_fi_FI - Finnish locale
+linguas_fr - French locale
+linguas_fr_CA - French locale for Canada
+linguas_fr_FR - French locale for France
+linguas_gl - Galician locale
+linguas_gu_IN - Gujarati locale for India
+linguas_he - Hebrew locale
+linguas_he_IL - Hebrew locale for Israel
+linguas_hi_IN - Hindi locale
+linguas_hr - Croatian locale
+linguas_hu - Hungarian locale
+linguas_hu_HU - Hungarian locale
+linguas_ia - Interlingua locale
+linguas_id - Indonesian locale
+linguas_id_ID - Indonesian locale
+linguas_is - Icelandic locale
+linguas_is_IS - Icelandic locale for Iceland
+linguas_it - Italian locale
+linguas_it_IT - Italian locale
+linguas_ja - Japanese locale
+linguas_ka - Georgian locale
+linguas_kab - Kabyle locale
+linguas_kk_KZ - Kazakh (Kazakhstan) locale
+linguas_kn_IN - Kannada locale for India
+linguas_ko - Korean locale
+linguas_ko_KR - Korean locale
+linguas_ku - Kurdish (latin) locale
+linguas_ku_IQ - Kurdish (latin) locale for Iraq
+linguas_ky - Kyrgyz (Kirghiz) locale
+linguas_la - Latin locale
+linguas_lt - Lithuanian locale
+linguas_lt_LT - Lithuanian locale
+linguas_lv_LV - Latvian locale for Latvia
+linguas_mk_MK - Macedonian locale for Macedonia
+linguas_mn - Mongolian locale
+linguas_ms_MY - Malay locale for Malaysia
+linguas_nb - Norwegian (Bokmal) locale
+linguas_nb_NO - Norwegian (Bokmal) locale for Norway
+linguas_ne - Nepali locale
+linguas_nl - Dutch locale
+linguas_nl_NL - Dutch locale for the Netherlands
+linguas_nn_NO - Nynorsk locale for Norway
+linguas_pam - Kapampangan locale
+linguas_pl - Polish locale
+linguas_pl_PL - Polish locale
+linguas_pt - Portuguese locale
+linguas_pt_BR - Portuguese locale for Brasil
+linguas_pt_PT - Portuguese locale for Portugal
+linguas_ro - Romanian locale
+linguas_ro_RO - Romanian locale for Romania
+linguas_ru - Russian locale
+linguas_ru_RU - Russian locale for Russia
+linguas_sa - Sanskrit locale
+linguas_sk - Slovak locale
+linguas_sk_SK - Slovak locale
+linguas_sl - Slovenian locale
+linguas_sl_SI - Slovenian locale
+linguas_so - Somali locale
+linguas_sq - Albanian locale
+linguas_sr - Serbian locale
+linguas_sr@latin - Serbian (latin) locale
+linguas_sv - Swedish locale
+linguas_sv_SE - Swedish locale for Sweden
+linguas_ta - Tamil locale
+linguas_te - Telugu locale
+linguas_th_TH - Thai locale Thailand
+linguas_tr - Turkish locale
+linguas_tr_TR - Turkish locale for Turkey
+linguas_uk - Ukrainian locale
+linguas_uk_UA - Ukrainian locale for Ukraine
+linguas_ur_PK - Urdu language locale for Pakistan
+linguas_uz@Cyrl - Uzbek (Cyrillic) locale
+linguas_vi - Vietnamese locale
+linguas_vi_VN - Vietnamese locale
+linguas_zh - Chinese locale
+linguas_zh_CN - Chinese locale for Peoples Republic of China
+linguas_zh_HK - Chinese locale for Hong Kong
+linguas_zh_TW - Chinese locale for Taiwan
 lirc - Add support for lirc (Linux's Infra-Red Remote Control)
 livecd - !!internal use only!! DO NOT SET THIS FLAG YOURSELF!, used during livecd building
 lm_sensors - Add linux lm_sensors (hardware sensors) support
@@ -193,8 +314,8 @@ m17n-lib - Enable m17n-lib support
 mad - Add support for mad (high-quality mp3 decoder library and cli frontend)
 maildir - Add support for maildir (~/.maildir) style mail spools
 matroska - Add support for the matroska container format (extensions .mkv, .mka and .mks)
-matrox - Add Matrox MGA support to mplayer
 mbox - Add support for mbox (/var/spool/mail) style mail spools
+memcached - Add support for memcached
 memlimit - Add memory usage limiting in supporting programs
 mhash - Add support for the mhash library
 migemo - Enable migemo support for Japanese
@@ -285,7 +406,7 @@ qt5 - Add support for the Qt 5 application and UI framework
 quicktime - Add support for OpenQuickTime
 radius - Add support for RADIUS authentication
 raw - Add support for raw image formats
-rdesktop - Add support for the remote desktop protocol, usually used to connect to Windows servers
+rdp - Enables RDP/Remote Desktop support
 readline - Enable support for libreadline, a GNU line-editing library that almost everyone wants
 recode - Enable support for the GNU recode library
 rss - Enable support for RSS feeds
@@ -294,6 +415,7 @@ samba - Add support for SAMBA (Windows File and Printer sharing)
 sasl - Add support for the Simple Authentication and Security Layer
 savedconfig - Use this to restore your config from /etc/portage/savedconfig ${CATEGORY}/${PN}. Make sure your USE flags allow for appropriate dependencies
 scanner - Add support for scanner hardware (e.g. build the sane frontend in kdegraphics)
+sctp - Support for Stream Control Transmission Protocol
 sdl - Add support for Simple Direct Layer (media library)
 seamonkey - Add support for the Seamonkey web-browser
 seccomp - Enable seccomp (secure computing mode) to perform system call filtering at runtime to increase security of programs
@@ -351,6 +473,7 @@ uclibc - Enable uclibc specific patches and build or link uclibc
 udev - Enable virtual/udev integration (device discovery, power and storage device support, etc)
 udisks - Enable storage management support (automounting, volume monitoring, etc)
 unicode - Add support for Unicode
+unwind - Add support for call stack unwinding and function name resolution
 upnp - Enable UPnP port mapping support
 upnp-av - Enable UPnP audio/video streaming support
 upower - Enable power management support
@@ -366,10 +489,11 @@ videos - Install optional video files (used in some games)
 vim-syntax - Pulls in related vim syntax scripts
 vnc - Enable VNC (remote desktop viewer) support
 vorbis - Add support for the OggVorbis audio codec
-wayland - Enable dev-libs/wayland backend
 wavpack - Add support for wavpack audio compression tools
+wayland - Enable dev-libs/wayland backend
 wddx - Add support for Web Distributed Data eXchange
 webkit - Add support for the WebKit HTML rendering/layout engine
+webp - Add support for the WebP image format
 wifi - Enable wireless network functions
 wmf - Add support for the Windows Metafile vector image format
 wxwidgets - Add support for wxWidgets/wxGTK GUI toolkit
