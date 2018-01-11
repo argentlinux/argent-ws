@@ -191,8 +191,15 @@ src_prepare() {
 		gunzip $man_file || die
 	done
 
-	# Allow user patches so they can support RC kernels and whatever else
-	eapply_user
+	if use tools; then
+		cp "${FILESDIR}"/nvidia-settings-linker.patch "${WORKDIR}" || die
+		sed -i \
+			-e "s:@PV@:${PV}:g" \
+			"${WORKDIR}"/nvidia-settings-linker.patch || die
+		eapply "${WORKDIR}"/nvidia-settings-linker.patch
+	fi
+
+	default
 
 	if ! [ -f nvidia_icd.json ]; then
 		cp nvidia_icd.json.template nvidia_icd.json || die
@@ -217,21 +224,24 @@ src_compile() {
 		emake -C "${S}"/nvidia-settings-${PV}/src \
 			AR="$(tc-getAR)" \
 			CC="$(tc-getCC)" \
+			DO_STRIP= \
+			LD="$(tc-getCC)" \
 			LIBDIR="$(get_libdir)" \
+			NVLD="$(tc-getLD)" \
 			NV_VERBOSE=1 \
 			RANLIB="$(tc-getRANLIB)" \
-			DO_STRIP= \
 			build-xnvctrl
 
 		emake -C "${S}"/nvidia-settings-${PV}/src \
 			CC="$(tc-getCC)" \
+			DO_STRIP= \
 			GTK3_AVAILABLE=$(usex gtk3 1 0) \
 			LD="$(tc-getCC)" \
 			LIBDIR="$(get_libdir)" \
+			NVLD="$(tc-getLD)" \
 			NVML_ENABLED=0 \
 			NV_USE_BUNDLED_LIBJANSSON=0 \
-			NV_VERBOSE=1 \
-			DO_STRIP=
+			NV_VERBOSE=1
 	fi
 }
 
@@ -485,7 +495,7 @@ src_install-libs() {
 		if use wayland && has_multilib_profile && [[ ${ABI} == "amd64" ]];
 		then
 			NV_GLX_LIBRARIES+=(
-				"libnvidia-egl-wayland.so.1.0.1"
+				"libnvidia-egl-wayland.so.1.0.2"
 			)
 		fi
 
