@@ -192,11 +192,11 @@ src_prepare() {
 	done
 
 	if use tools; then
-		cp "${FILESDIR}"/nvidia-settings-linker.patch "${WORKDIR}" || die
+		cp "${FILESDIR}"/nvidia-settings-${PV}-linker.patch "${WORKDIR}" || die
 		sed -i \
 			-e "s:@PV@:${PV}:g" \
-			"${WORKDIR}"/nvidia-settings-linker.patch || die
-		eapply "${WORKDIR}"/nvidia-settings-linker.patch
+			"${WORKDIR}"/nvidia-settings-${PV}-linker.patch || die
+		eapply "${WORKDIR}"/nvidia-settings-${PV}-linker.patch
 	fi
 
 	default
