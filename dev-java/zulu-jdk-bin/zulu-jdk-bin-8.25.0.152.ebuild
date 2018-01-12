@@ -142,7 +142,8 @@ src_unpack() {
 	# Upstream is changing their versioning scheme every release around 1.8.0.*;
 	# to stop having to change it over and over again, just wildcard match and
 	# live a happy life instead of trying to get this new jdk1.8.0_05 to work.
-	mv "${WORKDIR}"/jdk* "${S}" || die
+	mkdir -p "${S}" || die
+	mv "${WORKDIR}/zulu8.25.0.1-jdk8.0.152-linux_x64"/* "${S}" || die
 }
 
 src_prepare() {
@@ -161,7 +162,8 @@ src_prepare() {
 	# because it's evil but because it breaks the sandbox during builds
 	# and we can't find any other feasible way to disable it or make it
 	# write somewhere else. See bug #559936 for details.
-	zip -d jre/lib/rt.jar sun/misc/PostVMInitHook.class || die
+	#zip -d jre/lib/rt.jar sun/misc/PostVMInitHook.class || die
+	# peculiarly enough, there is no more PostVMInitHook here
 }
 
 src_install() {
@@ -206,7 +208,8 @@ src_install() {
 	# Packaged as dev-util/visualvm but some users prefer this version.
 	use visualvm || find -name "*visualvm*" -exec rm -vfr {} + || die
 
-	dodoc COPYRIGHT
+	dodoc LICENSE
+	dodoc DISCLAIMER
 	dodir "${dest}"
 	cp -pPR bin include jre lib man "${ddest}" || die
 
