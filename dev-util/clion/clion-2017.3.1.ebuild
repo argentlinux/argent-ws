@@ -5,12 +5,10 @@ EAPI=6
 
 inherit eutils xdg-utils gnome2-utils
 
-SLOT="0"
-
 SRC_URI="http://download.jetbrains.com/cpp/CLion-${PV}.tar.gz -> ${P}.tar.gz"
 DESCRIPTION="A complete toolset for C and C++ development"
 HOMEPAGE="http://www.jetbrains.com/clion"
-
+SLOT="0"
 KEYWORDS="amd64 x86"
 LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
@@ -49,11 +47,11 @@ src_install() {
 
 	insinto "${dir}"
 	doins -r *
-	fperms 755 "${dir}"/bin/{clion.sh,fsnotifier{,64}}
+	fperms 755 "${dir}"/bin/{${PN}.sh,fsnotifier{,64}}
 
 	make_wrapper "${PN}" "${dir}/bin/${PN}.sh"
-	newicon "bin/${PN}.svg" "${PN}.svg"
-	make_desktop_entry "${PN}" "clion" "${PN}" "Development;IDE;"
+	newicon "bin/${PN}.png" "${PN}.png"
+	make_desktop_entry "${PN}" "CLion" "${PN}" "Development;IDE;"
 
 	# recommended by: https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
 	mkdir -p "${D}/etc/sysctl.d/" || die
