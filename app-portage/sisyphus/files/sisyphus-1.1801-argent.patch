@@ -1,16 +1,25 @@
 diff --git a/src/backend/libsisyphus.py b/src/backend/libsisyphus.py
-index defc5cf..d12cff7 100755
+index defc5cf..0710a1c 100755
 --- a/src/backend/libsisyphus.py
 +++ b/src/backend/libsisyphus.py
-@@ -13,7 +13,7 @@ import urllib3
+@@ -12,13 +12,13 @@ import time
+ import urllib3
  
  redcore_portage_tree_path = '/usr/portage'
- redcore_desktop_overlay_path = '/var/lib/layman/redcore-desktop'
+-redcore_desktop_overlay_path = '/var/lib/layman/redcore-desktop'
 -redcore_portage_config_path = '/opt/redcore-build'
++redcore_desktop_overlay_path = '/var/lib/layman/argent-ws'
 +redcore_portage_config_path = '/opt/argentws-build'
  
- sisyphus_remote_csv_url = 'http://mirror.math.princeton.edu/pub/redcorelinux/csv/remote_packages_pre.csv'
+-sisyphus_remote_csv_url = 'http://mirror.math.princeton.edu/pub/redcorelinux/csv/remote_packages_pre.csv'
++sisyphus_remote_csv_url = 'http://pkgwork.argentlinux.io/argent/argentwork/binhost/x64/remote_packages_pre.csv'
  sisyphus_remote_csv_path_pre = '/var/lib/sisyphus/csv/remote_packages_pre.csv'
+ sisyphus_remote_csv_path_post = '/var/lib/sisyphus/csv/remote_packages_post.csv'
+-sisyphus_removable_csv_url = 'http://mirror.math.princeton.edu/pub/redcorelinux/csv/removable_packages_pre.csv'
++sisyphus_removable_csv_url = 'http://pkgwork.argentlinux.io/argent/argentwork/binhost/x64/removable_packages_pre.csv'
+ sisyphus_removable_csv_path_pre = '/var/lib/sisyphus/csv/removable_packages_pre.csv'
+ sisyphus_removable_csv_path_post = '/var/lib/sisyphus/csv/removable_packages_post.csv'
+ sisyphus_local_csv_path_pre = '/var/lib/sisyphus/csv/local_packages_pre.csv'
 @@ -31,8 +31,9 @@ def check_if_root():
          sys.exit("\nYou need root permissions to do this, exiting!\n")
  
