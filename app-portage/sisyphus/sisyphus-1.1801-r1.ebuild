@@ -13,7 +13,7 @@ SRC_URI="https://github.com/redcorelinux/${PN}/archive/v${PV}.tar.gz -> ${P}.tar
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+gui argent"
+IUSE="+gui +argent"
 
 DEPEND="dev-lang/python[sqlite]"
 RDEPEND="${DEPEND}
@@ -25,8 +25,9 @@ RDEPEND="${DEPEND}
 
 src_prepare() {
 	if use argent ; then
-		epatch "${FILESDIR}"/${PN}-argent-1801.patch
+		epatch "${FILESDIR}"/"${PN}-${PV}"-argent.patch
 	fi
+	default
 }
 
 src_install() {
