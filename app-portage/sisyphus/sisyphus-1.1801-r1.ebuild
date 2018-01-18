@@ -13,7 +13,7 @@ SRC_URI="https://github.com/redcorelinux/${PN}/archive/v${PV}.tar.gz -> ${P}.tar
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+gui"
+IUSE="+gui argent"
 
 DEPEND="dev-lang/python[sqlite]"
 RDEPEND="${DEPEND}
@@ -22,6 +22,12 @@ RDEPEND="${DEPEND}
 	dev-python/urllib3[${PYTHON_USEDEP}]
 	sys-apps/portage[${PYTHON_USEDEP}]
 	gui? ( dev-python/PyQt5[designer,gui,widgets,${PYTHON_USEDEP}] sys-apps/gentoo-functions )"
+
+src_prepare() {
+	if use argent ; then
+		epatch "${FILESDIR}"/${PN}-argent-1801.patch
+	fi
+}
 
 src_install() {
 	default
