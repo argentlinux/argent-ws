@@ -24,10 +24,10 @@ RDEPEND="${DEPEND}
 	gui? ( dev-python/PyQt5[designer,gui,widgets,${PYTHON_USEDEP}] sys-apps/gentoo-functions )"
 
 src_prepare() {
-	if use argent ; then
-		epatch "${FILESDIR}"/"${PN}-${PV}"-argent.patch
-	fi
-	default
+    if use argent ; then
+        epatch "${FILESDIR}"/"${PN}-${PV}"-argent.patch
+    fi
+    default
 }
 
 src_install() {
@@ -43,7 +43,12 @@ src_install() {
 	python_foreach_impl inject_libsisyphus
 
 	dosym /usr/share/${PN}/${PN}-cli.py /usr/bin/${PN}
-	dodir /var/lib/${PN}/{csv,db}
+	dodir var/lib/${PN}/{csv,db}
+	
+	dodir etc/${PN}
+	insinto etc/${PN}
+	doins ${FILESDIR}/mirrors.conf
+ 
 	if ! use gui; then
 		rm -rf ${ED}usr/bin/${PN}-gui
 		rm -rf ${ED}usr/bin/${PN}-gui-pkexec
