@@ -14,6 +14,7 @@ LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
 
 QA_PREBUILT="opt/${P}/*"
+RESTRICT="strip"
 
 S=${WORKDIR}/GoLand-${PV%.*}
 
