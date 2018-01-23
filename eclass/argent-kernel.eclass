@@ -224,6 +224,8 @@ _get_real_kv_full() {
 		# need to add another final .0 to the version part
 		#echo "${ORIGINAL_KV_FULL/-/.0-}"
 		echo "${ORIGINAL_KV_FULL}"
+	elif [[ "${OKV/.*}" -ge "4" ]]; then
+		echo "${ORIGINAL_KV_FULL}"
 	else
 		echo "${ORIGINAL_KV_FULL}"
 	fi
@@ -232,7 +234,7 @@ _get_real_kv_full() {
 EXTRAVERSION="${EXTRAVERSION/${PN/-*}/${K_ROGKERNEL_NAME}}"
 if [ "${PR}" == "r0" ] ; then
 	KV_FULL="${PV}-${K_ROGKERNEL_NAME}"
-	else
+else
 	KV_FULL="${PV}-${K_ROGKERNEL_NAME}-${PR}"
 fi
 ORIGINAL_KV_FULL="${KV_FULL}"
@@ -240,8 +242,7 @@ ORIGINAL_KV_FULL="${KV_FULL}"
 # Starting from linux-3.0, we still have to install
 # sources stuff into /usr/src/linux-3.0.0-argent (example)
 # where the last part must always match uname -r
-# otherwise kernel-switcher (and RELEASE_LEVEL file)
-# will complain badly
+# otherwise RELEASE_LEVEL file will complain badly
 KV_OUT_DIR="/usr/src/linux-${KV_FULL}"
 S="${WORKDIR}/linux-${KV_FULL}"
 
@@ -336,7 +337,7 @@ if [ -n "${K_ONLY_SOURCES}" ] || [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 	DEPEND="sys-apps/sed"
 	RDEPEND="${RDEPEND}"
 else
-	IUSE="btrfs dmraid dracut iscsi luks lvm mdadm plymouth splash"
+	IUSE="btrfs dmraid +dracut iscsi luks lvm mdadm +plymouth splash"
 	if [ -n "${K_ROGKERNEL_ZFS}" ]; then
 		IUSE="${IUSE} zfs"
 	fi
@@ -354,7 +355,7 @@ else
 			|| ( >=sys-kernel/genkernel-next-5 )
 			sys-boot/plymouth
 		)
-		dracut? ( sys-apps/v86d sys-kernel/dracut )"
+		dracut? ( sys-kernel/dracut )"
 	RDEPEND="sys-apps/sed
 		sys-kernel/linux-firmware"
 	if [ -n "${K_REQUIRED_LINUX_FIRMWARE_VER}" ]; then
@@ -386,6 +387,7 @@ _update_depmod() {
 		eend 1
 		ewarn
 	fi
+	ebegin "Updated modules for "${KV_OUT_DIR}"/System.map"
 }
 
 argent-kernel_pkg_setup() {
@@ -495,6 +497,7 @@ _kernel_src_compile() {
 
 	cd "${S}" || die
 	local GKARGS=()
+	local GENKERNEL_MODE="kernel"
 	GKARGS+=( "--no-menuconfig" "--all-ramdisk-modules" "--no-save-config" "--e2fsprogs" "--udev" )
 	use btrfs && GKARGS+=( "--btrfs" )
 	use plymouth && GKARGS+=( "--plymouth" "--plymouth-theme=${PLYMOUTH_THEME}" ) #reverted to use variable (check the eclass)
@@ -553,7 +556,7 @@ _kernel_src_compile() {
 		--bootdir="${WORKDIR}"/boot \
 		--mountboot \
 		--module-prefix="${WORKDIR}"/lib \
-		kernel || die "genkernel failed"
+		${GENKERNEL_MODE} || die "genkernel failed"
 
 	if [ -n "${K_MKIMAGE_KERNEL_ADDRESS}" ]; then
 		unset LOADADDR
@@ -659,6 +662,15 @@ _kernel_src_install() {
 			rm -f "${D}/${make_file}"
 		fi
 	fi
+
+	# we're going to use this in the future
+	# this is useful information regarding the installed kernel
+	base_dir="/etc/kernels/${P}"
+	dodir "${base_dir}"
+	insinto "${base_dir}"
+	echo "${KV_FULL}" > "RELEASE_LEVEL"
+	doins "RELEASE_LEVEL"
+	einfo "Installing ${base_dir}/RELEASE_LEVEL file: ${KV_FULL}"
 }
 
 argent-kernel_pkg_preinst() {
@@ -700,6 +712,8 @@ _get_release_level() {
 		# need to add another final .0 to the version part
 		#echo "${KV_FULL/-/.0-}"
 		echo "${KV_FULL}"
+	elif [[ "${OKV/.*}" -ge "4" ]] && [[ "${KV_PATCH}" = "0" ]]; then
+		echo "${KV_FULL}"
 	else
 		echo "${KV_FULL}"
 	fi
@@ -721,7 +735,20 @@ _dracut_initramfs_create() {
  	elog "Generating initramfs for ${kver}, please wait"
 
 	addpredict /etc/ld.so.cache~
+	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
+		rm -f "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+		ewarn "We are going to delete the same image you currently possess"
+	fi
+	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
+		rm -f "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
+		ewarn "Removing the old md5 hash from the old same-versioned kernel"
+	fi
+
 	dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+	if [ -e "/usr/bin/md5sum" ]; then
+		md5sum "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" > "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
+		chmod 400 "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
+	fi
 }
 
 _initramfs_delete() {
@@ -737,7 +764,9 @@ _initramfs_delete() {
     else
         local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
     fi
-    rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
+		rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+	fi
 }
 
 argent-kernel_grub2_mkconfig() {
@@ -769,7 +798,7 @@ argent-kernel_pkg_postinst() {
 		_update_depmod "${depmod_r}"
 
 		elog "Please report kernel bugs at:"
-		elog "http://forum.rogentos.ro"
+		elog "http://rogentos.ro"
 		elog "RogentOS Team recommends that portage users install"
 		elog "${K_KERNEL_SOURCES_PKG} if you want"
 		elog "to build any packages that install kernel modules"
