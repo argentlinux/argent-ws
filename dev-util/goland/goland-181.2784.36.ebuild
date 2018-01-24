@@ -5,19 +5,18 @@ EAPI=6
 
 inherit eutils xdg-utils gnome2-utils
 
-SLOT=0
-
 SRC_URI="http://download.jetbrains.com/go/${P}.tar.gz"
 DESCRIPTION="Golang IDE by JetBrains"
 HOMEPAGE="http://www.jetbrains.com/go"
-
+SLOT=0
 KEYWORDS="amd64"
 LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
 
 QA_PREBUILT="opt/${P}/*"
+RESTRICT="strip mirror"
 
-S=${WORKDIR}/GoLand-${PV}
+S=${WORKDIR}/GoLand-${PV%.*}
 
 RDEPEND="dev-lang/go"
 
