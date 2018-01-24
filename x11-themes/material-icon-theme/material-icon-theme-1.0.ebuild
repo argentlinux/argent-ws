@@ -26,3 +26,7 @@ src_install() {
 	insinto usr/share/icons
 	doins -r material-icons/*
 }
+
+pkg_postinst() {
+	:
+}
