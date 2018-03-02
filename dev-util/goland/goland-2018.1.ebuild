@@ -8,7 +8,7 @@ inherit eutils xdg-utils gnome2-utils
 SRC_URI="https://download-cf.jetbrains.com/go/goland-181.2784.36.tar.gz -> ${P}.tar.gz"
 DESCRIPTION="Golang IDE by JetBrains"
 HOMEPAGE="http://www.jetbrains.com/go"
-SLOT=0
+SLOT=2018.1
 KEYWORDS="amd64"
 LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
