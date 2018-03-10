@@ -16,7 +16,7 @@ LICENSE="IDEA
 QA_PREBUILT="opt/${P}/*"
 RESTRICT="strip mirror"
 
-S=${WORKDIR}/GoLand-${PV%.*}
+S=${WORKDIR}/GoLand-${PV}
 
 RDEPEND="dev-lang/go"
 
