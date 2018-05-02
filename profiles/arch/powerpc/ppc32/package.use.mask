@@ -1,5 +1,14 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+
+# Andreas Sturmlechner <asturm@gentoo.org> (13 Feb 2018)
+# Requires not yet keyworded dependencies
+sys-libs/gwenhywfar sensors serialport webkit
+
+# Andreas Sturmlechner <asturm@gentoo.org> (29 Jan 2018)
+# Requires media-libs/libffado, which requires dev-python/PyQt5,
+# which is not keyworded.
+media-sound/jack2 ieee1394
 
 # Sergei Trofimovich <slyfox@gentoo.org> (3 Oct 2017)
 # Incomplete support, bug #605878.
@@ -17,10 +26,6 @@ net-proxy/haproxy device-atlas
 # Bernard Cafarelli <voyageur@gentoo.org> <25 Jan 2017)
 # Requires a Java dependency
 app-text/tesseract scrollview
-
-# Davide Pesavento <pesa@gentoo.org> (21 Jan 2017)
-# Requires unkeyworded dev-python/PyQt5
-dev-python/qscintilla-python qt5
 
 # Andreas K. Hüttel <dilfridge@gentoo.org> (13 Dec 2016)
 # Dropping ppc from sci-libs/armadillo, bug 555896
@@ -70,12 +75,6 @@ net-analyzer/wireshark doc-pdf
 # Michael Weber <xmw@gentoo.org> (09 Jan 2016)
 # no ppc support in media-libs/glfw
 app-text/mupdf opengl
-
-# Ian Delaney <idella4@gentoo.org> (04 Jan 2016)
-# on behalf of Ilya Tumaykin <itumaykin+gentoo@gmail.com>
-# media-libs/libsdl2 lacked ppc32 keyword at the time. See bug #508226.
-# Ready for the next stable mpv version after the one below.
-=media-video/mpv-0.18.0-r1 sdl
 
 # Anthony G. Basile <blueness@gentoo.org> (26 Oct 2015)
 # Mask x265 on vlc for bug #564138

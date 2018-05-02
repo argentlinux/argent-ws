@@ -48,7 +48,6 @@
 *sys-apps/sed
 *sys-apps/which
 *sys-devel/binutils
-*sys-devel/base-gcc
 *sys-devel/gcc
 *sys-devel/gnuconfig
 *sys-devel/make
