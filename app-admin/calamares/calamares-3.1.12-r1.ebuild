@@ -55,7 +55,7 @@ src_prepare() {
 	# support auto-unlocking encrypted partitions via OpenRC's dmcrypt service
 	epatch -p1 "${FILESDIR}"/${PN}-openrc-dmcrypt-cfg-r1.patch
 	# patch for kernel ( we don't have dracut.conf settled yet )
-	epatch "${FILESDIR}"/"${PN}"-"${PV}"-dracut-argent.patch
+	epatch "${FILESDIR}"/"${PN}"-dracut-argent.patch
 	# replace calamares installer desktop icon
 	sed -i "s/Icon=calamares/Icon=start-here/g" "${S}/calamares.desktop"
 	# fix installer doesn't start from desktop launcher (IMPROVE THIS UGLY THINGY)
