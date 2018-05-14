@@ -27,7 +27,7 @@ DEPEND="
 		x11-misc/compton
 		x11-misc/compton-garnetius
 	)
-	dev-util/lxqt-build-tools
+	lxqt-base/lxqt-build-tools
 	dev-qt/qtcore:5
 	dev-libs/libconfig
 "
