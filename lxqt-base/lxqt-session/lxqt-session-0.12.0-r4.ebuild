@@ -3,18 +3,13 @@
 
 EAPI=5
 
-inherit cmake-utils
+inherit cmake-utils eutils
 
 DESCRIPTION="LXQT session manager"
 HOMEPAGE="http://lxqt.org/"
 
-if [[ ${PV} = *9999* ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="git://git.lxde.org/git/lxde/${PN}.git"
-else
-	SRC_URI="https://github.com/lxde/${PN}/releases/download/${PV}/${P}.tar.xz"
-	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
-fi
+SRC_URI="https://github.com/lxde/${PN}/releases/download/${PV}/${P}.tar.xz"
+KEYWORDS="amd64"
 
 LICENSE="GPL-2 LGPL-2.1+"
 SLOT="0"
@@ -39,6 +34,11 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}
 	~lxqt-base/lxqt-themes-${PV}"
+
+src_prepare () {
+	epatch ${FILESDIR}/${PN}-override-default-platformplugin.patch
+	cmake-utils_src_prepare
+}
 
 src_configure() {
 	local mycmakeargs=( -DPULL_TRANSLATIONS=OFF )

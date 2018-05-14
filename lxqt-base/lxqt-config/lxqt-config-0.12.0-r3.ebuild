@@ -1,27 +1,20 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
-inherit cmake-utils
+inherit cmake-utils eutils
 
 DESCRIPTION="LXQt system configuration control center"
 HOMEPAGE="http://lxqt.org/"
 
-if [[ ${PV} = *9999* ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="git://git.lxde.org/git/lxde/${PN}.git"
-else
-	SRC_URI="https://downloads.lxqt.org/lxqt/${PV}/${P}.tar.xz"
-	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
-fi
+SRC_URI="https://github.com/lxde/${PN}/releases/download/${PV}/${P}.tar.xz"
+KEYWORDS="amd64"
 
 LICENSE="GPL-2 LGPL-2.1+"
 SLOT="0"
 
-PATCHES=( "${FILESDIR}/${P}-cmake-3.8.patch" )
-
 CDEPEND="
-	>=dev-libs/libqtxdg-1.0.0
+	>=dev-libs/libqtxdg-3.1.0
 	dev-qt/qtconcurrent:5
 	dev-qt/qtcore:5
 	dev-qt/qtdbus:5
@@ -44,6 +37,16 @@ DEPEND="${CDEPEND}
 	dev-qt/linguist-tools:5"
 RDEPEND="${CDEPEND}
 	x11-apps/setxkbmap"
+
+src_prepare() {
+	epatch "${FILESDIR}"/"${PN}"-hide-unwanted-appearance-settings.patch
+	cmake-utils_src_prepare
+}
+
+src_configure() {
+	local mycmakeargs=( -DPULL_TRANSLATIONS=OFF )
+	cmake-utils_src_configure
+}
 
 src_install(){
 	cmake-utils_src_install

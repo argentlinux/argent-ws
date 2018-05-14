@@ -1,10 +1,9 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
-inherit eutils git-2 cmake-utils
+inherit eutils git-r3 cmake-utils
 
 DESCRIPTION="Create a Kwallet/Gnome-keyring like functionality for lxqt"
 HOMEPAGE="https://github.com/mhogomchungu/lxqt_wallet"
@@ -14,7 +13,7 @@ EGIT_COMMIT="1ad0c22c169c6fa43b767ae8bdbc972af376b8d1"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64"
 IUSE="kwallet +libsecret"
 
 DEPEND="dev-qt/qtcore:5
