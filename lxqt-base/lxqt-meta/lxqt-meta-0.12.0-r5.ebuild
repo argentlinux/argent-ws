@@ -9,9 +9,9 @@ HOMEPAGE="http://lxqt.org/"
 
 LICENSE="metapackage"
 SLOT="0"
-KEYWORDS="amd64"
-IUSE="+about +admin +branding +compton +filemanager +gtkstyle +icons +sddm +lximage minimal +oxygen +policykit
-	+powermanagement +ssh-askpass sudo"
+KEYWORDS="amd64 ~arm64 ~x86"
+IUSE="+about +admin +branding compton +filemanager +gtkstyle +icons -sddm +lximage minimal +oxygen +policykit
+	+powermanagement +ssh-askpass sudo +lightdm"
 REQUIRED_USE="oxygen? ( icons )"
 DEPEND="!lxqt-base/lxqt-common"
 
@@ -36,13 +36,13 @@ RDEPEND="${DEPEND}
 	icons? ( oxygen? ( kde-frameworks/oxygen-icons )
 		!oxygen? ( virtual/freedesktop-icon-theme ) )
 	sddm? ( x11-misc/sddm )
+	lightdm? ( x11-misc/lightdm )
 	lximage? ( media-gfx/lximage-qt )
 	!minimal? ( x11-wm/openbox
 		x11-misc/obconf-qt )
 	policykit? ( ~lxqt-base/lxqt-policykit-${PV}
 		|| ( sys-auth/consolekit[policykit(-)]
-			sys-apps/systemd[policykit(-)] 
-			sys-auth/elogind[policykit(-)] ) )
+			sys-apps/systemd[policykit(-)] ) )
 	powermanagement? ( ~lxqt-base/lxqt-powermanagement-${PV} )
 	ssh-askpass? ( ~lxqt-base/lxqt-openssh-askpass-${PV} )
 	sudo? ( ~lxqt-base/lxqt-sudo-${PV} )"
