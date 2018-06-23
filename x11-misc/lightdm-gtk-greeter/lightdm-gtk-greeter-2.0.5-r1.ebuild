@@ -29,7 +29,6 @@ RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-themes-standard
 	>=x11-themes/adwaita-icon-theme-3.14.1"
 
-GENTOO_BG="argent-symbolic.png"
 
 src_prepare() {
 	# Ok, this has to be fixed in the tarball but I am too lazy to do it.
@@ -37,13 +36,10 @@ src_prepare() {
 	# background
 	# Bug #404467
 	if use branding; then
-		sed \
-			-e "/xft-hintstyle/s:slight:hintslight:" \
-			-e "/background/s:=.*:=/usr/share/lightdm/backgrounds/${GENTOO_BG}:" \
-			-i "${WORKDIR}"/${PN}.conf || die
 		# Add back the reboot/shutdown buttons
 		echo 'indicators=~host;~spacer;~clock;~spacer;~session;~language;~a11y;~power;~' \
 			>> "${WORKDIR}"/${PN}.conf || die
+		# use our patch for future reference
 		epatch "${FILESDIR}/${PN}-argent.patch"
 	fi
 	default
@@ -68,8 +64,6 @@ src_install() {
 	if use branding; then
 		insinto /etc/lightdm/
 		doins "${WORKDIR}"/${PN}.conf
-		insinto /usr/share/lightdm/backgrounds/
-		doins "${WORKDIR}"/${GENTOO_BG}
 		newdoc "${WORKDIR}"/README.txt README-background.txt
 	fi
 }
