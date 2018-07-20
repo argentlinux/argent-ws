@@ -1,0 +1,44 @@
+diff -burN grub-2.02~beta2.old/grub-core/osdep/devmapper/getroot.c grub-2.02~beta2/grub-core/osdep/devmapper/getroot.c
+--- grub-2.02~beta2.old/grub-core/osdep/devmapper/getroot.c	2013-12-24 18:40:31.000000000 +0200
++++ grub-2.02~beta2/grub-core/osdep/devmapper/getroot.c	2018-07-20 20:36:26.039720730 +0300
+@@ -26,6 +26,7 @@
+ 
+ #include <sys/stat.h>
+ #include <sys/types.h>
++#include <sys/sysmacros.h>
+ #include <assert.h>
+ #include <fcntl.h>
+ #include <unistd.h>
+diff -burN grub-2.02~beta2.old/grub-core/osdep/devmapper/hostdisk.c grub-2.02~beta2/grub-core/osdep/devmapper/hostdisk.c
+--- grub-2.02~beta2.old/grub-core/osdep/devmapper/hostdisk.c	2013-12-24 18:40:31.000000000 +0200
++++ grub-2.02~beta2/grub-core/osdep/devmapper/hostdisk.c	2018-07-20 20:36:40.611882967 +0300
+@@ -19,6 +19,7 @@
+ #include <assert.h>
+ #include <unistd.h>
+ #include <sys/types.h>
++#include <sys/sysmacros.h>
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <errno.h>
+diff -burN grub-2.02~beta2.old/grub-core/osdep/linux/getroot.c grub-2.02~beta2/grub-core/osdep/linux/getroot.c
+--- grub-2.02~beta2.old/grub-core/osdep/linux/getroot.c	2013-12-24 18:40:31.000000000 +0200
++++ grub-2.02~beta2/grub-core/osdep/linux/getroot.c	2018-07-20 20:36:13.168577930 +0300
+@@ -21,6 +21,7 @@
+ 
+ #include <sys/stat.h>
+ #include <sys/types.h>
++#include <sys/sysmacros.h>
+ #include <assert.h>
+ #include <fcntl.h>
+ #include <unistd.h>
+diff -burN grub-2.02~beta2.old/grub-core/osdep/unix/getroot.c grub-2.02~beta2/grub-core/osdep/unix/getroot.c
+--- grub-2.02~beta2.old/grub-core/osdep/unix/getroot.c	2013-12-24 18:40:31.000000000 +0200
++++ grub-2.02~beta2/grub-core/osdep/unix/getroot.c	2018-07-20 20:35:59.852430701 +0300
+@@ -21,6 +21,7 @@
+ 
+ #include <sys/stat.h>
+ #include <sys/types.h>
++#include <sys/sysmacros.h>
+ #include <assert.h>
+ #include <fcntl.h>
+ #include <unistd.h>
