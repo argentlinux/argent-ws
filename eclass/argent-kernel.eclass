@@ -744,7 +744,7 @@ _dracut_initramfs_create() {
 		ewarn "Removing the old md5 hash from the old same-versioned kernel"
 	fi
 
-	dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+	dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
 	if [ -e "/usr/bin/md5sum" ]; then
 		md5sum "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" > "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
 		chmod 400 "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
@@ -766,7 +766,12 @@ _initramfs_delete() {
     fi
 	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
 		rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+		ewarn "We are going to delete the same image you currently possess"
 	fi
+    if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
+        rm -f "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
+        ewarn "Removing the old md5 hash from the old same-versioned kernel"
+    fi
 }
 
 argent-kernel_grub2_mkconfig() {
@@ -796,6 +801,10 @@ argent-kernel_pkg_postinst() {
 		kernel-2_pkg_postinst
 		local depmod_r=$(_get_release_level)
 		_update_depmod "${depmod_r}"
+
+        if use dracut ; then
+            _dracut_initramfs_create
+        fi
 
 		elog "Please report kernel bugs at:"
 		elog "http://rogentos.ro"
