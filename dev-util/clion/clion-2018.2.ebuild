@@ -40,7 +40,11 @@ src_prepare() {
 	use ppc || remove_me+=( plugins/tfsIntegration/lib/native/linux/ppc )
 	use x86 || remove_me+=( plugins/tfsIntegration/lib/native/linux/x86 )
 
-	rm -rv "${remove_me[@]}" || die
+	# apparently in this version there are no native linux/x86_64
+	# plugins with tfsIntegration. have fun with other archs
+	if ! use amd64; then
+		rm -rv "${remove_me[@]}" || die
+	fi
 }
 
 src_install() {
