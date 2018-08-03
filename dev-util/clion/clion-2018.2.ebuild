@@ -8,7 +8,7 @@ inherit eutils xdg-utils gnome2-utils
 SRC_URI="http://download.jetbrains.com/cpp/CLion-${PV}.tar.gz -> ${P}.tar.gz"
 DESCRIPTION="A complete toolset for C and C++ development"
 HOMEPAGE="http://www.jetbrains.com/clion"
-SLOT="2018.2"
+SLOT="0/2018.2"
 KEYWORDS="amd64 x86"
 LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
