@@ -22,11 +22,6 @@ src_prepare() {
 	epatch "${FILESDIR}"/os-prober-argent.patch
 	# use default GNU rules
 	rm Makefile || die 'rm Makefile failed'
-	# Fix references to grub-mount
-	sed -i -e 's:grub-mount:grub2-mount:g' \
-		common.sh \
-		linux-boot-probes/common/50mounted-tests \
-		os-probes/common/50mounted-tests
 }
 
 src_compile() {
