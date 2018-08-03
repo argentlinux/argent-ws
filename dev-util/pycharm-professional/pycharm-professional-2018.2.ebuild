@@ -18,7 +18,7 @@ RDEPEND=">=virtual/jre-1.8
 	 dev-python/pip"
 DEPEND=""
 
-RESTRICT="mirror strip"
+RESTRICT="mirror stripdebug"
 
 QA_PREBUILT="opt/${PN}/bin/fsnotifier
 	opt/${PN}/bin/fsnotifier64
