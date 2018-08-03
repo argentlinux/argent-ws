@@ -53,6 +53,7 @@ src_install() {
 	insinto "${dir}"
 	doins -r *
 	fperms 755 "${dir}"/bin/{${PN}.sh,fsnotifier{,64}}
+	fperms 755 "${dir}"/bin/clang/linux/clang*
 
 	make_wrapper "${PN}" "${dir}/bin/${PN}.sh"
 	newicon "bin/${PN}.png" "${PN}.png"
