@@ -816,7 +816,7 @@ argent-kernel_pkg_postinst() {
 	else
 		kernel-2_pkg_postinst
 
-		local depmod_r=$(_get_release_leve)
+		local depmod_r=$(_get_release_level)
 		_update_depmod "${depmod_r}"
 	fi
 }
@@ -834,7 +834,7 @@ argent-kernel_pkg_postrm() {
 	_remove_dkms_modules
 	argent-kernel_grub2_mkconfig
 
-	local depmod_r=$(_get_release_leve)
+	local depmod_r=$(_get_release_level)
 	_update_depmod "${depmod_r}"
 }
 
