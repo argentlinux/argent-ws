@@ -802,9 +802,10 @@ argent-kernel_pkg_postinst() {
 		local depmod_r=$(_get_release_level)
 		_update_depmod "${depmod_r}"
 
-        if use dracut ; then
+		if use dracut ; then
             _dracut_initramfs_create
         fi
+		_update_depmod "${depmod_r}"
 
 		elog "Please report kernel bugs at:"
 		elog "http://rogentos.ro"
@@ -814,6 +815,9 @@ argent-kernel_pkg_postinst() {
 		elog "(such as ati-drivers, nvidia-drivers, virtualbox, etc...)."
 	else
 		kernel-2_pkg_postinst
+
+		local depmod_r=$(_get_release_leve)
+		_update_depmod "${depmod_r}"
 	fi
 }
 
@@ -829,6 +833,9 @@ argent-kernel_pkg_postrm() {
 	fi
 	_remove_dkms_modules
 	argent-kernel_grub2_mkconfig
+
+	local depmod_r=$(_get_release_leve)
+	_update_depmod "${depmod_r}"
 }
 
 # export all the available functions here
