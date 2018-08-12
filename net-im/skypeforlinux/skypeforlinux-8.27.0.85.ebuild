@@ -87,12 +87,18 @@ src_install() {
 	doexe usr/share/"${PN}"/*.so
 	doexe usr/share/"${PN}"/"${PN}"
 
+	# symlink required for the "Help->3rd Party Notes" menu entry
+	dosym "${P}" usr/share/doc/"${PN}"
+
 	into /opt
 	dobin usr/bin/"${PN}"
 
 	dodoc -r usr/share/doc/"${PN}"/.
 
 	doicon usr/share/pixmaps/"${PN}".png
+
+	# compat symlink for the autostart desktop file
+	dosym ../../opt/bin/"${PN}" usr/bin/"${PN}"
 
 	local res
 	for res in 16 32 256 512; do
@@ -102,8 +108,8 @@ src_install() {
 	domenu usr/share/applications/"${PN}".desktop
 
 	if use pax_kernel; then
-		pax-mark -m "${ED%/}"/opt/skypeforlinux/skypeforlinux
-		pax-mark -m "${ED%/}"/opt/skypeforlinux/resources/app.asar.unpacked/node_modules/slimcore/bin/slimcore.node
+		pax-mark -m "${ED%/}"/opt/"${PN}"/"${PN}"
+		pax-mark -m "${ED%/}"/opt/"${PN}"/resources/app.asar.unpacked/node_modules/slimcore/bin/slimcore.node
 		pax-mark -Cm "${ED%/}"/opt/"${PN}"/"${PN}"
 		eqawarn "You have set USE=pax_kernel meaning that you intend to run"
 		eqawarn "${PN} under a PaX enabled kernel. To do so, we must modify"
