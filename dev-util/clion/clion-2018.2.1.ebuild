@@ -19,7 +19,7 @@ RDEPEND="
 	sys-devel/gdb
 	dev-util/cmake"
 
-RESTRICT="stripdebug"
+RESTRICT="strip stripdebug"
 QA_PREBUILT="opt/${P}/*"
 
 src_prepare() {
