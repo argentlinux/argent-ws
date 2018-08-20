@@ -775,9 +775,9 @@ _initramfs_delete() {
 }
 
 argent-kernel_grub2_mkconfig() {
-    if [ -x "${ROOT}usr/sbin/grub-mkconfig" ]; then
+    if [ -x "${ROOT}usr/sbin/grub2-mkconfig" ]; then
         # Grub 2.00
-        "${ROOT}usr/sbin/grub-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
+        "${ROOT}usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
     else
         echo
         ewarn "Please, be warned, GRUB2 is NOT installed!"
