@@ -151,11 +151,7 @@ DEPEND="${COMMON_DEPEND}
 	>=sys-kernel/linux-headers-2.6
 	virtual/pkgconfig
 	virtual/yacc
-	X? (
-		x11-proto/inputproto
-		x11-proto/xextproto
-		x11-proto/xf86vidmodeproto
-	)
+	X? ( x11-base/xorg-proto )
 	prelink? ( sys-devel/prelink )
 	xinerama? ( x11-proto/xineramaproto )"
 
