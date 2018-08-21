@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -9,17 +9,16 @@ MY_PV="${PV/beta/BETA}"
 MY_PV="${MY_PV/rc/RC}"
 MY_P=VirtualBox-${MY_PV}
 DESCRIPTION="VirtualBox kernel modules and user-space tools for Gentoo guests"
-HOMEPAGE="http://www.virtualbox.org/"
-SRC_URI="http://download.virtualbox.org/virtualbox/${MY_PV}/${MY_P}.tar.bz2
-	https://dev.gentoo.org/~polynomial-c/virtualbox/patchsets/virtualbox-5.1.30-patches-02.tar.xz"
+HOMEPAGE="https://www.virtualbox.org/"
+SRC_URI="https://download.virtualbox.org/virtualbox/${MY_PV}/${MY_P}.tar.bz2
+	https://dev.gentoo.org/~polynomial-c/virtualbox/patchsets/virtualbox-5.1.32-patches-01.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="X"
 
-RDEPEND="
-	X? ( x11-apps/xrandr
+RDEPEND="X? ( x11-apps/xrandr
 		x11-apps/xrefresh
 		x11-libs/libXmu
 		x11-libs/libX11
@@ -28,25 +27,18 @@ RDEPEND="
 		x11-libs/libXau
 		x11-libs/libXdmcp
 		x11-libs/libSM
-		x11-libs/libICE
-		x11-proto/glproto )
+		x11-libs/libICE )
 	sys-apps/dbus
-	!!x11-drivers/xf86-input-virtualbox
-	!x11-drivers/xf86-video-virtualbox
-"
-DEPEND="
-	${RDEPEND}
-	>=dev-util/kbuild-0.1.9998.3127
+	!!x11-drivers/xf86-input-virtualbox"
+DEPEND="${RDEPEND}
+	>=dev-util/kbuild-0.1.9998_pre20131130
 	>=dev-lang/yasm-0.6.2
 	sys-devel/bin86
 	sys-libs/pam
 	sys-power/iasl
-	X? ( x11-proto/renderproto )
-	!X? ( x11-proto/xproto )
-"
-PDEPEND="
-	X? ( x11-drivers/xf86-video-vboxvideo )
-"
+	x11-base/xorg-proto"
+PDEPEND="X? ( ~x11-drivers/xf86-video-virtualbox-${PV} )"
+
 BUILD_TARGETS="all"
 BUILD_TARGET_ARCH="${ARCH}"
 
@@ -70,7 +62,7 @@ src_unpack() {
 
 	# Create and unpack a tarball with the sources of the Linux guest
 	# kernel modules, to include all the needed files
-	"${S}"/src/VBox/Additions/linux/export_modules.sh "${WORKDIR}/vbox-kmod.tar.gz"
+	"${S}"/src/VBox/Additions/linux/export_modules "${WORKDIR}/vbox-kmod.tar.gz"
 	unpack ./vbox-kmod.tar.gz
 
 	# Remove shipped binaries (kBuild,yasm), see bug #232775
@@ -99,7 +91,6 @@ src_prepare() {
 	# Remove pointless GCC version check
 	sed -e '/^check_gcc$/d' -i configure || die
 
-	rm "${WORKDIR}/patches/011_virtualbox-5.1.30-sysmacros.patch" || die
 	eapply "${WORKDIR}/patches"
 
 	eapply_user

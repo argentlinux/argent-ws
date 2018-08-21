@@ -1,21 +1,21 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit eutils linux-mod systemd user toolchain-funcs
+inherit linux-mod systemd user toolchain-funcs
 
 MY_PV="${PV/beta/BETA}"
 MY_PV="${MY_PV/rc/RC}"
-MY_P=VirtualBox-${MY_PV}
+MY_P="VirtualBox-${MY_PV}"
 DESCRIPTION="VirtualBox kernel modules and user-space tools for Gentoo guests"
-HOMEPAGE="http://www.virtualbox.org/"
-SRC_URI="http://download.virtualbox.org/virtualbox/${MY_PV}/${MY_P}.tar.bz2
-	https://dev.gentoo.org/~polynomial-c/virtualbox/patchsets/virtualbox-5.1.30-patches-02.tar.xz"
+HOMEPAGE="https://www.virtualbox.org/"
+SRC_URI="https://download.virtualbox.org/virtualbox/${MY_PV}/${MY_P}.tar.bz2
+	https://dev.gentoo.org/~polynomial-c/virtualbox/patchsets/virtualbox-5.2.12-patches-01.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="X"
 
 RDEPEND="
@@ -28,8 +28,7 @@ RDEPEND="
 		x11-libs/libXau
 		x11-libs/libXdmcp
 		x11-libs/libSM
-		x11-libs/libICE
-		x11-proto/glproto )
+		x11-libs/libICE )
 	sys-apps/dbus
 	!!x11-drivers/xf86-input-virtualbox
 	!x11-drivers/xf86-video-virtualbox
@@ -41,8 +40,7 @@ DEPEND="
 	sys-devel/bin86
 	sys-libs/pam
 	sys-power/iasl
-	X? ( x11-proto/renderproto )
-	!X? ( x11-proto/xproto )
+	x11-base/xorg-proto
 "
 PDEPEND="
 	X? ( x11-drivers/xf86-video-vboxvideo )
@@ -99,7 +97,6 @@ src_prepare() {
 	# Remove pointless GCC version check
 	sed -e '/^check_gcc$/d' -i configure || die
 
-	rm "${WORKDIR}/patches/011_virtualbox-5.1.30-sysmacros.patch" || die
 	eapply "${WORKDIR}/patches"
 
 	eapply_user
@@ -173,10 +170,10 @@ src_install() {
 	local udev_rules_dir="/lib/udev/rules.d"
 	dodir ${udev_rules_dir}
 	echo 'KERNEL=="vboxguest", OWNER="vboxguest", GROUP="vboxguest", MODE="0660"' \
-		>> "${D}/${udev_rules_dir}/60-virtualbox-guest-additions.rules" \
+		>> "${ED%/}/${udev_rules_dir}/60-virtualbox-guest-additions.rules" \
 		|| die
 	echo 'KERNEL=="vboxuser", OWNER="vboxguest", GROUP="vboxguest", MODE="0660"' \
-		>> "${D}/${udev_rules_dir}/60-virtualbox-guest-additions.rules" \
+		>> "${ED%/}/${udev_rules_dir}/60-virtualbox-guest-additions.rules" \
 		|| die
 
 	# VBoxClient autostart file
