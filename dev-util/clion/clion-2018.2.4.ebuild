@@ -15,9 +15,12 @@ LICENSE="IDEA
 
 # RDEPENDS may cause false positives in repoman.
 # clion requires cmake and gdb at runtime to build and debug C/C++ projects
-RDEPEND="
-	sys-devel/gdb
-	dev-util/cmake"
+RDEPEND="|| ( dev-java/icedtea-bin:8
+			dev-java/icedtea:8
+			dev-java/oracle-jdk-bin:1.8
+			)
+		sys-devel/gdb
+		dev-util/cmake"
 
 RESTRICT="strip stripdebug"
 QA_PREBUILT="opt/${P}/*"

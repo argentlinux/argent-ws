@@ -19,6 +19,9 @@ RESTRICT="strip mirror"
 S="${WORKDIR}/GoLand-${PV}/"
 
 RDEPEND="dev-lang/go
+		|| ( dev-java/icedtea-bin:8
+			dev-java/icedtea:8
+			dev-java/oracle-jdk-bin:1.8 )
 		!=dev-util/goland-182.3684.99"
 
 src_prepare() {

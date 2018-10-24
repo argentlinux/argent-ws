@@ -14,7 +14,10 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE=""
 
-RDEPEND=">=virtual/jre-1.8"
+RDEPEND="|| ( dev-java/icedtea-bin:8
+		dev-java/icedtea:8
+		dev-java/oracle-jdk-bin:1.8
+		)"
 DEPEND=""
 
 RESTRICT="mirror stripdebug"

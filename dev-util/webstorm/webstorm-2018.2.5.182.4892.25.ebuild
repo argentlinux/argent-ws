@@ -20,7 +20,10 @@ RESTRICT="strip mirror"
 S="${WORKDIR}/${MY_PN}-$(get_version_component_range 4-6)/"
 
 DEPEND=""
-RDEPEND=""
+RDEPEND="|| ( dev-java/icedtea-bin:8
+		dev-java/icedtea:8
+		dev-java/oracle-jdk-bin:1.8
+		)"
 
 src_prepare() {
 	default
