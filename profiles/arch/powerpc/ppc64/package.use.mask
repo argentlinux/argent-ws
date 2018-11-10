@@ -46,10 +46,6 @@ dev-java/batik python
 dev-java/bsf python
 dev-java/ant-apache-bsf python
 
-# Michael Weber <xmw@gentoo.org> (09 Jan 2016)
-# no ppc64 support in media-libs/glfw
-app-text/mupdf opengl
-
 # Jeroen Roovers <jer@gentoo.org> (26 Dec 2015)
 # Mask until >sys-cluster/ceph-0.94 goes stable
 net-analyzer/rrdtool rados
@@ -57,10 +53,6 @@ net-analyzer/rrdtool rados
 # Justin Lecher <jlec@gentoo.org> (3 Dec 2015)
 # Missing keywords on deps #567458
 kde-apps/kalzium editor
-
-# Michael Palimaka <kensington@gentoo.org> (17 Oct 2015)
-# Unkeyworded dependencies
-dev-qt/qtwebkit webchannel
 
 # Ben de Groot <yngwin@gentoo.org> (20 Jul 2015)
 # missing keywords

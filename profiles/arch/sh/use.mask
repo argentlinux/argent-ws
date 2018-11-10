@@ -45,7 +45,6 @@ dmi
 scanner
 gphoto2
 dvb
-qt4
 kde
 diet
 lirc
@@ -89,8 +88,6 @@ video_cards_nv
 video_cards_r128
 video_cards_radeon
 video_cards_tdfx
-video_cards_vesa
-video_cards_via
 video_cards_voodoo
 
 # Matt Turner <mattst88@gentoo.org>

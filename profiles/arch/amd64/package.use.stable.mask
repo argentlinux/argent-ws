@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 # When you add an entry to the top of this file, add your name, the date, and
@@ -16,6 +16,21 @@
 #
 
 #--- END OF EXAMPLES ---
+
+# Mikle Kolyada <zlogene@gentoo.org> (07 Nov 2018)
+# unmask sssd for sudo
+app-admin/sudo -sssd
+
+# Mart Raudsepp <leio@gentoo.org> (01 Nov 2018)
+# net-wireless/iwd not stable yet
+net-misc/networkmanager iwd
+
+# Mikle Kolyada <zlogene@gentoo.org> (15 Sep 2018)
+# the dependency is unstable
+media-video/libav nvidia
+
+# Thomas Deutschmann <whissi@gentoo.org> (01 Jun 2018)
+net-analyzer/wireshark -doc
 
 # Thomas Beierlein <tomjbe@gentoo.org> (20 Apr 2018)
 # Needs asciidoctor which pulls a lot unstable ruby deps

@@ -1,5 +1,39 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
+
+# Thomas Deutschmann <whissi@gentoo.org> (15 Oct 2018)
+# Requires app-text/mecab which isn't yet keyworded
+# on alpha, bug 668674
+dev-db/mysql cjk
+dev-db/percona-server cjk
+
+# Mikle Kolyada <zlogene@gentoo.org> (05 Oct 2018)
+# Not keyworded (see bug #540540c#8)
+app-admin/sudo sssd
+
+# Andreas Sturmlechner <asturm@gentoo.org> (30 Sep 2018)
+# Optional dependency blocking security cleanup, bug #627316
+media-sound/mpd wildmidi
+
+# Joonas Niilola <juippis@gmail.com> (09 Sep 2018)
+# Optional dependency blocking updates.
+media-plugins/imlib2_loaders eet
+
+# Joonas Niilola <juippis@gmail.com> (17 Jun 2018)
+# Optional dependency not available for this arch
+dev-libs/efl vlc
+
+# Thomas Deutschmann <whissi@gentoo.org> (06 Jun 2018)
+# Needs sys-apps/fakechroot which isn't keyworded
+app-arch/rpm test
+
+# Tomáš Mózes <hydrapolic@gmail.com> (05 Jun 2018)
+# Unkeyworded dependencies.
+app-admin/syslog-ng amqp mongodb
+
+# Thomas Deutschmann <whissi@gentoo.org> (02 Jun 2018)
+# Needs dev-ruby/asciidoctor which has a lot of unstable deps
+net-analyzer/wireshark doc
 
 # Tobias Klausmann <klausman@gentoo.org> (22 Mar 2018)
 # Masked due to missing deps. Some *could* have their deps keyworded,
@@ -18,6 +52,7 @@ app-metrics/collectd collectd_plugins_tokyotyrant
 app-metrics/collectd collectd_plugins_varnish
 app-metrics/collectd collectd_plugins_virt
 app-metrics/collectd collectd_plugins_write_kafka
+app-metrics/collectd collectd_plugins_write_mongodb
 app-metrics/collectd collectd_plugins_xencpu
 app-metrics/collectd collectd_plugins_java
 
@@ -134,10 +169,6 @@ media-video/ffmpeg nvenc openh264
 # Missing test deps keyword #575366
 dev-cpp/eigen test
 
-# Mike Frysinger <vapier@gentoo.org> (21 Feb 2016)
-# Needs arch love for elementary. #575322
-media-libs/elementary javascript
-
 # Tobias Klausmann <klausman@gentoo.org> 04 Feb 2016
 # sys-cluster/ceph is not broken per se, but a maintenance burden.
 net-analyzer/rrdtool rados
@@ -145,10 +176,6 @@ net-analyzer/rrdtool rados
 # James Le Cuirot <chewi@gentoo.org> (30 Jan 2016)
 # scrollview requires Java, which is unsupported on Alpha.
 app-text/tesseract scrollview
-
-# Michael Weber <xmw@gentoo.org> (09 Jan 2016)
-# no alpha support in media-libs/glfw
-app-text/mupdf opengl
 
 # Justin Lecher <jlec@gentoo.org> (18 Nov 2015)
 # requires dev-python/restkit which requires
@@ -327,14 +354,6 @@ gnome-extra/libgda reports
 >=dev-db/mariadb-5.5 tcmalloc
 >=dev-db/percona-server-5.5 tcmalloc
 
-# Raúl Porcel <armin76@gentoo.org> (25 Jun 2012)
-# dev-qt/qtwebkit doesn't seem to work
-dev-python/PyQt4 webkit
-dev-qt/assistant webkit
-dev-qt/designer webkit
-dev-qt/qtdeclarative webkit
-net-irc/kvirc webkit
-
 # Raúl Porcel <armin76@gentoo.org> (28 May 2012)
 # Needs x11-misc/lightdm(which also requires some other deps)
 x11-misc/xscreensaver new-login
@@ -389,13 +408,9 @@ www-client/seamonkey custom-optimization
 # quesoglc is not keyworded
 x11-misc/rss-glx quesoglc
 
-# Ben de Groot <yngwin@gentoo.org> (16 Jan 2010)
-# qtmultimedia is not keyworded, bug 293671
-dev-python/PyQt4 multimedia
-
 # Raúl Porcel <armin76@gentoo.org> (07 Jul 2008)
 # Make clisp deps minimal
-dev-lisp/clisp hyperspec pari svm
+dev-lisp/clisp hyperspec svm
 
 # Tobias Klausmann <klausman@gentoo.org> (15 Jun 2008)
 # No hardware to test net-dialup/linux-atm on alpha, so mask atm use flag
