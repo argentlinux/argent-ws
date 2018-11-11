@@ -4,19 +4,16 @@
 EAPI=6
 inherit cmake-utils
 
-DESCRIPTION="Various packaging tools and scripts for LXQt applications"
+DESCRIPTION="LXQt localisation package"
 HOMEPAGE="http://lxqt.org/"
 
 SRC_URI="https://github.com/lxde/${PN}/releases/download/${PV}/${P}.tar.xz"
 KEYWORDS="amd64"
 
-LICENSE="GPL-2 LGPL-2.1+"
+LICENSE="LGPL-2.1+"
 SLOT="0"
 
-RDEPEND=""
-DEPEND="dev-qt/linguist-tools:5"
-
-src_configure() {
-	local mycmakeargs=( -DPULL_TRANSLATIONS=OFF )
-	cmake-utils_src_configure
-}
+DEPEND="
+	dev-qt/linguist-tools:5
+	~lxqt-base/liblxqt-${PV}
+"

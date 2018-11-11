@@ -1,20 +1,23 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-EAPI=6
+EAPI=5
 inherit cmake-utils
 
-DESCRIPTION="Various packaging tools and scripts for LXQt applications"
+DESCRIPTION="LXQt themes"
 HOMEPAGE="http://lxqt.org/"
 
 SRC_URI="https://github.com/lxde/${PN}/releases/download/${PV}/${P}.tar.xz"
 KEYWORDS="amd64"
 
-LICENSE="GPL-2 LGPL-2.1+"
+LICENSE="LGPL-2.1+"
 SLOT="0"
 
-RDEPEND=""
-DEPEND="dev-qt/linguist-tools:5"
+DEPEND="~lxqt-base/liblxqt-${PV}
+	!!lxqt-base/lxqt-common"
+RDEPEND="${DEPEND}"
+PDEPEND="~lxqt-base/lxqt-session-${PV}"
 
 src_configure() {
 	local mycmakeargs=( -DPULL_TRANSLATIONS=OFF )
