@@ -10,8 +10,8 @@ HOMEPAGE="http://lxqt.org/"
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="amd64"
-IUSE="+about +admin +branding +compton +filemanager +gtk +icons +sddm +lximage minimal +oxygen +policykit
-	+powermanagement +ssh-askpass sudo"
+IUSE="+about +admin +branding +compton +filemanager +gtk +icons -sddm +lightdm +lximage minimal +oxygen 
+	+policykit +powermanagement +ssh-askpass sudo"
 REQUIRED_USE="oxygen? ( icons )"
 DEPEND="!!lxqt-base/lxqt-common"
 
@@ -38,6 +38,7 @@ RDEPEND="${DEPEND}
 	icons? ( oxygen? ( kde-frameworks/oxygen-icons )
 		!oxygen? ( virtual/freedesktop-icon-theme ) )
 	sddm? ( x11-misc/sddm )
+	lightdm? ( x11-misc/lightdm ) 
 	lximage? ( media-gfx/lximage-qt )
 	!minimal? ( x11-wm/openbox
 		x11-misc/obconf-qt )
@@ -48,8 +49,5 @@ RDEPEND="${DEPEND}
 	powermanagement? ( ~lxqt-base/lxqt-powermanagement-${PV} )
 	ssh-askpass? ( ~lxqt-base/lxqt-openssh-askpass-${PV} )
 	sudo? ( ~lxqt-base/lxqt-sudo-${PV} )"
-
-# Note: we prefer kde-frameworks/oxygen-icons over other icon sets, as the initial
-# install expects oxygen icons, until the user specifies otherwise (bug 543380)
 
 S="${WORKDIR}"
