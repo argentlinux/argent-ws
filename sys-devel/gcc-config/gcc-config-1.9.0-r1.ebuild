@@ -1,28 +1,26 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
-inherit eutils unpacker toolchain-funcs multilib
+inherit eutils toolchain-funcs multilib
 
-DESCRIPTION="utility to manage compilers"
+DESCRIPTION="Utility to manage compilers"
 HOMEPAGE="https://gitweb.gentoo.org/proj/gcc-config.git/"
 SRC_URI="mirror://gentoo/${P}.tar.xz
-	https://dev.gentoo.org/~vapier/dist/${P}.tar.xz"
+	https://dev.gentoo.org/~dilfridge/distfiles/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd"
 IUSE=""
 
 RDEPEND=">=sys-apps/gentoo-functions-0.10"
 
-src_prepare() {
-	epatch "${FILESDIR}/${PN}-1.8-dont_source_functions_sh_from_etc_initd.patch" # 504118
-}
-
 src_compile() {
-	emake CC="$(tc-getCC)"
+	emake CC="$(tc-getCC)" \
+		PV="${PV}" \
+		SUBLIBDIR="$(get_libdir)"
 }
 
 src_install() {
