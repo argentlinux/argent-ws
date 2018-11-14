@@ -1,0 +1,28 @@
+diff -Nur open-vm-tools-10.1.10-6082533.old/lib/include/dynxdr.h open-vm-tools-10.1.10-6082533/lib/include/dynxdr.h
+--- open-vm-tools-10.1.10-6082533.old/lib/include/dynxdr.h	2017-07-29 01:19:20.000000000 +0300
++++ open-vm-tools-10.1.10-6082533/lib/include/dynxdr.h	2018-11-14 02:30:03.641925615 +0200
+@@ -34,8 +34,8 @@
+  *    instead. Also, XDR_SETPOS and XDR_INLINE are not supported.
+  */
+ 
+-#include <rpc/types.h>
+-#include <rpc/xdr.h>
++#include <tirpc/rpc/types.h>
++#include <tirpc/rpc/xdr.h>
+ #include "vm_basic_types.h"
+ 
+ XDR *DynXdr_Create(XDR *in);
+diff -Nur open-vm-tools-10.1.10-6082533.old/lib/include/vmxrpc.h open-vm-tools-10.1.10-6082533/lib/include/vmxrpc.h
+--- open-vm-tools-10.1.10-6082533.old/lib/include/vmxrpc.h	2017-07-29 01:19:20.000000000 +0300
++++ open-vm-tools-10.1.10-6082533/lib/include/vmxrpc.h	2018-11-14 02:29:27.437750330 +0200
+@@ -26,8 +26,8 @@
+ #ifndef _VMXRPC_H_
+ #define _VMXRPC_H_
+ 
+-#include <rpc/types.h>
+-#include <rpc/xdr.h>
++#include <tirpc/rpc/types.h>
++#include <tirpc/rpc/xdr.h>
+ #include "vm_basic_types.h"
+ 
+ /*
