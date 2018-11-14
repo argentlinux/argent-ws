@@ -13,7 +13,7 @@ SRC_URI="https://github.com/vmware/open-vm-tools/releases/download/stable-${PV}/
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="X doc grabbitmqproxy icu pam +pic vgauth xinerama"
 
 COMMON_DEPEND="
