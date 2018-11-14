@@ -19,6 +19,7 @@ IUSE="X doc grabbitmqproxy icu pam +pic vgauth xinerama"
 COMMON_DEPEND="
 	dev-libs/glib:2
 	dev-libs/libdnet
+	net-libs/libtirpc:0=
 	sys-fs/fuse:0
 	>=sys-process/procps-3.3.2
 	grabbitmqproxy? ( dev-libs/openssl:0 )
@@ -47,6 +48,7 @@ COMMON_DEPEND="
 
 DEPEND="${COMMON_DEPEND}
 	doc? ( app-doc/doxygen )
+	net-libs/rpcsvc-proto
 	virtual/pkgconfig
 "
 
@@ -59,7 +61,6 @@ PATCHES=(
 	"${FILESDIR}/10.1.0-mount.vmhgfs.patch"
 	"${FILESDIR}/10.1.0-vgauth.patch"
 	"${FILESDIR}/10.1.0-Werror.patch"
-	"${FILESDIR}/10.1.0-rpc-fix.patch"
 )
 
 pkg_setup() {
@@ -82,6 +83,8 @@ src_prepare() {
 }
 
 src_configure() {
+	append-cppflags "$($(tc-getPKG_CONFIG) --cflags libtirpc)"
+	export LIBVMTOOLS_LIBADD="$($(tc-getPKG_CONFIG) --libs libtirpc)"
 	local myeconfargs=(
 		--disable-deploypkg
 		--disable-static
