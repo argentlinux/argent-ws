@@ -48,6 +48,7 @@ PDEPEND="
 		sys-auth/polkit-kde-agent
 		) )
 	!systemd? ( sys-auth/consolekit[policykit] )
+	!sys-auth/polkit-qt5
 "
 
 QA_MULTILIB_PATHS="
