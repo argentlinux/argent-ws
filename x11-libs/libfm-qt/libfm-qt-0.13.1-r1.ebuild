@@ -38,7 +38,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	dev-qt/linguist-tools:5
-	>=dev-util/lxqt-build-tools-0.5.0
+	>=lxqt-base/lxqt-build-tools-0.5.0
 	virtual/pkgconfig
 "
 

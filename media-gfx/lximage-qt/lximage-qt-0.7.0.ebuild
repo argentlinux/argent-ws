@@ -3,18 +3,18 @@
 
 EAPI=6
 
-inherit cmake-utils eapi7-ver xdg-utils
+inherit cmake-utils
 
-if [[ "${PV}" == "9999" ]]; then
+DESCRIPTION="LXImage Image Viewer - GPicView replacement"
+HOMEPAGE="https://lxqt.org/"
+
+if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/lxqt/${PN}.git"
 else
 	SRC_URI="https://downloads.lxqt.org/downloads/${PN}/${PV}/${P}.tar.xz"
 	KEYWORDS="amd64 ~arm ~arm64 x86"
 fi
-
-DESCRIPTION="Fast lightweight tabbed filemanager (Qt port)"
-HOMEPAGE="https://lxqt.org/"
 
 LICENSE="GPL-2+ LGPL-2.1+"
 SLOT="0"
@@ -24,19 +24,21 @@ RDEPEND="
 	dev-qt/qtcore:5
 	dev-qt/qtdbus:5
 	dev-qt/qtgui:5
+	dev-qt/qtnetwork:5
+	dev-qt/qtprintsupport:5
+	dev-qt/qtsvg:5
 	dev-qt/qtwidgets:5
 	dev-qt/qtx11extras:5
-	>=x11-libs/libfm-1.2.0:=
-	=x11-libs/libfm-qt-$(ver_cut 1-2)*
-	x11-libs/libxcb:=
-	x11-misc/xdg-utils
-	virtual/eject
-	virtual/freedesktop-icon-theme
-	!lxqt-base/lxqt-common
+	media-libs/libexif
+	>=x11-libs/libfm-1.2:=
+	>=x11-libs/libfm-qt-0.12.0:=
+	x11-libs/libX11
+	x11-libs/libXfixes
 "
 DEPEND="${RDEPEND}
 	dev-qt/linguist-tools:5
 	>=lxqt-base/lxqt-build-tools-0.5.0
+	virtual/pkgconfig
 "
 
 src_configure() {
@@ -44,12 +46,4 @@ src_configure() {
 		-DPULL_TRANSLATIONS=OFF
 	)
 	cmake-utils_src_configure
-}
-
-pkg_postinst() {
-	xdg_desktop_database_update
-}
-
-pkg_postrm() {
-	xdg_desktop_database_update
 }
