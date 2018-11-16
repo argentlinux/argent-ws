@@ -10,7 +10,7 @@ MV="${PV/\.*}"
 MY_PN="${PN}${MV}"
 DESCRIPTION="All-In-One Solution for Remote Access and Support over the Internet"
 HOMEPAGE="https://www.teamviewer.com"
-SRC_URI="amd64? ( https://dl.tvcdn.de/download/linux/version_13x/${PN}_${PV}_amd64.tar.xz ) "
+SRC_URI="amd64? ( https://dl.tvcdn.de/download/linux/version_14x/${PN}_${PV}_amd64.tar.xz ) "
 
 IUSE="system-xdg systemd"
 
