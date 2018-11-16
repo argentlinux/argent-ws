@@ -25,6 +25,7 @@ RDEPEND="
 	dev-qt/qtdbus:5
 	dev-qt/qtgui:5
 	dev-qt/qtwidgets:5
+	!dev-libs/libdbusmenu-qt5
 "
 DEPEND="${RDEPEND}
 	test? ( dev-qt/qttest:5 )
