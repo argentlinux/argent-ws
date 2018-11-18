@@ -17,7 +17,7 @@ LICENSE="IDEA
 QA_PREBUILT="opt/${P}/*"
 RESTRICT="strip mirror"
 
-S="${WORKDIR}/GoLand-${PV}/"
+S="${WORKDIR}/GoLand-$(get_version_component_range 1-2)/"
 
 RDEPEND="dev-lang/go
 		|| ( dev-java/icedtea-bin:8
