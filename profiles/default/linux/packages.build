@@ -32,7 +32,7 @@ sys-apps/sed
 sys-devel/binutils
 sys-devel/bison
 sys-devel/flex
-sys-devel/gcc
+sys-devel/base-gcc
 sys-devel/gettext
 sys-devel/gnuconfig
 sys-devel/make
