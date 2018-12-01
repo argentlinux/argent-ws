@@ -253,6 +253,7 @@ media-gfx/nvidia-texture-tools cuda
 # Matthias Maier <tamiko@gentoo.org> (11 May 2017)
 # Globally mask pie use flag. Selectively unmask on specific profiles.
 sys-devel/gcc pie
+sys-devel/base-gcc pie
 
 # Mike Gilbert <floppym@gentoo.org> (28 Apr 2017)
 # Needs sandbox-2.11 (masked)
@@ -288,6 +289,7 @@ net-fs/samba system-heimdal
 # Adding the mask so that end users and devlopers are notified of the removal and have some
 # time to migrate. There is no support for gcj in gcc-7
 >=sys-devel/gcc-6.3.0 gcj
+>=sys-devel/base-gcc-6.3.0 gcj
 
 # Robin H. Johnson <robbat2@gentoo.org> (04 Dec 2016)
 # Additional HAProxy functionality waiting for related stuff to land in the
@@ -346,10 +348,12 @@ dev-util/intel-ocl-sdk system-clang
 # - causes collisions between multiple gcc versions, #583010
 # Masking the flag until it is fixed.
 sys-devel/gcc jit
+sys-devel/base-gcc jit
 
 # Mike Frysinger <vapier@gentoo.org> (08 May 2016)
 # Most targets do not support VTV #547040.
 sys-devel/gcc vtv
+sys-devel/base-gcc vtv
 
 # Matthew Brewer <tomboy64@sina.cn> (08 May 2016)
 # Acked-by: Amy Winston <amynka@gentoo.org>
@@ -405,6 +409,7 @@ sys-auth/consolekit cgroups
 # and it should probably only be used if you really know what you're
 # doing *and* your name is gnu_andrew. ;) See bug #531900.
 sys-devel/gcc awt
+sys-devel/base-gcc awt
 dev-java/gcj-jdk awt
 
 # Mike Gilbert <floppym@gentoo.org> (16 May 2015)
@@ -437,6 +442,7 @@ net-analyzer/nmap system-lua
 # Mike Frysinger <vapier@gentoo.org> (21 Oct 2014)
 # Most targets do not support ASAN/etc... #504200.
 sys-devel/gcc sanitize
+sys-devel/base-gcc sanitize
 
 # Rick Farina <zerochaos@gentoo.org> (26 Aug 2014)
 # mirisdr does not seem to like making releases
@@ -558,6 +564,7 @@ app-arch/libarchive e2fsprogs
 # No one should be mucking with libssp unless they really know what they're
 # doing.  Force extra work on the smart peeps to protect the not-so-smart.
 sys-devel/gcc libssp
+sys-devel/base-gcc libssp
 
 # Andrey Grozin <grozin@gentoo.org> (29 Mar 2011)
 # dev-lang/swig-2.0.2 with -octave generated .cpp files
