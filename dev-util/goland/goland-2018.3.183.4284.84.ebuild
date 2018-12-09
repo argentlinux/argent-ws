@@ -9,7 +9,7 @@ MY_PN="GoLand"
 SRC_URI="https://download-cf.jetbrains.com/go/${PN}-$(get_version_component_range 3-5).tar.gz"
 DESCRIPTION="Golang IDE by JetBrains"
 HOMEPAGE="http://www.jetbrains.com/go"
-SLOT="0/2018.3i"
+SLOT="0/2018.3"
 KEYWORDS="amd64"
 LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
