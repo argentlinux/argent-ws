@@ -6,10 +6,14 @@ EAPI=6
 inherit eutils xdg-utils gnome2-utils versionator
 
 MY_PN="GoLand"
-SRC_URI="https://download-cf.jetbrains.com/go/${PN}-$(get_version_component_range 1-3).tar.gz"
+if [[ $(get_version_component_range 3) == "0" ]] ; then
+	SRC_URI="https://download-cf.jetbrains.com/go/${PN}-$(get_version_component_range 1-2).tar.gz"
+else
+	SRC_URI="https://download-cf.jetbrains.com/go/${PN}-$(get_version_component_range 1-3).tar.gz"
+fi
 DESCRIPTION="Golang IDE by JetBrains"
 HOMEPAGE="http://www.jetbrains.com/go"
-SLOT="0/2018.3i"
+SLOT="0/2018.3"
 KEYWORDS="amd64"
 LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
@@ -17,7 +21,11 @@ LICENSE="IDEA
 QA_PREBUILT="opt/${P}/*"
 RESTRICT="strip mirror"
 
-S="${WORKDIR}/GoLand-$(get_version_component_range 1-3)/"
+if [[ $(get_version_component_range 3) == "0" ]] ; then
+	S="${WORKDIR}/GoLand-$(get_version_component_range 1-2)/"
+else
+	S="${WORKDIR}/GoLand-$(get_version_component_range 1-3)/"
+fi
 
 RDEPEND="dev-lang/go
 		|| ( dev-java/icedtea-bin:8
