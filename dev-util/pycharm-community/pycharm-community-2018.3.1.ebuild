@@ -10,7 +10,7 @@ HOMEPAGE="http://www.jetbrains.com/pycharm/"
 SRC_URI="http://download.jetbrains.com/python/${P}.tar.gz"
 
 LICENSE="Apache-2.0 BSD CDDL MIT-with-advertising"
-SLOT="0"
+SLOT="0/2018.3"
 KEYWORDS="amd64 x86"
 IUSE=""
 
