@@ -2,8 +2,9 @@
 Description=Jenkins Daemon
 
 [Service]
+EnvironmentFile=/etc/jenkins/jenkins.conf
 Type=forking
-ExecStart=/usr/bin/java -Djava.awt.headless=true -DJENKINS_HOME=/var/lib/jenkins/home -jar /opt/jenkins/jenkins.war --daemon --logfile=/var/log/jenkins/jenkins.log --httpPort=8080 --debug=5 --handlerCountMax=100 --handlerCountMaxIdle=20 --accessLoggerClassName=winstone.accesslog.SimpleAccessLogger --simpleAccessLogger.format=combined --simpleAccessLogger.file=/var/log/jenkins/access_log
+ExecStart=/usr/bin/java ${JENKINS_JAVA_OPTIONS} -DJENKINS_HOME=${JENKINS_HOME} -jar ${JENKINS_WAR} --daemon --logfile=/var/log/jenkins/jenkins.log --httpPort=${JENKINS_PORT} --debug=${JENKINS_DEBUG_LEVEL} --handlerCountMax=100 --handlerCountMaxIdle=20 --accessLoggerClassName=winstone.accesslog.SimpleAccessLogger --simpleAccessLogger.format=combined --simpleAccessLogger.file=/var/log/jenkins/access_log ${JENKINS_ARGS}
 User=jenkins
 
 [Install]

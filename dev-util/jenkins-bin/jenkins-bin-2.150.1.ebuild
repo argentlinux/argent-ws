@@ -12,7 +12,7 @@ SRC_URI="http://mirrors.jenkins-ci.org/war-stable/${PV}/${PN/-bin/}.war -> ${P}.
 RESTRICT="mirror"
 SLOT="lts"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
-IUSE=""
+IUSE="systemd"
 
 RDEPEND="media-fonts/dejavu
 	media-libs/freetype
@@ -40,7 +40,12 @@ src_install() {
 	newinitd "${FILESDIR}"/${PN}.init2 jenkins
 	newconfd "${FILESDIR}"/${PN}.confd jenkins
 
-	systemd_newunit "${FILESDIR}"/${PN}.service jenkins.service
+	if use systemd ; then
+		# SytemD doesn't use /etc/conf.d anymore by default
+		systemd_newunit "${FILESDIR}"/${PN}.service jenkins.service
+		insinto /etc/jenkins/
+		newins "${FILESDIR}"/${PN}.confd jenkins.conf
+	fi
 
 	fowners jenkins:jenkins /var/log/jenkins ${JENKINS_DIR} ${JENKINS_DIR}/home ${JENKINS_DIR}/backup
 }
