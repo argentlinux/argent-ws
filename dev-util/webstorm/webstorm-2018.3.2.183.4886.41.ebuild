@@ -6,7 +6,11 @@ EAPI=6
 inherit eutils xdg-utils gnome2-utils versionator
 
 MY_PN="WebStorm"
-SRC_URI="http://download.jetbrains.com/${PN}/${MY_PN}-$(get_version_component_range 1-3).tar.gz"
+if [[ $(get_version_component_range 3) == "0" ]] ; then
+	SRC_URI="http://download.jetbrains.com/${PN}/${MY_PN}-$(get_version_component_range 1-2).tar.gz"
+else
+	SRC_URI="http://download.jetbrains.com/${PN}/${MY_PN}-$(get_version_component_range 1-3).tar.gz"
+fi
 DESCRIPTION="WebStorm IDE by JetBrains"
 HOMEPAGE="http://www.jetbrains.com/webstorm"
 SLOT="0/2018.3"
@@ -17,9 +21,10 @@ LICENSE="IDEA
 QA_PREBUILT="opt/${P}/*"
 RESTRICT="strip mirror"
 
-S="${WORKDIR}/${MY_PN}-$(get_version_component_range 4-6)/"
+if [[ $(get_version_component_range 3) == "0" ]] ; then
+    S="${WORKDIR}/${MY_PN}-$(get_version_component_range 4-6)/"
+fi
 
-DEPEND=""
 RDEPEND="|| ( dev-java/icedtea-bin:8
 		dev-java/icedtea:8
 		dev-java/oracle-jdk-bin:1.8
