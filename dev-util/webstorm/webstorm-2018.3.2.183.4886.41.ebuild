@@ -21,9 +21,7 @@ LICENSE="IDEA
 QA_PREBUILT="opt/${P}/*"
 RESTRICT="strip mirror"
 
-if [[ $(get_version_component_range 3) == "0" ]] ; then
-    S="${WORKDIR}/${MY_PN}-$(get_version_component_range 4-6)/"
-fi
+S="${WORKDIR}/${MY_PN}-$(get_version_component_range 4-6)/"
 
 RDEPEND="|| ( dev-java/icedtea-bin:8
 		dev-java/icedtea:8
