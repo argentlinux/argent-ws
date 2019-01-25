@@ -58,7 +58,7 @@ src_prepare() {
 	# patch for kernel ( we don't have dracut.conf settled yet )
 	epatch "${FILESDIR}"/"${PN}"-"${PV}"-dracut-argent.patch
 	# replace calamares installer desktop icon
-	sed -i "s/Icon=calamares/Icon=start-here/g" "${S}/calamares.desktop"
+	sed -i "s/Icon=calamares/Icon=argent-logo/g" "${S}/calamares.desktop"
 	# fix installer doesn't start from desktop launcher (IMPROVE THIS UGLY THINGY)
 	sed -i "s/pkexec //g" "${S}/calamares.desktop"
 	sed -i "s/calamares/calamares-pkexec/g" "${S}/calamares.desktop"
