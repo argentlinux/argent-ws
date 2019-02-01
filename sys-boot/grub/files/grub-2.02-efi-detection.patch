@@ -1,6 +1,6 @@
 diff -burN grub-2.02.old/util/grub-mkconfig.in grub-2.02/util/grub-mkconfig.in
 --- grub-2.02.old/util/grub-mkconfig.in	2017-04-24 12:15:50.000000000 +0300
-+++ grub-2.02/util/grub-mkconfig.in	2019-01-27 12:38:55.405985699 +0200
++++ grub-2.02/util/grub-mkconfig.in	2019-02-01 20:28:26.958681851 +0200
 @@ -17,6 +17,16 @@
  # You should have received a copy of the GNU General Public License
  # along with GRUB.  If not, see <http://www.gnu.org/licenses/>.
@@ -18,14 +18,16 @@ diff -burN grub-2.02.old/util/grub-mkconfig.in grub-2.02/util/grub-mkconfig.in
  prefix="@prefix@"
  exec_prefix="@exec_prefix@"
  datarootdir="@datarootdir@"
-@@ -280,5 +290,11 @@
+@@ -280,5 +290,13 @@
    fi
  fi
  
 +if [[ ! -z $( which fdisk ) ]] && [[ ! -z $( which awk ) ]] ; then
-+    for x in $( ls /mnt/argent_efipart/dev/ ) ; do
-+        umount -f /mnt/argent_efipart/dev/$x 2>/dev/null
-+    done
++    if [[ -e /mnt/argent_efipart/dev/ ]] ; then
++      for x in $( ls /mnt/argent_efipart/dev/ ) ; do
++          umount -f /mnt/argent_efipart/dev/$x 2>/dev/null
++      done
++    fi
 +fi
 +
  gettext "done" >&2
