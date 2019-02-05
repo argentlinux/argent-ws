@@ -1,0 +1,20 @@
+diff -burN dracut-049.old/dracut.sh dracut-049/dracut.sh
+--- dracut-049.old/dracut.sh	2018-10-08 16:38:33.000000000 +0300
++++ dracut-049/dracut.sh	2019-02-05 03:36:13.524272143 +0200
+@@ -646,6 +646,7 @@
+ 
+ if ! [[ $kernel ]]; then
+     kernel=$(uname -r)
++    kernelarch=$(uname -m)
+ fi
+ 
+ export LC_ALL=C
+@@ -792,7 +793,7 @@
+         elif [[ $MACHINE_ID ]] && ( [[ -d /boot/${MACHINE_ID} ]] || [[ -L /boot/${MACHINE_ID} ]] ); then
+             outfile="/boot/${MACHINE_ID}/$kernel/initrd"
+         else
+-            outfile="/boot/initramfs-$kernel.img"
++            outfile="/boot/initramfs-genkernel-$kernelarch-$kernel"
+         fi
+     fi
+ fi
