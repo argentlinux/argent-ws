@@ -82,10 +82,8 @@ multilib_layout() {
 					ewarn "in the folder you are trying to install the new gentoo folder structure"
 					ewarn "you must make sure the folder is empty, otherwise the next sequences will fail"
 					cd "${ROOT}" || die
-					rmdir lib || die
 					ln -sf $(get_abi_LIBDIR $DEFAULT_ABI) lib || die
 					cd "${ROOT}"/usr/ || die
-					rmdir lib || die
 					ln -sf $(get_abi_LIBDIR $DEFAULT_ABI) lib || die
 				fi
 			else
