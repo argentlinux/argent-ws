@@ -780,8 +780,10 @@ argent-kernel_grub2_mkconfig() {
         "${ROOT}usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
     else
         echo
-        ewarn "Please, be warned, GRUB2 is NOT installed!"
+        ewarn "Please, be warned, GRUB2 is NOT detected!"
         ewarn "Grub2 bootloader configuration will not update"
+		ewarn "Use: grub2-mkconfig -o /boot/grub/grub.cfg"
+		ewarn "In order to regenerate GRUB2 entries"
         echo
     fi
 }
