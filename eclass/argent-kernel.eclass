@@ -677,6 +677,7 @@ argent-kernel_pkg_preinst() {
 	if _is_kernel_binary; then
 		mount-boot_pkg_preinst
 	fi
+	sed -i 's/modprobe.blacklist=vboxvideo//g' /etc/default/grub
 }
 
 _remove_dkms_modules() {
