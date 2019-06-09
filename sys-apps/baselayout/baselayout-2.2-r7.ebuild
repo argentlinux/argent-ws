@@ -74,8 +74,17 @@ multilib_layout() {
 				rm -f "${prefix}lib"/.keep
 				if rmdir "${prefix}lib" 2>/dev/null ; then
 					ln -s ${def_libdir} "${prefix}lib" || die
-				else
+				elif [ "${ROOT}" = "/" ] ; then
 					die "non-empty dir found where we needed a symlink: ${prefix}lib"
+				elif [ "${ROOT}" != "/" ] ; then
+					ewarn "${prefix}lib full path might not be a local symlink"
+					ewarn "we need to set the symlink from lib64 to lib"
+					ewarn "in the folder you are trying to install the new gentoo folder structure"
+					ewarn "you must make sure the folder is empty, otherwise the next sequences will fail"
+					cd "${ROOT}" || die
+					ln -sf $(get_abi_LIBDIR $DEFAULT_ABI) lib || die
+					cd "${ROOT}"/usr/ || die
+					ln -sf $(get_abi_LIBDIR $DEFAULT_ABI) lib || die
 				fi
 			else
 				# nothing exists, so just set it up sanely
@@ -193,6 +202,7 @@ src_install() {
 	mv "${D}"/etc/hosts "${D}"/etc/hosts.example || die "cannot move /etc/hosts"
 
 }
+
 pkg_postinst() {
 	local x
 

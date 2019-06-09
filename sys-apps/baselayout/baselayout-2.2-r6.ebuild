@@ -202,7 +202,7 @@ src_install() {
 	mv "${D}"/etc/hosts "${D}"/etc/hosts.example || die "cannot move /etc/hosts"
 
 }
-5pkg_postinst() {
+pkg_postinst() {
 	local x
 
 	# We installed some files to /usr/share/baselayout instead of /etc to stop
