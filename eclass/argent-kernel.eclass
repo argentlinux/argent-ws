@@ -280,6 +280,17 @@ _is_kernel_lts() {
 	[ "${_ver}" = "4.8" ] && return 0
 	[ "${_ver}" = "4.9" ] && return 0
 	[ "${_ver}" = "4.14" ] && return 0
+	[ "${_ver}" = "4.18" ] && return 0
+	[ "${_ver}" = "4.19" ] && return 0
+	export ARGENT_KERNEL_VERSION="${_ver}"
+	return 1
+}
+
+_is_kernel_latest() {
+	local _ver="$(get_version_component_range 1-3)"
+	[ "${_ver}" = "4.18" ] && return 0
+	[ "${_ver}" = "4.19" ] && return 0
+	[ "${_ver}" = "5.1" ] && return 0
 	return 1
 }
 
@@ -355,12 +366,30 @@ else
 			|| ( >=sys-kernel/genkernel-next-5 )
 			sys-boot/plymouth
 		)
-		dracut? ( sys-kernel/dracut app-misc/argent-config-files )"
+		dracut? ( sys-kernel/dracut )"
 	RDEPEND="sys-apps/sed
 		sys-kernel/linux-firmware"
 	if [ -n "${K_REQUIRED_LINUX_FIRMWARE_VER}" ]; then
 		RDEPEND+=" >=sys-kernel/linux-firmware-${K_REQUIRED_LINUX_FIRMWARE_VER}"
 	fi
+	# There is literally no way to compare a string to a number in Bash, in this context
+	# No other effort is needed for at least 2-3 years in 'modernizing' this comparison
+	# But further ehancement is not excluded
+    if [ "${CKV}" = "4.19" ] || [ "${CKV}" = "5.0" ] || [ "${CKV}" = "5.1" ] || [ "${CKV}" = "5.2" ] ; then
+        DEPEND+=" app-misc/argent-config-files"
+	fi
+    if [ "${CKV}" = "5.3" ] || [ "${CKV}" = "5.4" ] || [ "${CKV}" = "5.5" ] || [ "${CKV}" = "5.6" ] ; then
+        DEPEND+=" app-misc/argent-config-files"
+    fi
+    if [ "${CKV}" = "5.7" ] || [ "${CKV}" = "5.8" ] || [ "${CKV}" = "5.9" ] || [ "${CKV}" = "5.10" ] ; then
+        DEPEND+=" app-misc/argent-config-files"
+    fi
+    if [ "${CKV}" = "5.11" ] || [ "${CKV}" = "5.12" ] || [ "${CKV}" = "5.14" ] || [ "${CKV}" = "5.16" ] ; then
+        DEPEND+=" app-misc/argent-config-files"
+    fi
+    if [ "${CKV}" = "5.18" ] || [ "${CKV}" = "5.19" ] ; then
+        DEPEND+=" app-misc/argent-config-files"
+    fi
 fi
 
 # internal function
@@ -373,8 +402,8 @@ fi
 # exception of accepting parameter which is passed to depmod -r switch
 _update_depmod() {
 
-        # if we haven't determined the version yet, we need too.
-        get_version;
+	# if we haven't determined the version yet, we need too.
+	get_version;
 
 	ebegin "Updating module dependencies for ${KV_FULL}"
 	if [ -r "${KV_OUT_DIR}"/System.map ]; then
@@ -733,7 +762,7 @@ _dracut_initramfs_create() {
         else
        	local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
 	fi
- 	elog "Generating initramfs for ${kver}, please wait"
+	elog "Generating initramfs for ${kver}, please wait"
 
 	addpredict /etc/ld.so.cache~
 	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
@@ -753,14 +782,14 @@ _dracut_initramfs_create() {
 }
 
 _initramfs_delete() {
-    if use amd64 || use x86; then
+	if use amd64 || use x86; then
         if use amd64; then
             local kern_arch="x86_64"
         else
             local kern_arch="x86"
         fi
     fi
-    if [ "${PR}" == "r0" ]; then
+	if [ "${PR}" == "r0" ]; then
         local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
     else
         local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
@@ -769,14 +798,14 @@ _initramfs_delete() {
 		rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
 		ewarn "We are going to delete the same image you currently possess"
 	fi
-    if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
+	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
         rm -f "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
         ewarn "Removing the old md5 hash from the old same-versioned kernel"
     fi
 }
 
 argent-kernel_grub2_mkconfig() {
-    if [ -x "${ROOT}usr/sbin/grub2-mkconfig" ]; then
+	if [ -x "${ROOT}usr/sbin/grub2-mkconfig" ]; then
         # Grub 2.00
         "${ROOT}usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
     else
