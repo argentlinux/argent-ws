@@ -26,3 +26,7 @@ src_install() {
 	insinto /etc/dracut.conf.d/
 	doins "${FILESDIR}"/argent-dracut.conf
 }
+
+pkg_preinst() {
+	sed -i 's/splash//g' /etc/default/grub
+}
