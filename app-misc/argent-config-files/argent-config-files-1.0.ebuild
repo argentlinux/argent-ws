@@ -33,5 +33,8 @@ src_install() {
 
 pkg_preinst() {
 	sed -i 's/splash//g' /etc/default/grub
+}
+
+pkg_postinst() {
 	systemctl enable argent-config-vbox
 }
