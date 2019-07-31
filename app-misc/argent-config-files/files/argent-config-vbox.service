@@ -12,5 +12,4 @@ ExecStart=/sbin/modprobe vboxvideo
 TimeoutSec=1s
 
 [Install]
-Alias=argent-config-vbox
 WantedBy=multi-user.target
