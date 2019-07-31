@@ -377,18 +377,23 @@ else
 	# But further ehancement is not excluded
     if [ "${CKV}" = "4.19" ] || [ "${CKV}" = "5.0" ] || [ "${CKV}" = "5.1" ] || [ "${CKV}" = "5.2" ] ; then
         DEPEND+=" app-misc/argent-config-files"
+        RDEPEND+=" app-misc/argent-config-files"
 	fi
     if [ "${CKV}" = "5.3" ] || [ "${CKV}" = "5.4" ] || [ "${CKV}" = "5.5" ] || [ "${CKV}" = "5.6" ] ; then
         DEPEND+=" app-misc/argent-config-files"
+        RDEPEND+=" app-misc/argent-config-files"
     fi
     if [ "${CKV}" = "5.7" ] || [ "${CKV}" = "5.8" ] || [ "${CKV}" = "5.9" ] || [ "${CKV}" = "5.10" ] ; then
         DEPEND+=" app-misc/argent-config-files"
+        RDEPEND+=" app-misc/argent-config-files"
     fi
     if [ "${CKV}" = "5.11" ] || [ "${CKV}" = "5.12" ] || [ "${CKV}" = "5.14" ] || [ "${CKV}" = "5.16" ] ; then
         DEPEND+=" app-misc/argent-config-files"
+        RDEPEND+=" app-misc/argent-config-files"
     fi
     if [ "${CKV}" = "5.18" ] || [ "${CKV}" = "5.19" ] ; then
         DEPEND+=" app-misc/argent-config-files"
+        RDEPEND+=" app-misc/argent-config-files"
     fi
 fi
 
