@@ -355,7 +355,7 @@ else
 			|| ( >=sys-kernel/genkernel-next-5 )
 			sys-boot/plymouth
 		)
-		dracut? ( sys-kernel/dracut )"
+		dracut? ( sys-kernel/dracut app-misc/argent-config-files )"
 	RDEPEND="sys-apps/sed
 		sys-kernel/linux-firmware"
 	if [ -n "${K_REQUIRED_LINUX_FIRMWARE_VER}" ]; then
