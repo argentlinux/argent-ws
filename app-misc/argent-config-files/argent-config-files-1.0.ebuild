@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit systemd
+
 DESCRIPTION="Argent config files"
 HOMEPAGE="https://argentlinux.io"
 #SRC_URI=""
