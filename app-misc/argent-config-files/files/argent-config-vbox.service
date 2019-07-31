@@ -1,0 +1,12 @@
+[Unit]
+Description=Vbox LIVE Load
+Before=sddm.service
+DefaultDependencies=no
+Conflicts=shutdown.target
+ConditionCapability=CAP_SYS_MODULE
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/sbin/modprobe vboxvideo
+TimeoutSec=1s

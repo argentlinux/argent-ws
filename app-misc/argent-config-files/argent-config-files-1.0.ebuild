@@ -25,8 +25,11 @@ src_prepare() {
 src_install() {
 	insinto /etc/dracut.conf.d/
 	doins "${FILESDIR}"/argent-dracut.conf
+
+	systemd_dounit "${FILESDIR}"/argent-config-vbox.service
 }
 
 pkg_preinst() {
 	sed -i 's/splash//g' /etc/default/grub
+	systemctl enable argent-config-vbox
 }
