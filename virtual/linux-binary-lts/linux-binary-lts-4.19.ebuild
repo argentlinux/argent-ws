@@ -14,15 +14,3 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="sys-kernel/linux-argent:4.19"
-
-src_prepare() {
-	:
-}
-
-src_compile() {
-	:
-}
-
-src_install() {
-	:
-}
