@@ -50,7 +50,11 @@ src_install(){
 	doicon ${FILESDIR}/${PN}.png
 	fperms +x "/opt/${PN}/code"
 	fperms +x "/opt/${PN}/bin/code"
-	fperms +x "/opt/${PN}/libnode.so"
+	fperms +x "/opt/${PN}/libEGL.so"
+	fperms +x "/opt/${PN}/libGLESv2.so"
+	fperms +x "/opt/${PN}/libffmpeg.so"
+	fperms +x "/opt/${PN}/swiftshader/libEGL.so"
+	fperms +x "/opt/${PN}/swiftshader/libGLESv2.so"
 	fperms +x "/opt/${PN}/resources/app/node_modules.asar.unpacked/vscode-ripgrep/bin/rg"
 	insinto "/usr/share/licenses/${PN}"
 	newins "resources/app/extensions/ms-vscode.node-debug/LICENSE.txt" "LICENSE"
