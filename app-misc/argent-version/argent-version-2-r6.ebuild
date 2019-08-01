@@ -68,5 +68,7 @@ pkg_postinst() {
 
 	# Forcing vboxvideo enable in /etc/default/grub
 	sed -i 's/modprobe.blacklist=vboxvideo//g' /etc/default/grub
-	sed -i 's/blacklist vboxvideo//g' /etc/modprobe.d/blacklist.conf
+	if [[ -e "/etc/modprobe.d/blacklist.conf" ]] ; then
+		sed -i 's/blacklist vboxvideo//g' /etc/modprobe.d/blacklist.conf
+	fi
 }
