@@ -395,6 +395,9 @@ else
         DEPEND+=" app-misc/argent-config-files"
         RDEPEND+=" app-misc/argent-config-files"
     fi
+	if [ "${CKV}" = "4.9" ] ; then
+		RDEPEND+=" virtual/linux-binary-lts:4.19 "
+	fi
 fi
 
 # internal function
