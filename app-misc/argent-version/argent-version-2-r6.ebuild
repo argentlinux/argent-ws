@@ -63,6 +63,9 @@ pkg_postinst() {
 	binutils-config "${ARGENT_BINUTILS_CONFIG}"
 	ewarn "Please be aware that you should use: source /etc/profile && env-update after this upgrade!"
 
+	# Mandatory Python cleanup
+	eselect python cleanup
+
 	# Forcing vboxvideo enable in /etc/default/grub
 	sed -i 's/modprobe.blacklist=vboxvideo//g' /etc/default/grub
 	sed -i 's/blacklist vboxvideo//g' /etc/modprobe.d/blacklist.conf
