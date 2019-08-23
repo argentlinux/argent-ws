@@ -28,6 +28,7 @@
 *app-arch/gzip
 *app-arch/tar
 *app-arch/xz-utils
+*app-admin/avasile
 *app-shells/bash:0
 *net-misc/iputils
 *net-misc/rsync
