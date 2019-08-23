@@ -1,26 +1,30 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 MULTILIB_COMPAT=( abi_x86_64 )
 
-inherit pax-utils rpm multilib-build xdg-utils gnome2-utils
+inherit desktop gnome2-utils pax-utils rpm multilib-build xdg-utils
 
-DESCRIPTION="P2P Internet Telephony (VoiceIP) client"
+DESCRIPTION="Instant messaging client, with support for audio and video"
 HOMEPAGE="https://www.skype.com/"
-SRC_URI="https://repo.skype.com/rpm/stable/${P/-/_}-1.x86_64.rpm"
+SRC_URI="https://repo.skype.com/rpm/stable/${PN}_${PV}-1.x86_64.rpm"
 
-LICENSE="Skype-TOS no-source-code"
+LICENSE="Skype-TOS MIT MIT-with-advertising BSD-1 BSD-2 BSD Apache-2.0 Boost-1.0 ISC CC-BY-SA-3.0 CC0-1.0 openssl ZLIB APSL-2 icu Artistic-2 LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="-* amd64"
 IUSE="pax_kernel"
 
 S="${WORKDIR}"
-QA_PREBUILT=opt/"${PN}"/"${PN}"
+QA_PREBUILT="*"
 RESTRICT="mirror bindist strip" #299368
 
-RDEPEND="app-crypt/libsecret[${MULTILIB_USEDEP}]
+RDEPEND="
+	|| (
+		sys-auth/elogind
+		sys-apps/systemd
+	)
 	dev-libs/atk[${MULTILIB_USEDEP}]
 	dev-libs/expat[${MULTILIB_USEDEP}]
 	dev-libs/glib:2[${MULTILIB_USEDEP}]
@@ -38,8 +42,6 @@ RDEPEND="app-crypt/libsecret[${MULTILIB_USEDEP}]
 	x11-libs/cairo[${MULTILIB_USEDEP}]
 	x11-libs/gdk-pixbuf:2[${MULTILIB_USEDEP}]
 	x11-libs/gtk+:2[${MULTILIB_USEDEP}]
-	x11-libs/libxcb[${MULTILIB_USEDEP}]
-	x11-libs/libxkbfile[${MULTILIB_USEDEP}]
 	x11-libs/libX11[${MULTILIB_USEDEP}]
 	x11-libs/libXScrnSaver[${MULTILIB_USEDEP}]
 	x11-libs/libXcomposite[${MULTILIB_USEDEP}]
@@ -51,6 +53,8 @@ RDEPEND="app-crypt/libsecret[${MULTILIB_USEDEP}]
 	x11-libs/libXrandr[${MULTILIB_USEDEP}]
 	x11-libs/libXrender[${MULTILIB_USEDEP}]
 	x11-libs/libXtst[${MULTILIB_USEDEP}]
+	x11-libs/libxcb[${MULTILIB_USEDEP}]
+	x11-libs/libxkbfile[${MULTILIB_USEDEP}]
 	x11-libs/pango[${MULTILIB_USEDEP}]"
 
 src_unpack() {
@@ -61,66 +65,56 @@ src_prepare() {
 	default
 	sed -e "s!^SKYPE_PATH=.*!SKYPE_PATH=${EPREFIX}/opt/"${PN}"/"${PN}"!" \
 		-i usr/bin/"${PN}" || die
-	sed -e "s!^Exec=.*!Exec=${EPREFIX}/opt/bin/"${PN}"!" \
+	sed -e "s!^Exec=/usr/!Exec=${EPREFIX}/opt/!" \
 		-e "s!^Categories=.*!Categories=Network;InstantMessaging;Telephony;!" \
+		-e "/^OnlyShowIn=/d" \
 		-i usr/share/applications/"${PN}".desktop || die
 	epatch "${FILESDIR}"/"${PN}"-8.11-proxy.patch
 }
 
 src_install() {
-	insinto /opt/"${PN}"/locales
-	doins usr/share/"${PN}"/locales/*.pak
-
-	insinto /opt/"${PN}"
-	doins -r usr/share/"${PN}"/resources
-
-	insinto /opt/"${PN}"/resources
-	doins usr/share/"${PN}"/resources/*.asar
-
-	insinto /opt/"${PN}"
-	doins usr/share/"${PN}"/*.pak
-	doins usr/share/"${PN}"/*.bin
-	doins usr/share/"${PN}"/*.dat
-	doins usr/share/"${PN}"/*.html
-	doins usr/share/"${PN}"/version
-	exeinto /opt/"${PN}"
-	doexe usr/share/"${PN}"/*.so
-	doexe usr/share/"${PN}"/"${PN}"
+	dodir /opt
+	cp -a usr/share/"${PN}" "${D}"/opt || die
 
 	into /opt
 	dobin usr/bin/"${PN}"
 
+	dodoc usr/share/"${PN}"/*.html
 	dodoc -r usr/share/doc/"${PN}"/.
+	# symlink required for the "Help->3rd Party Notes" menu entry  (otherwise frozen skype -> xdg-open)
+	dosym ${P} usr/share/doc/"${PN}"
 
 	doicon usr/share/pixmaps/"${PN}".png
 
+	# compat symlink for the autostart desktop file
+	dosym ../../opt/bin/"${PN}" usr/bin/"${PN}"
+
 	local res
 	for res in 16 32 256 512; do
-		newicon -s "${res}" usr/share/icons/hicolor/"${res}"x"${res}"/apps/"${PN}".png "${PN}".png
+		newicon -s ${res} usr/share/icons/hicolor/${res}x${res}/apps/"${PN}".png "${PN}".png
 	done
 
 	domenu usr/share/applications/"${PN}".desktop
 
 	if use pax_kernel; then
-		pax-mark -m "${ED%/}"/opt/skypeforlinux/skypeforlinux
-		pax-mark -m "${ED%/}"/opt/skypeforlinux/resources/app.asar.unpacked/node_modules/slimcore/bin/slimcore.node
-		pax-mark -Cm "${ED%/}"/opt/"${PN}"/"${PN}"
-		eqawarn "You have set USE=pax_kernel meaning that you intend to run"
-		eqawarn "${PN} under a PaX enabled kernel. To do so, we must modify"
-		eqawarn "the "${PN}" binary itself and this *may* lead to breakage! If"
-		eqawarn "you suspect that "${PN}" is being broken by this modification,"
-		eqawarn "please open a bug."
+		pax-mark -m "${ED%/}"/opt/"${PN}"/"${PN}"
+		pax-mark -m "${ED%/}"/opt/"${PN}"/resources/app.asar.unpacked/node_modules/slimcore/bin/slimcore.node
+		ewarn "You have set USE=pax_kernel meaning that you intend to run"
+		ewarn "${PN} under a PaX enabled kernel. To do so, we must modify"
+		ewarn "the ${PN} binary itself and this *may* lead to breakage! If"
+		ewarn "you suspect that ${PN} is being broken by this modification,"
+		ewarn "please open a bug."
 	fi
 }
 
 pkg_postinst() {
-	gnome2_icon_cache_update
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
+	gnome2_icon_cache_update
 }
 
 pkg_postrm() {
-	gnome2_icon_cache_update
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
+	gnome2_icon_cache_update
 }
