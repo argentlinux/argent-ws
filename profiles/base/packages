@@ -30,6 +30,7 @@
 *app-arch/xz-utils
 *app-admin/avasile
 *app-shells/bash:0
+*app-portage/epkg
 *net-misc/iputils
 *net-misc/rsync
 *net-misc/wget
