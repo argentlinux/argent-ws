@@ -1,0 +1,26 @@
+Binary files avasile.old/.git/index and avasile/.git/index differ
+diff -burN avasile.old/libavasile avasile/libavasile
+--- avasile.old/libavasile	2019-10-09 21:11:47.278762995 +0300
++++ avasile/libavasile	2019-10-09 21:55:33.605758838 +0300
+@@ -453,7 +453,7 @@
+ 	# fetch argent buildsystem (portage configuration)
+ 	pushd /opt > /dev/null 2>&1
+ 	einfo "Injecting "$releasename"-"$releasetarget" buildsystem"
+-	git clone https://gitlab.com/argent/argentws-build.git
++	git clone -b server https://gitlab.com/argent/argentws-build.git
+ 	popd > /dev/null 2>&1
+ }
+ 
+@@ -474,9 +474,9 @@
+ 		echo -e ""
+ 		einfo "Injecting GIT sync to central Argent overlay. Please stand by!"
+ 		cd "$clonedir" && git init > /dev/null 2>&1
+-		git remote add origin https://gitlab.com/argent/argentws-build.git
+-		git pull --depth=1 origin master
+-		git branch -u origin/master master
++		git remote add origin -m server https://gitlab.com/argent/argentws-build.git
++		git pull --depth=1 origin server
++		git branch -u origin/server master
+ 	fi
+ }
+ 
