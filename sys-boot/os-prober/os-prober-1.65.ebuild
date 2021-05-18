@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-boot/os-prober/os-prober-1.65.ebuild,v 1.1 2015/03/29 04:51:39 mrueg Exp $
 
-EAPI=5
+EAPI=6
 
 #inherit eutils multilib toolchain-funcs
 inherit toolchain-funcs eutils

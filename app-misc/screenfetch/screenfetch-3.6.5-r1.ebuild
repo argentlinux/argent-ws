@@ -8,7 +8,7 @@ MY_PN="${PN/f/F}"
 DESCRIPTION="A Bash Screenshot Information Tool"
 HOMEPAGE="https://github.com/KittyKatt/screenFetch"
 if [[ ${PV} == *9999* ]]; then
-	inherit git-2
+	inherit git-r3
 	EGIT_REPO_URI="https://github.com/KittyKatt/screenFetch"
 	KEYWORDS=""
 else

@@ -5,7 +5,7 @@ EAPI=6
 EGIT_BRANCH="master"
 EGIT_REPO_URI="https://gitlab.com/argent/argentws-live.git"
 
-inherit eutils systemd git-2
+inherit eutils systemd git-r3
 
 DESCRIPTION="Argent live scripts"
 HOMEPAGE="http://www.rogentos.ro"

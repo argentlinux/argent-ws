@@ -4,7 +4,7 @@
 EAPI=4
 EGIT_REPO_URI="https://gitlab.com/argent/argentws-skel.git"
 
-inherit eutils git-2 fdo-mime
+inherit eutils git-r3 fdo-mime
 
 DESCRIPTION="Argent Linux skel tree"
 HOMEPAGE="http://www.rogentos.ro/"

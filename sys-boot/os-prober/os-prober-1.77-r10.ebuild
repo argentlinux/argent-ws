@@ -46,7 +46,7 @@ PATCHES=(
 	${FILESDIR}/${PN}-make-btrfsprogs-optional.patch
 	${FILESDIR}/${PN}-use-tmp-over-var-lib-for-transient-files.patch
 	${FILESDIR}/${PN}-btrfs-multiple-device.patch
-	${FILESDIR}/${PN}-argent.patch
+	${FILESDIR}/${PN}-redcore.patch
 )
 # stop : Redcore Linux Project tweaks
 

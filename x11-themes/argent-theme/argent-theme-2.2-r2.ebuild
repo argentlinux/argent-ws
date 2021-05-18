@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit eutils git-2
+inherit eutils git-r3
 
 DESCRIPTION="Official Argent-Linux GTK theme"
 HOMEPAGE="http://www.rogentos.ro"

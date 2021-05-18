@@ -282,7 +282,6 @@ _is_kernel_lts() {
 	[ "${_ver}" = "4.14" ] && return 0
 	[ "${_ver}" = "4.18" ] && return 0
 	[ "${_ver}" = "4.19" ] && return 0
-	[ "${_ver}" = "5.11" ] && return 0
 	export ARGENT_KERNEL_VERSION="${_ver}"
 	return 1
 }
@@ -291,7 +290,7 @@ _is_kernel_latest() {
 	local _ver="$(get_version_component_range 1-3)"
 	[ "${_ver}" = "4.18" ] && return 0
 	[ "${_ver}" = "4.19" ] && return 0
-	[ "${_ver}" = "5.11" ] && return 0
+	[ "${_ver}" = "5.1" ] && return 0
 	return 1
 }
 
@@ -349,7 +348,7 @@ if [ -n "${K_ONLY_SOURCES}" ] || [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 	DEPEND="sys-apps/sed"
 	RDEPEND="${RDEPEND}"
 else
-	IUSE="btrfs dmraid +dracut iscsi luks lvm mdadm plymouth splash"
+	IUSE="btrfs dmraid +dracut iscsi luks lvm mdadm +plymouth splash"
 	if [ -n "${K_ROGKERNEL_ZFS}" ]; then
 		IUSE="${IUSE} zfs"
 	fi
@@ -358,6 +357,8 @@ else
 		sys-devel/autoconf
 		sys-devel/make
 		|| ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
+		amd64? ( sys-apps/v86d )
+		x86? ( sys-apps/v86d )
 		splash? ( x11-themes/argent-artwork-core )
 		lvm? ( sys-fs/lvm2 sys-block/thin-provisioning-tools )
 		btrfs? ( sys-fs/btrfs-progs )
@@ -460,7 +461,6 @@ argent-kernel_src_unpack() {
 
 argent-kernel_src_prepare() {
 	_set_config_file_vars
-	default
 }
 
 argent-kernel_src_compile() {
