@@ -1,0 +1,19 @@
+diff -Nur pycharm-2021.1.old/bin/pycharm.sh pycharm-2021.1/bin/pycharm.sh
+--- pycharm-2021.1.old/bin/pycharm.sh	2021-05-18 09:13:57.142076279 +0300
++++ pycharm-2021.1/bin/pycharm.sh	2021-05-18 09:14:56.081326655 +0300
+@@ -79,6 +79,15 @@
+   fi
+ fi
+ 
++if [ -z "$JAVA_HOME" ] ; then
++  if [ -r /etc/gentoo-release ] ; then
++    JAVA_HOME=`java-config --jre-home`
++    JDK=`java-config --jre-home`
++    JRE="${JDK}"
++    JAVA_BIN="${JDK}/bin/java"
++  fi
++fi
++
+ if [ -z "$JRE" ]; then
+   JAVA_BIN=$(command -v java)
+ else
