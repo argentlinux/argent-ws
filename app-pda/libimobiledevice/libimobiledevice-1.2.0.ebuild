@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-pda/libimobiledevice/libimobiledevice-1.1.6.ebuild,v 1.6 2014/11/27 13:18:42 pacho Exp $
 
-EAPI=5
+EAPI=6
 PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
 AUTOTOOLS_PRUNE_LIBTOOL_FILES=all
 inherit autotools-utils multilib python-r1

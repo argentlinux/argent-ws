@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit eutils git-2
+inherit eutils git-r3
 
 DESCRIPTION="Versatile Advanced Script for ISO and Latest Enchantments"
 HOMEPAGE="http://rogentos.ro"

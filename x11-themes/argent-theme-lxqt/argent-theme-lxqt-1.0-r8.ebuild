@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v3
 # Maintainer bionel <bionel @ rogentos.ro >
 
-EAPI=5
+EAPI=6
 
 inherit eutils git-2
 

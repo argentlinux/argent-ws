@@ -1,6 +1,6 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 EGIT_BRANCH="master"
 EGIT_REPO_URI="https://gitlab.com/argent/argentws-live.git"

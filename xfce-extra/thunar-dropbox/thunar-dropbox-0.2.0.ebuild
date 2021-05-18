@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
 inherit eutils  gnome2-utils
 
 DESCRIPTION="Plugin for Thunar that adds context-menu items for Dropbox"

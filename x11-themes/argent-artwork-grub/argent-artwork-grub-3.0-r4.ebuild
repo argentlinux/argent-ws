@@ -1,9 +1,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # Maintainer BlackNoxis <stefan.cristian at rogentos.ro>
 
-EAPI=5
+EAPI=6
 
-inherit base mount-boot git-2 eutils
+inherit git-r3 eutils
 
 DESCRIPTION="Argent-Linux GRUB2 Images"
 HOMEPAGE="http://www.rogentos.ro"
@@ -22,6 +22,6 @@ S="${WORKDIR}"
 
 src_install () {
 	dodir /usr/share/grub/themes || die
-	insinto /usr/share/grub/themes || die 
+	insinto /usr/share/grub/themes || die
 	doins -r "${S}"/cdroot/boot/grub/themes/argent || die
 }

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2 
 # $Header: /dev-util/notepadqq-9999.ebuild,v 0.1 frostwork $ 
 
-EAPI=5
+EAPI=6
 inherit eutils qmake-utils git-r3
 
 DESCRIPTION="Notepad++-like editor for Linux"

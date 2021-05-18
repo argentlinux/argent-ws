@@ -1,19 +1,19 @@
-diff -Nur os-prober-1.71.old/os-probes/mounted/common/90linux-distro os-prober-1.71/os-probes/mounted/common/90linux-distro
---- os-prober-1.71.old/os-probes/mounted/common/90linux-distro	2017-12-03 06:35:36.758299862 +0200
-+++ os-prober-1.71/os-probes/mounted/common/90linux-distro	2017-12-03 06:37:53.542891426 +0200
-@@ -89,6 +89,15 @@
- 	elif [ -e "$dir/etc/gentoo-release" ]; then
- 		short="Gentoo"
- 		long="$(cat "$dir/etc/gentoo-release")"
-+        elif [ -e "$dir/etc/argent-release" ]; then
-+                short="Argent"
-+                long="$(cat "$dir/etc/argent-release")"
-+        elif [ -e "$dir/etc/kogaion-release" ]; then
-+                short="Kogaion"
-+                long="$(cat "$dir/etc/kogaion-release")"
-+        elif [ -e "$dir/etc/redcore-release" ]; then
-+                short="Redcore"
-+                long="$(cat "$dir/etc/redcore-release")"
- 	elif [ -e "$dir/etc/cobalt-release" ]; then
- 		short="Cobalt"
- 		long="$(cat "$dir/etc/cobalt-release")"
+diff -Nur a/os-probes/mounted/common/90linux-distro b/os-probes/mounted/common/90linux-distro
+--- a/os-probes/mounted/common/90linux-distro	2021-01-28 00:23:50.827441813 +0000
++++ b/os-probes/mounted/common/90linux-distro	2021-01-28 00:27:33.379716742 +0000
+@@ -98,6 +98,15 @@
+ elif [ -e "$dir/etc/gentoo-release" ]; then
+	short="Gentoo"
+	long="$(cat "$dir/etc/gentoo-release")"
++elif [ -e "$dir/etc/argent-release" ]; then
++	short="Argent"
++	long="$(cat "$dir/etc/redcore-release")"
++elif [ -e "$dir/etc/kogaion-release" ]; then
++	short="Kogaion"
++	long="$(cat "$dir/etc/kogaion-release")"
++elif [ -e "$dir/etc/redcore-release" ]; then
++	short="Redcore"
++	long="$(cat "$dir/etc/argent-release")"
+ elif [ -e "$dir/etc/cobalt-release" ]; then
+	short="Cobalt"
+	long="$(cat "$dir/etc/cobalt-release")"

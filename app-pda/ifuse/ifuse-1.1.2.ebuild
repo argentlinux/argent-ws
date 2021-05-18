@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-pda/ifuse/ifuse-1.1.2.ebuild,v 1.4 2013/05/11 22:05:54 ssuominen Exp $
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="Mount Apple iPhone/iPod Touch file systems for backup purposes"
 HOMEPAGE="http://www.libimobiledevice.org/"

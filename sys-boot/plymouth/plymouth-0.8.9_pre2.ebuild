@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
 
 EGIT_REPO_URI="git://anongit.freedesktop.org/plymouth"
 EGIT_COMMIT="37d2e400d25e6b4716d77d26fb7d40de8a8c1a8a"

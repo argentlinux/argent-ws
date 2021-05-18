@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 inherit autotools eutils pam readme.gentoo systemd versionator
 
 TRUNK_VERSION="$(get_version_component_range 1-2)"
