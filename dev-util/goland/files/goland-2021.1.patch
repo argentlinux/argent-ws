@@ -1,0 +1,27 @@
+diff -Nur GoLand-2021.1.1.old/bin/goland.sh GoLand-2021.1.1/bin/goland.sh
+--- GoLand-2021.1.1.old/bin/goland.sh	2021-05-18 07:11:46.109110648 +0300
++++ GoLand-2021.1.1/bin/goland.sh	2021-05-18 07:34:42.206388392 +0300
+@@ -50,6 +50,7 @@
+ # Try (in order): $GOLAND_JDK, .../goland.jdk, .../jbr[-x86], $JDK_HOME, $JAVA_HOME, "java" in $PATH.
+ # ---------------------------------------------------------------------
+ # shellcheck disable=SC2154
++
+ if [ -n "$GOLAND_JDK" ] && [ -x "$GOLAND_JDK/bin/java" ]; then
+   JRE="$GOLAND_JDK"
+ fi
+@@ -79,6 +80,15 @@
+   fi
+ fi
+ 
++if [ -z "$JAVA_HOME" ] ; then
++  if [ -r /etc/gentoo-release ] ; then
++    JAVA_HOME=`java-config --jre-home`
++    JDK=`java-config --jre-home`
++    JRE="${JDK}"
++    JAVA_BIN="${JDK}/bin/java"
++  fi
++fi
++
+ if [ -z "$JRE" ]; then
+   JAVA_BIN=$(command -v java)
+ else
