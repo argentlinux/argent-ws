@@ -459,6 +459,7 @@ argent-kernel_src_unpack() {
 
 argent-kernel_src_prepare() {
 	_set_config_file_vars
+	default
 }
 
 argent-kernel_src_compile() {
