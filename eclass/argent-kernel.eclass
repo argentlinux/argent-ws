@@ -357,8 +357,6 @@ else
 		sys-devel/autoconf
 		sys-devel/make
 		|| ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
-		amd64? ( sys-apps/v86d )
-		x86? ( sys-apps/v86d )
 		splash? ( x11-themes/argent-artwork-core )
 		lvm? ( sys-fs/lvm2 sys-block/thin-provisioning-tools )
 		btrfs? ( sys-fs/btrfs-progs )
