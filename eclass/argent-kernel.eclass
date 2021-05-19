@@ -1,4 +1,5 @@
-# Copyright 2004-2014 RogentOS Team
+# Copyright 2014 	  Sabayon Linux
+# Copyright 2014-2021 RogentOS Team
 # Distributed under the terms of the GNU General Public License v2
 # $
 
@@ -772,19 +773,19 @@ _dracut_initramfs_create() {
 	elog "Generating initramfs for ${kver}, please wait"
 
 	addpredict /etc/ld.so.cache~
-	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
-		rm -f "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+	if [ -e "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
+		rm -f "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}"
 		ewarn "We are going to delete the same image you currently possess"
 	fi
-	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
-		rm -f "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
+	if [ -e "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
+		rm -f "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5
 		ewarn "Removing the old md5 hash from the old same-versioned kernel"
 	fi
 
-	dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
+	dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
 	if [ -e "/usr/bin/md5sum" ]; then
-		md5sum "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" > "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
-		chmod 400 "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
+		md5sum "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" > "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5
+		chmod 400 "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5
 	fi
 }
 
