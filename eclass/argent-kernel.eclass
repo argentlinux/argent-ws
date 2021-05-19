@@ -812,17 +812,30 @@ _initramfs_delete() {
 }
 
 argent-kernel_grub2_mkconfig() {
-	if [ -x "${ROOT}usr/sbin/grub2-mkconfig" ]; then
-        # Grub 2.00
-        "${ROOT}usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
+	if [ -x "${ROOT}/usr/sbin/grub2-mkconfig" ]; then
+        # Grub 2.00 with maintained symlink on OS
+        "${ROOT}/usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
     else
         echo
         ewarn "Please, be warned, GRUB2 is NOT detected!"
         ewarn "Grub2 bootloader configuration will not update"
-		ewarn "Use: grub2-mkconfig -o /boot/grub/grub.cfg"
-		ewarn "In order to regenerate GRUB2 entries"
+		ewarn "Checking for grub-mkconfig..."
         echo
     fi
+}
+
+argent-kernel_grub_mkconfig() {
+	if [ -x "${ROOT}/usr/sbin/grub-mkconfig" ]; then
+		# Grub 2.00 without symlink to grub2-*
+		"${ROOT}/usr/sbin/grub-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
+    else
+		echo
+		ewarn "Please, be warned, GRUB2 is NOT detected!"
+		ewarn "Grub2 bootloader configuration will not update"
+		ewarn "Use: grub2-mkconfig -o /boot/grub/grub.cfg"
+		ewarn "In order to regenerate GRUB2 entries"
+		echo
+	fi
 }
 
 argent-kernel_pkg_postinst() {
@@ -836,6 +849,7 @@ argent-kernel_pkg_postinst() {
 		fi
 
 		argent-kernel_grub2_mkconfig
+		argent-kernel_grub_mkconfig
 
 		kernel-2_pkg_postinst
 		local depmod_r=$(_get_release_level)
