@@ -782,7 +782,12 @@ _dracut_initramfs_create() {
 		ewarn "Removing the old md5 hash from the old same-versioned kernel"
 	fi
 
-	dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
+	if use plymouth ; then
+		dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
+	else
+		dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd -o plymouth --early-microcode --kver="${kver}" "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
+	fi
+
 	if [ -e "/usr/bin/md5sum" ]; then
 		md5sum "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" > "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5
 		chmod 400 "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5
@@ -802,11 +807,11 @@ _initramfs_delete() {
     else
         local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
     fi
-	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
-		rm -rf "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}"
+	if [ -e "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
+		rm -rf "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}"
 		ewarn "We are going to delete the same image you currently possess"
 	fi
-	if [ -e "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
+	if [ -e "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
         rm -f "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
         ewarn "Removing the old md5 hash from the old same-versioned kernel"
     fi
@@ -815,7 +820,7 @@ _initramfs_delete() {
 argent-kernel_grub2_mkconfig() {
 	if [ -x "${ROOT}/usr/sbin/grub2-mkconfig" ]; then
         # Grub 2.00 with maintained symlink on OS
-        "${ROOT}/usr/sbin/grub2-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
+        "${ROOT}/usr/sbin/grub2-mkconfig" -o "${ROOT}/boot/grub/grub.cfg"
     else
         echo
         ewarn "Please, be warned, GRUB2 is NOT detected!"
@@ -828,12 +833,12 @@ argent-kernel_grub2_mkconfig() {
 argent-kernel_grub_mkconfig() {
 	if [ -x "${ROOT}/usr/sbin/grub-mkconfig" ]; then
 		# Grub 2.00 without symlink to grub2-*
-		"${ROOT}/usr/sbin/grub-mkconfig" -o "${ROOT}boot/grub/grub.cfg"
+		"${ROOT}/usr/sbin/grub-mkconfig" -o "${ROOT}/boot/grub/grub.cfg"
     else
 		echo
 		ewarn "Please, be warned, GRUB2 is NOT detected!"
 		ewarn "Grub2 bootloader configuration will not update"
-		ewarn "Use: grub2-mkconfig -o /boot/grub/grub.cfg"
+		ewarn "Use: grub-mkconfig -o /boot/grub/grub.cfg"
 		ewarn "In order to regenerate GRUB2 entries"
 		echo
 	fi
@@ -887,6 +892,7 @@ argent-kernel_pkg_postrm() {
 	fi
 	_remove_dkms_modules
 	argent-kernel_grub2_mkconfig
+	argent-kernel_grub_mkconfig
 
 	local depmod_r=$(_get_release_level)
 	_update_depmod "${depmod_r}"
