@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI="7"
-inherit cmake-utils-compat
+inherit cmake
 
 DESCRIPTION="LXQt themes"
 HOMEPAGE="http://lxqt.org/"

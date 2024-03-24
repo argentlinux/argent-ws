@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
-inherit cmake-utils-compat
+inherit cmake
 
 DESCRIPTION="LXQt PolKit authentication agent"
 HOMEPAGE="http://lxqt.org/"

@@ -28,7 +28,7 @@ if [[ ${CMAKE_IN_SOURCE_BUILD} ]]; then
 	die "${ECLASS}: multilib support requires out-of-source builds."
 fi
 
-inherit cmake-utils-compat multilib-minimal
+inherit cmake multilib-minimal
 
 EXPORT_FUNCTIONS src_configure src_compile src_test src_install
 
