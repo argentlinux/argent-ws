@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
-inherit cmake-utils
+inherit cmake-utils-compat
 
 DESCRIPTION="Various packaging tools and scripts for LXQt applications"
 HOMEPAGE="http://lxqt.org/"

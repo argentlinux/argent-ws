@@ -3,7 +3,7 @@
 
 EAPI="7"
 
-inherit cmake-utils
+inherit cmake-utils-compat
 
 DESCRIPTION="LXQT session manager"
 HOMEPAGE="http://lxqt.org/"
