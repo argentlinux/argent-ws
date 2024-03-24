@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v3
 # Maintainer bionel <bionel @ rogentos.ro >
 
-EAPI=6
+EAPI="7"
 
-inherit eutils git-r3
+inherit  git-r3
 
 DESCRIPTION="Official Argent-Linux LXQT theme"
 HOMEPAGE="http://www.rogentos.ro"

@@ -1,9 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
-inherit eutils xdg-utils gnome2-utils
+inherit  xdg-utils gnome2-utils
 
 SRC_URI="https://download-cf.jetbrains.com/go/goland-181.2784.36.tar.gz -> ${P}.tar.gz"
 DESCRIPTION="Golang IDE by JetBrains"

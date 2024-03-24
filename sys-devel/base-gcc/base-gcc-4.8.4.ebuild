@@ -1,7 +1,7 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI="7"
 
 PATCH_VER="1.6"
 UCLIBC_VER="1.0"
@@ -19,7 +19,7 @@ SSP_STABLE="amd64 x86"
 SSP_UCLIBC_STABLE="x86 amd64"
 #end Hardened stuff
 
-inherit eutils toolchain
+inherit  toolchain
 
 KEYWORDS="amd64 x86"
 

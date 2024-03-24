@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
-inherit eutils git-r3
+inherit  git-r3
 
 DESCRIPTION="A simple portage wrapper which works like other package managers"
 HOMEPAGE="http://rogentos.ro"

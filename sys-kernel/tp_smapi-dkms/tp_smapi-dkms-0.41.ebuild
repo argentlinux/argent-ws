@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
-inherit eutils
+inherit 
 
 MY_PN="tp_smapi"
 MY_P="${MY_PN}-${PVR}"

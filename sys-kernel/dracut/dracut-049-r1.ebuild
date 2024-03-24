@@ -1,9 +1,9 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
-inherit bash-completion-r1 eutils linux-info systemd toolchain-funcs
+inherit bash-completion-r1  linux-info systemd toolchain-funcs
 
 DESCRIPTION="Generic initramfs generation tool"
 HOMEPAGE="https://dracut.wiki.kernel.org"
@@ -23,7 +23,7 @@ COMMON_DEPEND=">=sys-apps/kmod-23[tools]
 RDEPEND="${COMMON_DEPEND}
 	app-arch/cpio
 	>=app-shells/bash-4.0:0
-	sys-apps/coreutils[xattr(-)]
+	sys-apps/cor[xattr(-)]
 	|| (
 		>=sys-apps/sysvinit-2.87-r3
 		sys-apps/systemd[sysv-utils]

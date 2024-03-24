@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
-inherit eutils
+inherit 
 
 DESCRIPTION="Kernel Modules (guest) source for Virtualbox"
 HOMEPAGE="http://www.virtualbox.org/"

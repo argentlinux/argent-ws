@@ -1,7 +1,7 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI="7"
 
 PATCH_VER="1.8"
 UCLIBC_VER="1.1"
@@ -10,7 +10,7 @@ HTB_VER="1.00.1"
 HTB_GCC_VER="3.4.4"
 D_VER="0.24"
 
-inherit eutils toolchain
+inherit  toolchain
 
 KEYWORDS="-* alpha amd64 arm ~ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~x86-fbsd"
 

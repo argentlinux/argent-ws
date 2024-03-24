@@ -1,8 +1,8 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-inherit cmake-utils eutils
+EAPI="7"
+inherit cmake-utils 
 
 DESCRIPTION="LXQt system configuration control center"
 HOMEPAGE="http://lxqt.org/"

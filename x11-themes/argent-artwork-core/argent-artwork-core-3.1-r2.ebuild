@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # Maintainer BlackNoxis <stefan.cristian at rogentos.ro>
 
-EAPI=6
-inherit eutils mount-boot argent-artwork
+EAPI="7"
+inherit  mount-boot argent-artwork
 
 DESCRIPTION="Offical Argent-Linux Core Artwork"
 HOMEPAGE="http://www.rogentos.ro"

@@ -34,7 +34,7 @@ _KDE5_ECLASS=1
 inherit cmake-utils flag-o-matic kde5-functions virtualx xdg
 
 case ${EAPI} in
-	6) inherit eapi7-ver eutils gnome2-utils ;;
+	6) inherit eapi7-ver  gnome2-utils ;;
 esac
 
 if [[ ${KDE_BUILD_TYPE} = live ]]; then

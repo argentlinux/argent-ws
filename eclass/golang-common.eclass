@@ -15,7 +15,7 @@
 # This eclass should not be inherited directly from an ebuild.
 # Instead, you should inherit golang-single or golang-live for GoLang packages.
 
-inherit versionator eutils multiprocessing
+inherit ver_*  multiprocessing
 
 if [[ -z ${_GOLANG_BASE_ECLASS} ]]; then
 _GOLANG_BASE_ECLASS=1

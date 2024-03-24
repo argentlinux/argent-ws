@@ -2,11 +2,10 @@
 # Copyright 2014-2021 Argent, Argent and ArgOS Linux
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="8"
 
-inherit versionator
-
-K_ARGENT_FORCE_SUBLEVEL="$( get_version_component_range 3)"
+K_ROGKENREL_FORCE_SUBLEVEL="22"
+K_ROGKERNEL_FORCE_UPPERLEVEL="5.11"
 K_ROGKERNEL_NAME="argent"
 K_ROGKERNEL_URI_CONFIG="yes"
 K_ROGKERNEL_SELF_TARBALL_NAME="argent"

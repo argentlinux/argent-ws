@@ -124,7 +124,7 @@ RDEPEND="${COMMON_DEPEND}
 	!build? ( || (
 		sys-apps/util-linux[kill(-)]
 		sys-process/procps[kill(+)]
-		sys-apps/coreutils[kill(-)]
+		sys-apps/cor[kill(-)]
 	) )
 	!sys-auth/nss-myhostname
 	!sys-fs/eudev
@@ -143,7 +143,7 @@ BDEPEND="
 	dev-util/gperf
 	>=dev-util/meson-0.46
 	>=dev-util/intltool-0.50
-	>=sys-apps/coreutils-8.16
+	>=sys-apps/cor-8.16
 	sys-devel/m4
 	virtual/pkgconfig
 	test? ( sys-apps/dbus )

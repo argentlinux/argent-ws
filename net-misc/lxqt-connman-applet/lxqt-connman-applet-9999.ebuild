@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
-inherit eutils git-2 cmake-utils
+inherit  git-2 cmake-utils
 
 DESCRIPTION="LXQt system-tray applet for ConnMan"
 HOMEPAGE="https://github.com/surlykke/lxqt-connman-applet"

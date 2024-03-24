@@ -1,9 +1,9 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
-inherit cmake-utils eutils
+inherit cmake-utils 
 
 DESCRIPTION="LXQT session manager"
 HOMEPAGE="http://lxqt.org/"

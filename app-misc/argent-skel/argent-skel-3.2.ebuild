@@ -1,10 +1,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="7"
 EGIT_REPO_URI="https://gitlab.com/argent/argentws-skel.git"
 
-inherit eutils git-r3 fdo-mime
+inherit  git-r3 fdo-mime
 
 DESCRIPTION="Argent Linux skel tree"
 HOMEPAGE="http://www.rogentos.ro/"

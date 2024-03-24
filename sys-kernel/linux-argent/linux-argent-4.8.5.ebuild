@@ -2,9 +2,9 @@
 # Copyright 2015 Argent
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
-inherit versionator
+inherit ver_*
 
 K_ROGKERNEL_SELF_TARBALL_NAME="argent"
 K_REQUIRED_LINUX_FIRMWARE_VER="20150206"

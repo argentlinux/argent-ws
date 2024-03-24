@@ -1,9 +1,9 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
-inherit eutils multilib
+inherit  multilib
 
 DESCRIPTION="Utility to change the OpenGL interface being used"
 HOMEPAGE="https://www.gentoo.org/"

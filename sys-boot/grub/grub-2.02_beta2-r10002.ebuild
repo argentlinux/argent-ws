@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
 AUTOTOOLS_AUTORECONF=1
 GRUB_AUTOGEN=1
@@ -12,7 +12,7 @@ if [[ -n ${GRUB_AUTOGEN} ]]; then
 	inherit python-any-r1
 fi
 
-inherit bash-completion-r1 eutils flag-o-matic mount-boot multibuild pax-utils toolchain-funcs versionator
+inherit bash-completion-r1  flag-o-matic mount-boot multibuild pax-utils toolchain-funcs ver_*
 
 if [[ ${PV} != 9999 ]]; then
 	if [[ ${PV} == *_alpha* || ${PV} == *_beta* || ${PV} == *_rc* ]]; then

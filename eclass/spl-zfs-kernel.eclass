@@ -6,7 +6,7 @@ AT_M4DIR="config"
 AUTOTOOLS_AUTORECONF="1"
 AUTOTOOLS_IN_SOURCE_BUILD="1"
 
-inherit eutils flag-o-matic git-2 linux-mod autotools-utils
+inherit  flag-o-matic git-2 linux-mod autotools-utils
 
 # export all the available functions here
 EXPORT_FUNCTIONS pkg_setup src_unpack src_prepare src_configure src_compile src_install pkg_preinst pkg_postinst pkg_postrm

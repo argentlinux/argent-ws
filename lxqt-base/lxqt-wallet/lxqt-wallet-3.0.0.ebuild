@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
-inherit eutils git-2 cmake-utils
+inherit  git-2 cmake-utils
 
 DESCRIPTION="Create a Kwallet/Gnome-keyring like functionality for lxqt"
 HOMEPAGE="https://github.com/mhogomchungu/lxqt_wallet"

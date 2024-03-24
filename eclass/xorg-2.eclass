@@ -44,7 +44,7 @@ fi
 : ${XORG_MULTILIB:="no"}
 
 # we need to inherit autotools first to get the deps
-inherit autotools autotools-utils eutils libtool multilib toolchain-funcs \
+inherit autotools autotools-utils  libtool multilib toolchain-funcs \
 	flag-o-matic ${FONT_ECLASS} ${GIT_ECLASS}
 
 if [[ ${XORG_MULTILIB} == yes ]]; then
@@ -313,7 +313,7 @@ xorg-2_patch_source() {
 
 	# Use standardized names and locations with bulk patching
 	# Patch directory is ${WORKDIR}/patch
-	# See epatch() in eutils.eclass for more documentation
+	# See epatch() in .eclass for more documentation
 	EPATCH_SUFFIX=${EPATCH_SUFFIX:=patch}
 
 	[[ -d "${EPATCH_SOURCE}" ]] && epatch

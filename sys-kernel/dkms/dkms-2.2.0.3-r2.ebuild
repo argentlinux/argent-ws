@@ -1,8 +1,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="4"
+EAPI="7"
 
-inherit eutils bash-completion-r1
+inherit bash-completion-r1
 
 DESCRIPTION="Dynamic Kernel Module Support"
 SRC_URI="http://linux.dell.com/dkms/permalink/${P}.tar.gz"

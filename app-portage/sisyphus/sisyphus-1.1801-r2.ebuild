@@ -1,11 +1,11 @@
 # Copyright 2016-2017 Redcore Linux Project
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
 PYTHON_COMPAT=( python3_{4,5,6} )
 
-inherit eutils python-r1
+inherit  python-r1
 
 DESCRIPTION="A simple portage python wrapper which works like other package managers(apt-get/yum/dnf)"
 HOMEPAGE="http://redcorelinux.org"

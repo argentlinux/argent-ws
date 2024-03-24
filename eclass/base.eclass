@@ -8,14 +8,14 @@
 #
 # base_src_unpack() - default (or unpacker_src_unpack if unpacker.eclass
 #     was inherited)
-# base_src_prepare() - inherit eutils, inline:
+# base_src_prepare() - inherit , inline:
 #     epatch "${PATCHES[@]}" # if PATCHES defined as array
 #     epatch ${PATCHES} # if PATCHES defined as string
 #     epatch_user
 # base_src_configure() - default
 # base_src_compile() - default
 # base_src_install() - default
-# base_src_install_docs() - einstalldocs from eutils.eclass
+# base_src_install_docs() - einstalldocs from .eclass
 
 # @ECLASS: base.eclass
 # @MAINTAINER:
@@ -30,7 +30,7 @@
 if [[ -z ${_BASE_ECLASS} ]]; then
 _BASE_ECLASS=1
 
-inherit eutils
+inherit 
 
 BASE_EXPF="src_unpack src_compile src_install"
 case "${EAPI:-0}" in
@@ -105,7 +105,7 @@ base_src_prepare() {
 			if [[ -d "${x}" ]]; then
 				# Use standardized names and locations with bulk patching
 				# Patch directory is ${WORKDIR}/patch
-				# See epatch() in eutils.eclass for more documentation
+				# See epatch() in .eclass for more documentation
 				EPATCH_SUFFIX=${EPATCH_SUFFIX:=patch}
 
 				# in order to preserve normal EPATCH_SOURCE value that can

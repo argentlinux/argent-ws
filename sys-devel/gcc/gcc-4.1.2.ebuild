@@ -1,13 +1,13 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI="7"
 
 PATCH_VER="1.6"
 UCLIBC_VER="1.0"
 D_VER="0.24"
 
-inherit eutils toolchain
+inherit  toolchain
 
 KEYWORDS="-* alpha amd64 arm hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86 ~x86-fbsd"
 

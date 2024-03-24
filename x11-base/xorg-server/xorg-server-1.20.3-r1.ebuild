@@ -1,11 +1,11 @@
 # Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
 XORG_EAUTORECONF=yes
 XORG_DOC=doc
-inherit xorg-2 multilib versionator flag-o-matic
+inherit xorg-2 multilib ver_* flag-o-matic
 EGIT_REPO_URI="https://anongit.freedesktop.org/git/xorg/xserver.git"
 
 DESCRIPTION="X.Org X servers"

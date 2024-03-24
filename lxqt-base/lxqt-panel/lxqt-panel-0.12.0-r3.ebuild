@@ -1,7 +1,7 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 inherit cmake-utils
 
 DESCRIPTION="LXQt desktop panel and plugins"
@@ -67,7 +67,7 @@ src_configure() {
 	for i in clock colorpicker cpuload desktopswitch dom kbindicator mainmenu mount \
 		networkmonitor quicklaunch sensors showdesktop statusnotifier \
 		sysstat taskbar tray volume worldclock; do
-		#Switch to ^^ when we switch to EAPI=6.
+		#Switch to ^^ when we switch to EAPI="7".
 		#y=${i^^}
 		y=$(tr '[:lower:]' '[:upper:]' <<< "${i}")
 		mycmakeargs+=( $(cmake-utils_use ${i} ${y}_PLUGIN) )

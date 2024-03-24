@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
 PYTHON_COMPAT=( python3_{4,5,6} )
 MY_PN="apkg"
 
-inherit eutils python-r1
+inherit  python-r1
 
 DESCRIPTION="A simple portage python wrapper which works like other package managers(apt-get/yum/dnf)"
 HOMEPAGE="http://argentlinux.io"

@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
 # Don't block arm. See bug #600134.
 #MULTILIB_COMPAT=( abi_ppc_64 abi_x86_{32,64} )

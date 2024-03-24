@@ -1,9 +1,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # Maintainer BlackNoxis <stefan.cristian at rogentos.ro>
 
-EAPI=7
+EAPI=8
 
-inherit git-r3 toolchain-funcs eutils
+inherit git-r3 toolchain-funcs
 
 DESCRIPTION="Argent-Linux GRUB2 Images"
 HOMEPAGE="http://www.rogentos.ro"

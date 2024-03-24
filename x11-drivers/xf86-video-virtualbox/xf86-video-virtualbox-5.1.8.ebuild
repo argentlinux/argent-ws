@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
 PYTHON_COMPAT=( python2_7 )
-inherit eutils multilib python-single-r1 versionator toolchain-funcs
+inherit  multilib python-single-r1 ver_* toolchain-funcs
 
 MY_PV="${PV/beta/BETA}"
 MY_PV="${MY_PV/rc/RC}"

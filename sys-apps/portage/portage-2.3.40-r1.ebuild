@@ -1,7 +1,7 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
 PYTHON_COMPAT=(
 	pypy
@@ -10,7 +10,7 @@ PYTHON_COMPAT=(
 )
 PYTHON_REQ_USE='bzip2(+),threads(+)'
 
-inherit distutils-r1 eutils systemd
+inherit distutils-r1  systemd
 
 DESCRIPTION="Portage is the package management and distribution system for Gentoo"
 HOMEPAGE="https://wiki.gentoo.org/wiki/Project:Portage"
@@ -65,9 +65,9 @@ RDEPEND="
 PDEPEND="
 	!build? (
 		>=net-misc/rsync-2.6.4
-		userland_GNU? ( >=sys-apps/coreutils-6.4 )
+		userland_GNU? ( >=sys-apps/cor-6.4 )
 	)"
-# coreutils-6.4 rdep is for date format in emerge-webrsync #164532
+# cor-6.4 rdep is for date format in emerge-webrsync #164532
 # NOTE: FEATURES=installsources requires debugedit and rsync
 
 REQUIRED_USE="epydoc? ( $(python_gen_useflags 'python2*') )"

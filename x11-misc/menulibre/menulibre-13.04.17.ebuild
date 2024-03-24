@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/x11-misc/menulibre/menulibre-13.04.17.ebuild,v 1.2 2014/04/26 08:30:46 pacho Exp $
 
-EAPI=6
+EAPI="7"
 
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="xml"
 DISTUTILS_IN_SOURCE_BUILD=1
-inherit eutils gnome2-utils distutils-r1
+inherit  gnome2-utils distutils-r1
 
 DESCRIPTION="An advanced menu editor that provides modern features in a clean, easy-to-use interface"
 HOMEPAGE="http://www.smdavis.us/projects/menulibre/"

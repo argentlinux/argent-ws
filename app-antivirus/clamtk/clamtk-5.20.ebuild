@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI="7"
 
-inherit eutils perl-module
+inherit  perl-module
 
 DESCRIPTION="A frontend for ClamAV using Gtk2-perl"
 HOMEPAGE="https://bitbucket.org/dave_theunsub/clamtk/"

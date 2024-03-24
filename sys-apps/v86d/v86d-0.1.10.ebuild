@@ -3,7 +3,7 @@
 
 EAPI=2
 
-inherit eutils flag-o-matic linux-info multilib
+inherit  flag-o-matic linux-info multilib
 
 DESCRIPTION="A daemon to run x86 code in an emulated environment"
 HOMEPAGE="https://dev.gentoo.org/~spock/projects/uvesafb/"

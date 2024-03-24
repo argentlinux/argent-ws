@@ -1,11 +1,11 @@
 # Copyright 2004-2013 Sabayon Linux
 # Copyright 2004-2014 Argent, Argent and ArgOS Linux
 # Distributed under the terms of the GNU General Public License v2
-EAPI=6
+EAPI="6"
 
 inherit versionator
 
-K_ARGENT_FORCE_SUBLEVEL="$( get_version_component_range 3)"
+K_ARGENT_FORCE_SUBLEVEL="$( get_versionatorsion_component_range 3)"
 K_ROGKERNEL_NAME="argent"
 K_ROGKERNEL_URI_CONFIG="yes"
 K_ROGKERNEL_SELF_TARBALL_NAME="argent"
