@@ -4,9 +4,9 @@
 
 EAPI="6"
 
-inherit versionator
+inherit ver_*
 
-ARGENT_FORCE_SUBLEVEL="$( get_versionatorsion_component_range 3)"
+ARGENT_FORCE_SUBLEVEL="$( get_ver_*sion_component_range 3)"
 K_ROGKERNEL_NAME="argent"
 K_ROGKERNEL_URI_CONFIG="yes"
 K_ROGKERNEL_SELF_TARBALL_NAME="argent"

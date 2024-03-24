@@ -173,7 +173,7 @@ K_DEBLOB_AVAILABLE=0
 ETYPE="sources"
 K_TARBALL_EXT="${K_TARBALL_EXT:-xz}"
 
-inherit versionator
+inherit ver_*
 if [ "${K_KERNEL_NEW_VERSIONING}" = "1" ]; then
 	CKV="$(get_version_component_range 1-2)"
 fi

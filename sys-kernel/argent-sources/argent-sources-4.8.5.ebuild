@@ -4,7 +4,7 @@
 
 EAPI="6"
 
-inherit versionator
+inherit ver_*
 
 K_ROGKERNEL_NAME="argent"
 K_ROGKERNEL_URI_CONFIG="yes"
