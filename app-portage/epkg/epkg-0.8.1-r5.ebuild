@@ -20,7 +20,7 @@ IUSE=""
 DEPEND=""
 RDEPEND="app-portage/gentoolkit
 		app-portage/portage-utils
-		sys-apps/cor
+		sys-apps/coreutils
 		sys-apps/portage"
 
 src_install() {
