@@ -1,10 +1,8 @@
 # Copyright 2004-2013 Sabayon Linux
-# Copyright 2004-2024 Argent, Argent and ArgOS Linux
+# Copyright 2014-2024 Argent, Argent and ArgOS Linux
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="8"
-
-inherit ver_*
+EAPI=8
 
 K_ROGKENREL_FORCE_SUBLEVEL="20"
 K_ROGKERNEL_FORCE_UPPERLEVEL="5.11"
