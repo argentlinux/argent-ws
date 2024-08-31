@@ -1,9 +1,7 @@
 # Copyright 2004-2009 Sabayon Project
-# Copyright 2012-2015 Rogentos Project
+# Copyright 2012-2024 Rogentos Project
 # Distributed under the terms of the GNU General Public License v2
 # $
-
-inherit eutils
 
 # @ECLASS-VARIABLE: KERN_INITRAMFS_SEARCH_NAME
 # @DESCRIPTION:

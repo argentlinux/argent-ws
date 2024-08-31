@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI="7"
 PYTHON_COMPAT=( python3_5 )
 
-inherit eutils cmake-utils python-r1
+inherit  cmake-utils python-r1
 
 SRC_URI="https://github.com/calamares/calamares/releases/download/v${PV}/${P}.tar.gz"
 

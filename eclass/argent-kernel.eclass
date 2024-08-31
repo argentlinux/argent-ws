@@ -1,5 +1,4 @@
-# Copyright 2014 	  Sabayon Linux
-# Copyright 2014-2021 RogentOS Team
+# Copyright 2004-2014 RogentOS Team
 # Distributed under the terms of the GNU General Public License v2
 # $
 
@@ -33,6 +32,11 @@ K_ROGKERNEL_PATCH_UPSTREAM_TARBALL="${K_ROGKERNEL_PATCH_UPSTREAM_TARBALL:-0}"
 # @DESCRIPTION:
 # Force the rewrite of SUBLEVEL in kernel sources Makefile
 K_ROGKERNEL_FORCE_SUBLEVEL="${K_ROGKERNEL_FORCE_SUBLEVEL:-}"
+
+# @ECLASS-VARIABLE: K_ROGKERNEL_FORCE_UPPERLEVEL
+# @DESCRIPTION:
+# Force the rewrite of UPPERLEVEL in kernel sources Makefile
+K_ROGKERNEL_FORCE_UPPERLEVEL="${K_ROGKERNEL_FORCE_UPPERLEVEL:-}"
 
 # @ECLASS-VARIABLE: K_ROGKERNEL_RESET_EXTRAVERSION
 # @DESCRIPTION:
@@ -173,12 +177,9 @@ K_DEBLOB_AVAILABLE=0
 ETYPE="sources"
 K_TARBALL_EXT="${K_TARBALL_EXT:-xz}"
 
-inherit versionator
-if [ "${K_KERNEL_NEW_VERSIONING}" = "1" ]; then
-	CKV="$(get_version_component_range 1-2)"
-fi
+inherit multilib kernel-2 argent-artwork mount-boot linux-info
 
-inherit eutils multilib kernel-2 argent-artwork mount-boot linux-info
+CKV="${K_ROGKERNEL_FORCE_UPPERLEVEL}.${K_ROGKERNEL_FORCE_SUBLEVEL}"
 
 # from kernel-2 eclass
 detect_version
@@ -194,7 +195,7 @@ fi
 
 ## kernel-2 eclass settings
 if [ "${K_ROGKERNEL_PATCH_UPSTREAM_TARBALL}" = "1" ]; then
-	_patch_name="$(get_version_component_range 1-2)-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PVR}.patch.xz"
+	_patch_name="${K_ROGKERNEL_FORCE_UPPERLEVEL}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PVR}.patch.xz"
 	SRC_URI="${KERNEL_URI}"
 	UNIPATCH_LIST="${UNIPATCH_LIST} ${DISTDIR}/${_patch_name}"
 	unset _patch_name
@@ -253,7 +254,7 @@ if [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 elif [ "${K_KERNEL_SLOT_USEPVR}" = "1" ]; then
 	SLOT="${PVR}"
 elif [ "${K_KERNEL_NEW_VERSIONING}" = "1" ]; then
-	SLOT="$(get_version_component_range 1-2)"
+	SLOT="${K_ROGKERNEL_FORCE_UPPERLEVEL}"
 else
 	SLOT="${PV}"
 fi
@@ -269,7 +270,7 @@ _is_kernel_binary() {
 }
 
 _is_kernel_lts() {
-	local _ver="$(get_version_component_range 1-3)"
+	local _ver="${K_ROGKERNEL_FORCE_UPPERLEVEL}"
 	[ "${_ver}" = "3.0" ] && return 0
 	[ "${_ver}" = "3.2" ] && return 0
 	[ "${_ver}" = "3.4" ] && return 0
@@ -281,17 +282,7 @@ _is_kernel_lts() {
 	[ "${_ver}" = "4.8" ] && return 0
 	[ "${_ver}" = "4.9" ] && return 0
 	[ "${_ver}" = "4.14" ] && return 0
-	[ "${_ver}" = "4.18" ] && return 0
-	[ "${_ver}" = "4.19" ] && return 0
-	export ARGENT_KERNEL_VERSION="${_ver}"
-	return 1
-}
-
-_is_kernel_latest() {
-	local _ver="$(get_version_component_range 1-3)"
-	[ "${_ver}" = "4.18" ] && return 0
-	[ "${_ver}" = "4.19" ] && return 0
-	[ "${_ver}" = "5.1" ] && return 0
+	[ "${_ver}" = "4.16" ] && return 0
 	return 1
 }
 
@@ -329,7 +320,7 @@ _set_config_file_vars() {
 	local pvr="${PVR}"
 	local pv="${PV}"
 	if [ "${K_KERNEL_NEW_VERSIONING}" = "1" ]; then
-		pvr="$(get_version_component_range 1-2)"
+		pvr="${K_ROGKERNEL_FORCE_UPPERLEVEL}"
 		pv="${pvr}"
 		if [ "${PR}" != "r0" ]; then
 			pvr+="-${PR}"
@@ -349,14 +340,14 @@ if [ -n "${K_ONLY_SOURCES}" ] || [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 	DEPEND="sys-apps/sed"
 	RDEPEND="${RDEPEND}"
 else
-	IUSE="btrfs dmraid +dracut iscsi luks lvm mdadm +plymouth splash"
+	IUSE="btrfs dmraid +dracut iscsi luks lvm mdadm +plymouth splash sources_standalone"
 	if [ -n "${K_ROGKERNEL_ZFS}" ]; then
 		IUSE="${IUSE} zfs"
 	fi
 	DEPEND="app-arch/xz-utils
 		sys-apps/sed
-		sys-devel/autoconf
-		sys-devel/make
+		dev-build/autoconf
+		dev-build/make
 		|| ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
 		splash? ( x11-themes/argent-artwork-core )
 		lvm? ( sys-fs/lvm2 sys-block/thin-provisioning-tools )
@@ -370,32 +361,6 @@ else
 		sys-kernel/linux-firmware"
 	if [ -n "${K_REQUIRED_LINUX_FIRMWARE_VER}" ]; then
 		RDEPEND+=" >=sys-kernel/linux-firmware-${K_REQUIRED_LINUX_FIRMWARE_VER}"
-	fi
-	# There is literally no way to compare a string to a number in Bash, in this context
-	# No other effort is needed for at least 2-3 years in 'modernizing' this comparison
-	# But further ehancement is not excluded
-    if [ "${CKV}" = "4.19" ] || [ "${CKV}" = "5.0" ] || [ "${CKV}" = "5.1" ] || [ "${CKV}" = "5.2" ] ; then
-        DEPEND+=" app-misc/argent-config-files"
-        RDEPEND+=" app-misc/argent-config-files"
-	fi
-    if [ "${CKV}" = "5.3" ] || [ "${CKV}" = "5.4" ] || [ "${CKV}" = "5.5" ] || [ "${CKV}" = "5.6" ] ; then
-        DEPEND+=" app-misc/argent-config-files"
-        RDEPEND+=" app-misc/argent-config-files"
-    fi
-    if [ "${CKV}" = "5.7" ] || [ "${CKV}" = "5.8" ] || [ "${CKV}" = "5.9" ] || [ "${CKV}" = "5.10" ] ; then
-        DEPEND+=" app-misc/argent-config-files"
-        RDEPEND+=" app-misc/argent-config-files"
-    fi
-    if [ "${CKV}" = "5.11" ] || [ "${CKV}" = "5.12" ] || [ "${CKV}" = "5.14" ] || [ "${CKV}" = "5.16" ] ; then
-        DEPEND+=" app-misc/argent-config-files"
-        RDEPEND+=" app-misc/argent-config-files"
-    fi
-    if [ "${CKV}" = "5.18" ] || [ "${CKV}" = "5.19" ] ; then
-        DEPEND+=" app-misc/argent-config-files"
-        RDEPEND+=" app-misc/argent-config-files"
-    fi
-	if [ "${CKV}" = "4.9" ] ; then
-		RDEPEND+=" virtual/linux-binary-lts:4.19 "
 	fi
 fi
 
@@ -486,12 +451,13 @@ _firmwares_src_compile() {
 }
 
 _kernel_copy_config() {
+	ls -la "${S}/${K_ROGKERNEL_SELF_TARBALL_NAME}/config"
 	_is_config_file_set \
 		|| die "Kernel configuration file not set. Was argent-kernel_src_prepare() called?"
 
 	local base_path="${DISTDIR}"
 	if [ -n "${K_ROGKERNEL_SELF_TARBALL_NAME}" ]; then
-		base_path="${S}/argent/config"
+		base_path="${S}/${K_ROGKERNEL_SELF_TARBALL_NAME}/config"
 	fi
 
 	local found= cfg=
@@ -714,7 +680,6 @@ argent-kernel_pkg_preinst() {
 	if _is_kernel_binary; then
 		mount-boot_pkg_preinst
 	fi
-	sed -i 's/modprobe.blacklist=vboxvideo//g' /etc/default/grub
 }
 
 _remove_dkms_modules() {
@@ -783,9 +748,9 @@ _dracut_initramfs_create() {
 	fi
 
 	if use plymouth ; then
-		dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
+        dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --early-microcode --kver="${kver}" "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
 	else
-		dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd -o plymouth --early-microcode --kver="${kver}" "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
+        dracut -H -f -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd -o plymouth --early-microcode --kver="${kver}" "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" 2>/dev/null
 	fi
 
 	if [ -e "/usr/bin/md5sum" ]; then
@@ -796,7 +761,7 @@ _dracut_initramfs_create() {
 
 _initramfs_delete() {
 	if use amd64 || use x86; then
-        if use amd64; then
+		if use amd64; then
             local kern_arch="x86_64"
         else
             local kern_arch="x86"
@@ -808,40 +773,25 @@ _initramfs_delete() {
         local kver="${PV}-${K_ROGKERNEL_SELF_TARBALL_NAME}-${PR}"
     fi
 	if [ -e "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}" ] ; then
-		rm -rf "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}"
-		ewarn "We are going to delete the same image you currently possess"
-	fi
+        rm -rf "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}"
+        ewarn "We are going to delete the same image you currently possess"
+    fi
 	if [ -e "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5 ] ; then
-        rm -f "${ROOT}boot/initramfs-genkernel-${kern_arch}-${kver}".md5
+        rm -f "${ROOT}/boot/initramfs-genkernel-${kern_arch}-${kver}".md5
         ewarn "Removing the old md5 hash from the old same-versioned kernel"
     fi
 }
 
 argent-kernel_grub2_mkconfig() {
-	if [ -x "${ROOT}/usr/sbin/grub2-mkconfig" ]; then
-        # Grub 2.00 with maintained symlink on OS
-        "${ROOT}/usr/sbin/grub2-mkconfig" -o "${ROOT}/boot/grub/grub.cfg"
+	if [ -x "${ROOT}/usr/sbin/grub-mkconfig" ]; then
+        # Grub 2.00
+        "${ROOT}/usr/sbin/grub-mkconfig" -o "${ROOT}/boot/grub/grub.cfg"
     else
         echo
-        ewarn "Please, be warned, GRUB2 is NOT detected!"
+        ewarn "Please, be warned, GRUB2 is NOT installed!"
         ewarn "Grub2 bootloader configuration will not update"
-		ewarn "Checking for grub-mkconfig..."
         echo
     fi
-}
-
-argent-kernel_grub_mkconfig() {
-	if [ -x "${ROOT}/usr/sbin/grub-mkconfig" ]; then
-		# Grub 2.00 without symlink to grub2-*
-		"${ROOT}/usr/sbin/grub-mkconfig" -o "${ROOT}/boot/grub/grub.cfg"
-    else
-		echo
-		ewarn "Please, be warned, GRUB2 is NOT detected!"
-		ewarn "Grub2 bootloader configuration will not update"
-		ewarn "Use: grub-mkconfig -o /boot/grub/grub.cfg"
-		ewarn "In order to regenerate GRUB2 entries"
-		echo
-	fi
 }
 
 argent-kernel_pkg_postinst() {
@@ -855,16 +805,14 @@ argent-kernel_pkg_postinst() {
 		fi
 
 		argent-kernel_grub2_mkconfig
-		argent-kernel_grub_mkconfig
 
 		kernel-2_pkg_postinst
 		local depmod_r=$(_get_release_level)
 		_update_depmod "${depmod_r}"
 
-		if use dracut ; then
+        if use dracut ; then
             _dracut_initramfs_create
         fi
-		_update_depmod "${depmod_r}"
 
 		elog "Please report kernel bugs at:"
 		elog "http://rogentos.ro"
@@ -874,7 +822,6 @@ argent-kernel_pkg_postinst() {
 		elog "(such as ati-drivers, nvidia-drivers, virtualbox, etc...)."
 	else
 		kernel-2_pkg_postinst
-
 		local depmod_r=$(_get_release_level)
 		_update_depmod "${depmod_r}"
 	fi
@@ -892,7 +839,6 @@ argent-kernel_pkg_postrm() {
 	fi
 	_remove_dkms_modules
 	argent-kernel_grub2_mkconfig
-	argent-kernel_grub_mkconfig
 
 	local depmod_r=$(_get_release_level)
 	_update_depmod "${depmod_r}"

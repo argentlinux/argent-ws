@@ -1,11 +1,11 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
 EGIT_BRANCH="master"
 EGIT_REPO_URI="https://gitlab.com/argent/argentws-live.git"
 
-inherit eutils systemd git-r3
+inherit  systemd git-r3
 
 DESCRIPTION="Argent live scripts"
 HOMEPAGE="http://www.rogentos.ro"

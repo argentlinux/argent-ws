@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI="7"
 
-inherit eutils
+inherit 
 
 DESCRIPTION="Universal Netboot Installer creates Live USB systems for various OS distributions"
 HOMEPAGE="http://unetbootin.sourceforge.net"

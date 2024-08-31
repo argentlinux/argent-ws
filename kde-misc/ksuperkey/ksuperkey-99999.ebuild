@@ -1,8 +1,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
-inherit eutils git-2
+inherit  git-2
 
 DESCRIPTION="Open the KDE Plasma application launcher using the Super key (patched to bind Krunner to Super key)"
 HOMEPAGE="https://github.com/hanschen/ksuperkey"

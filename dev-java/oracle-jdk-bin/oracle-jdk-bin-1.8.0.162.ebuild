@@ -1,9 +1,9 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
-inherit desktop gnome2-utils java-vm-2 prefix versionator
+inherit desktop gnome2-utils java-vm-2 prefix ver_*
 
 KEYWORDS="-* amd64 ~arm ~arm64 x86 ~amd64-linux ~x86-linux ~x64-macos ~sparc64-solaris ~x64-solaris"
 

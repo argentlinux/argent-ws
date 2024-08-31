@@ -6,7 +6,7 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils fdo-mime gnome2 pax-utils python-r1 udev unpacker versionator
+inherit eutils fdo-mime gnome2 pax-utils python-r1 udev unpacker ver_*
 
 MAIN_PV="$(get_version_component_range 1-3)"
 if [[ ${PV} = *_beta* ]] || [[ ${PV} = *_rc* ]] ; then

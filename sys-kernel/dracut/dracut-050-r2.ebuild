@@ -27,7 +27,7 @@ RESTRICT="test"
 RDEPEND="
 	app-arch/cpio
 	>=app-shells/bash-4.0:0
-	sys-apps/coreutils[xattr(-)]
+	sys-apps/cor[xattr(-)]
 	>=sys-apps/kmod-23[tools]
 	|| (
 		>=sys-apps/sysvinit-2.87-r3

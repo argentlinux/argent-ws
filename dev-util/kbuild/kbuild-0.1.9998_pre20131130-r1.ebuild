@@ -1,9 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="7"
 
-inherit eutils autotools toolchain-funcs
+inherit  autotools toolchain-funcs
 
 MY_P=kBuild-${PV/_/-}-src
 DESCRIPTION="A makefile framework for writing simple makefiles for complex tasks"

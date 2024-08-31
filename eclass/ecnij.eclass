@@ -15,7 +15,7 @@
 if [[ -z "${_ECNIJ_ECLASS}" ]]; then
 _ECNIJ_ECLASS=1
 
-inherit autotools eutils flag-o-matic multilib-build
+inherit autotools  flag-o-matic multilib-build
 
 # @ECLASS-VARIABLE: CANON_PRINTERS
 # @DESCRIPTION:
