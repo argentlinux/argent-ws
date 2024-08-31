@@ -21,6 +21,10 @@ IUSE="build +split-usr"
 
 RDEPEND="!sys-apps/baselayout-prefix"
 
+PATCHES=(
+	 "${FILESDIR}=${P}-argent-os-release.patch"
+)
+
 riscv_compat_symlink() {
 	# Here we apply some special sauce for riscv.
 	# Two multilib layouts exist for now:
@@ -303,6 +307,13 @@ pkg_preinst() {
 	if [[ -L ${EROOT}/var/run || ! -e ${EROOT}/var/run ]]; then
 		dosym ../run /var/run
 	fi
+
+	# Argent customization, backup old etc/hosts
+	local etc_hosts="${ROOT}/etc/hosts"
+	if [ -e "${etc_hosts}" ]; then
+		cp -p "${etc_hosts}" "${etc_hosts}.baselayout_ebuild_backup"
+	fi
+
 }
 
 pkg_postinst() {
