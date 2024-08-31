@@ -1,6 +1,6 @@
-diff -burN baselayout-2.14.old/Makefile baselayout-2.14/Makefile
---- baselayout-2.14.old/Makefile	2024-04-02 01:42:20.275500539 +0300
-+++ baselayout-2.14/Makefile	2024-04-02 01:42:53.816938018 +0300
+diff -burN baselayout-2.15.old/Makefile baselayout-2.15/Makefile
+--- baselayout-2.15.old/Makefile	2024-04-02 01:42:20.275500539 +0300
++++ baselayout-2.15/Makefile	2024-04-02 01:42:53.816938018 +0300
 @@ -52,7 +52,7 @@
  install:
  	$(INSTALL_DIR) $(DESTDIR)/etc
@@ -10,9 +10,9 @@ diff -burN baselayout-2.14.old/Makefile baselayout-2.14/Makefile
  	$(INSTALL_DIR) $(DESTDIR)/lib
  	cp -pPR lib/* $(DESTDIR)/lib/
  	$(INSTALL_DIR) $(DESTDIR)/usr/lib
-diff -burN baselayout-2.14.old/make_os_release baselayout-2.14/make_os_release
---- baselayout-2.14.old/make_os_release	2024-04-02 01:06:06.885949722 +0300
-+++ baselayout-2.14/make_os_release	2024-04-02 01:08:38.149413031 +0300
+diff -burN baselayout-2.15.old/make_os_release baselayout-2.15/make_os_release
+--- baselayout-2.15.old/make_os_release	2024-04-02 01:06:06.885949722 +0300
++++ baselayout-2.15/make_os_release	2024-04-02 01:08:38.149413031 +0300
 @@ -4,12 +4,12 @@
  	exit 1
  fi
