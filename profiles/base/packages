@@ -51,9 +51,8 @@
 *sys-apps/which
 *sys-devel/binutils
 *sys-devel/gcc
-*sys-devel/base-gcc
 *sys-devel/gnuconfig
-*sys-devel/make
+*dev-build/make
 *>=sys-devel/patch-2.7
 *sys-fs/e2fsprogs
 *virtual/dev-manager
