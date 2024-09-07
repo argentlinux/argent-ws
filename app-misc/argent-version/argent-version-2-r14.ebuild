@@ -53,7 +53,7 @@ pkg_postinst() {
 	# Setup newest available GCC version
 	gcc-config $(gcc-config -l | grep x86_64-pc-linux-gnu-${GCC_VER} | awk '{print $1}' | awk -F '[][]' '{print $2}')
 
-	eselect profile set "argent-ws:default/linux/amd64/23.0/desktop/systemd"
+	eselect profile set "default/linux/amd64/23.0/desktop/systemd"
 
 	# using newest binutils we have available
 	export local ARGENT_BINUTILS_CONFIG=$(binutils-config -l | grep "x86_64-pc-linux-gnu-${BINUTILS_VER}" | awk '{print $1}' | awk -F '[][]' '{print $2}' )
