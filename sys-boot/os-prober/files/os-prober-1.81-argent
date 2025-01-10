@@ -1,0 +1,12 @@
+--- os-prober.old/os-probes/mounted/common/90linux-distro	2022-05-26 21:21:10.000000000 -0000
++++ os-prober/os-probes/mounted/common/90linux-distro	2024-10-06 18:25:21.765208198 -0000
+@@ -32,6 +32,9 @@
+ 	elif [ -e "$dir/etc/altlinux-release" ]; then
+ 		short="ALTLinux"
+ 		long="$(cat "$dir/etc/altlinux-release")"
++        elif [ -e "$dir/etc/argent-release" ]; then
++                short="Argent"
++                long="$(cat "$dir/etc/argent-release")"
+ 	elif [ -e "$dir/etc/magic-release" ]; then
+ 		short="Magic"
+ 		long="$(cat "$dir/etc/magic-release")"
