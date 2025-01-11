@@ -1,0 +1,3 @@
+[submodule "redcore-desktop"]
+	path = redcore-desktop
+	url = https://gitlab.com/redcore/redcore-desktop.git
