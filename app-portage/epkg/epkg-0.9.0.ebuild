@@ -24,8 +24,8 @@ RDEPEND="app-portage/gentoolkit
 		sys-apps/coreutils
 		sys-apps/portage"
 REQUIRED_USE="|| ( argent gentoo )
-			argent? ( !gentoo )
-			gentoo? ( !argent )"
+		argent? ( !gentoo )
+		gentoo? ( !argent )"
 
 src_install() {
 	dobin epkg
