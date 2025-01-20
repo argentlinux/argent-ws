@@ -810,10 +810,6 @@ argent-kernel_pkg_postinst() {
 		local depmod_r=$(_get_release_level)
 		_update_depmod "${depmod_r}"
 
-        if use dracut ; then
-            _dracut_initramfs_create
-        fi
-
 		elog "Please report kernel bugs at:"
 		elog "http://rogentos.ro"
 		elog "RogentOS Team recommends that portage users install"
