@@ -283,6 +283,7 @@ _is_kernel_lts() {
 	[ "${_ver}" = "4.9" ] && return 0
 	[ "${_ver}" = "4.14" ] && return 0
 	[ "${_ver}" = "4.16" ] && return 0
+	[ "${_ver}" = "6.12" ] && return 0
 	return 1
 }
 
