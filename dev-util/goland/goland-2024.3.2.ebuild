@@ -1,20 +1,17 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit desktop wrapper
 
 DESCRIPTION="Golang IDE by JetBrains"
-HOMEPAGE="https://www.jetbrains.com/go"
+HOMEPAGE="https://www.jetbrains.com/go/"
 SRC_URI="
 	amd64? ( https://download.jetbrains.com/go/${P}.tar.gz )
 	arm64? ( https://download.jetbrains.com/go/${P}-aarch64.tar.gz )
 "
-
-SLOT="0"
-KEYWORDS="~amd64 ~arm64"
-
+S="${WORKDIR}/GoLand-${PV}"
 LICENSE="|| ( JetBrains-business JetBrains-classroom JetBrains-educational JetBrains-individual )
 	Apache-2.0
 	BSD
@@ -32,12 +29,12 @@ LICENSE="|| ( JetBrains-business JetBrains-classroom JetBrains-educational JetBr
 	OFL-1.1
 	ZLIB
 "
+SLOT="0/2024"
+
+KEYWORDS="~amd64 ~arm64"
 
 RESTRICT="bindist mirror"
-
 QA_PREBUILT="opt/${P}/*"
-
-S="${WORKDIR}/GoLand-${PV}"
 
 RDEPEND="
 	virtual/jdk
