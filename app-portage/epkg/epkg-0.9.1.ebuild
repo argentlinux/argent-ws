@@ -34,11 +34,11 @@ src_install() {
 
 	if use gentoo ; then
 		export GENTOO_DISTRO="gentoo"
-		envsubst < "${S}/libepkg" > "${S}/libepkg.new" && mv "${S}/libepkg.new" "${S}/libepkg"
+		envsubst '${GENTOO_DISTRO}' < "${S}/libepkg" > "${S}/libepkg.new" && mv "${S}/libepkg.new" "${S}/libepkg"
 		doins "${S}/libepkg"
 	else
 		export GENTOO_DISTRO="argent"
-		envsubst < "${S}/libepkg" > "${S}/libepkg.new" && mv "${S}/libepkg.new" "${S}/libepkg"
+		envsubst '${GENTOO_DISTRO}' < "${S}/libepkg" > "${S}/libepkg.new" && mv "${S}/libepkg.new" "${S}/libepkg"
 		doins "${S}/libepkg"
 	fi
 
