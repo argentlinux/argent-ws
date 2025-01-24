@@ -77,8 +77,7 @@ src_prepare() {
 
 	patchelf --set-rpath '$ORIGIN' "jbr/lib/libjcef.so" || die
 	patchelf --set-rpath '$ORIGIN' "jbr/lib/jcef_helper" || die
-	patchelf --set-rpath '$ORIGIN/../lib' "bin/clang/linux/x64/libclazyPlugin.so" || die
-	patchelf --set-rpath '$ORIGIN/../lib' "bin/clang/linux/x64/libclazyPlugin.so.19.0git" || die
+	patchelf --set-rpath '$ORIGIN/../lib' "bin/clang/linux/x64/lib/libclazyPlugin.so" || die
 }
 
 src_install() {
@@ -86,7 +85,7 @@ src_install() {
 
 	insinto "${dir}"
 	doins -r *
-	fperms 755 "${dir}"/bin/{clion.sh,format.sh,fsnotifier,inspect.sh,jetbrains_client.sh,ltedit.sh,remote-dev-server.sh,repair,restarter,clang/linux/x64/{clangd,clang-tidy,clazy-standalone,llvm-symbolizer}}
+	fperms 755 "${dir}"/bin/{clion.sh,format.sh,fsnotifier,inspect.sh,jetbrains_client.sh,ltedit.sh,remote-dev-server.sh,restarter,clang/linux/x64/bin/{clangd,clang-tidy,clazy-standalone,llvm-symbolizer}}
 
 	if [[ -d jbr ]]; then
 		fperms 755 "${dir}"/jbr/bin/{java,javac,javadoc,jcmd,jdb,jfr,jhsdb,jinfo,jmap,jps,jrunscript,jstack,jstat,keytool,rmiregistry,serialver}
