@@ -51,7 +51,7 @@ RDEPEND="dev-libs/libdbusmenu
 
 src_unpack() {
 		# WebStorm unarchived directory is in format WebStorm-xxx.yyy.zzz, not ${P}
-		cp "${DISTDIR}"/WebStorm-${PV}.tar.gz "${WORKDIR}" || die
+		cp "${DISTDIR}"/WebStorm-${PV}.tar.gz "${WORKDIR}"/ || die
 		mkdir -p "${P}"
 		tar --strip-components=1 -xzf "WebStorm-${PV}".tar.gz -C "${P}" || die
 }
