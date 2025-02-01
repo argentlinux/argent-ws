@@ -14,7 +14,7 @@ LICENSE="|| ( IDEA IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )
 	EPL-1.0 EPL-2.0 GPL-2 GPL-2-with-classpath-exception GPL-3 ISC JDOM
 	LGPL-2.1+ LGPL-3 MIT MPL-1.0 MPL-1.1 OFL-1.1 public-domain PSF-2
 	UoI-NCSA ZLIB"
-SLOT="0"
+SLOT="0/2024"
 KEYWORDS="~amd64"
 RESTRICT="bindist mirror splitdebug"
 
@@ -25,13 +25,14 @@ RDEPEND="
 	dev-debug/gdb
 	dev-libs/expat
 	dev-libs/glib:2
-	dev-util/lttng-ust:0/2.13
+	dev-util/lttng-ust:2.12
 	dev-libs/nspr
 	dev-libs/nss
 	dev-libs/wayland
 	dev-build/cmake
 	app-alternatives/ninja
 	media-libs/alsa-lib
+	media-libs/fontconfig
 	media-libs/freetype:2
 	media-libs/mesa
 	net-print/cups
