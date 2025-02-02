@@ -3,9 +3,9 @@
 # $Header: $
 
 EAPI="7"
-PYTHON_COMPAT=( python3_{4,5,6} )
+PYTHON_COMPAT=( python3_{12,13} )
 
-inherit  cmake-utils python-r1
+inherit cmake python-r1
 
 SRC_URI="https://github.com/calamares/calamares/releases/download/v${PV}/${P}.tar.gz"
 
