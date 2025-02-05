@@ -143,10 +143,10 @@ pkg_postinst() {
 	optfeature "sound support" \
 		media-sound/pulseaudio media-sound/apulse[sdk] media-video/pipewire
 	optfeature "emoji support" media-fonts/noto-emoji
-	if has_version -b kde-plasma/kwin[-screencast] && use wayland; then
+	if has_version kde-plasma/kwin[-screencast] && use wayland; then
 		einfo " "
-		einfo "On Wayland you need to enable kde-plasna/kwin[screencast] USE flag"
-		einfo "in order to be able to share your screen if you're using Kwin."
+		einfo "When using Kwin on Wayland, the kde-plasma/kwin[screencast] USE flag"
+		einfo "must be enabled for screensharing."
 		einfo " "
 	fi
 }
