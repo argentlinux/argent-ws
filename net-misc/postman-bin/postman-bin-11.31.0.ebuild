@@ -11,7 +11,7 @@ DESCRIPTION="API platform for building and using APIs"
 HOMEPAGE="https://www.postman.com/"
 SRC_URI="https://dl.pstmn.io/download/version/${PV}/linux64 -> ${P}.tar.gz"
 
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 LICENSE="postman"
 SLOT="0"
 IUSE=""
