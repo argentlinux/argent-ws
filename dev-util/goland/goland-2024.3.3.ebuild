@@ -29,7 +29,6 @@ LICENSE="|| ( JetBrains-business JetBrains-classroom JetBrains-educational JetBr
 	OFL-1.1
 	ZLIB
 "
-IUSE="bundled-xvfb"
 SLOT="0/2024"
 KEYWORDS="~amd64 ~arm64"
 
@@ -67,15 +66,6 @@ src_prepare() {
 			debugedit -b "${EPREFIX}/opt/${PN}" -d "/usr/lib/debug" -i "{}"
 		fi
 	' \;
-
-		if use bundled-xvfb; then
-			patchelf --set-rpath '$ORIGIN/../lib' "${S}"/plugins/remote-dev-server/selfcontained/bin/{Xvfb,xkbcomp} || die
-			patchelf --set-rpath '$ORIGIN' "${S}"/plugins/remote-dev-server/selfcontained/lib/lib*.so* || die
-		else
-			rm -vr "${S}"/plugins/remote-dev-server/selfcontained || die
-			sed '/export REMOTE_DEV_SERVER_IS_NATIVE_LAUNCHER/a export REMOTE_DEV_SERVER_USE_SELF_CONTAINED_LIBS=1' \
-			  -i bin/remote-dev-server.sh || die
-		fi
 
 	patchelf --set-rpath '$ORIGIN' "jbr/lib/libjcef.so" || die
 	patchelf --set-rpath '$ORIGIN' "jbr/lib/jcef_helper" || die

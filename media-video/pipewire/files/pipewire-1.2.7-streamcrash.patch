@@ -1,0 +1,17 @@
+diff '--color=auto' -burN pipewire-1.2.7.old/pipewire-alsa/alsa-plugins/pcm_pipewire.c pipewire-1.2.7/pipewire-alsa/alsa-plugins/pcm_pipewire.c
+--- pipewire-1.2.7.old/pipewire-alsa/alsa-plugins/pcm_pipewire.c	2025-02-21 00:16:10.672989349 +0200
++++ pipewire-1.2.7/pipewire-alsa/alsa-plugins/pcm_pipewire.c	2025-02-21 00:16:47.170962862 +0200
+@@ -462,7 +462,12 @@
+ static int pipewire_start(snd_pcm_pipewire_t *pw)
+ {
+ 	if (!pw->activated && pw->stream != NULL) {
+-		pw_stream_set_active(pw->stream, true);
++		pw_log_debug("%p: activating stream", pw);
++		int res = pw_stream_set_active(pw->stream, true);
++		if (res < 0) {
++			pw_log_error("%p: failed to activate stream: %s", pw, spa_strerror(res));
++			return res;
++		}
+ 		pw->activated = true;
+ 	}
+ 	return 0;

@@ -1,0 +1,62 @@
+diff '--color=auto' -burN kpipewire-6.2.5.old/src/pipewiresourcestream.cpp kpipewire-6.2.5/src/pipewiresourcestream.cpp
+--- kpipewire-6.2.5.old/src/pipewiresourcestream.cpp	2025-02-20 19:25:02.389563519 +0200
++++ kpipewire-6.2.5/src/pipewiresourcestream.cpp	2025-02-20 23:28:02.520378894 +0200
+@@ -525,20 +525,22 @@
+ {
+     d->m_availableModifiers.clear();
+     d->pwCore = PipeWireCore::fetch(fd);
+-    if (!d->pwCore->error().isEmpty()) {
++    if (!d->pwCore || !d->pwCore->error().isEmpty()) {
+         qCDebug(PIPEWIRE_LOGGING) << "received error while creating the stream" << d->pwCore->error();
+         d->m_error = d->pwCore->error();
+         return false;
+     }
+ 
+-    connect(d->pwCore.data(), &PipeWireCore::pipewireFailed, this, &PipeWireSourceStream::coreFailed);
+-
+     if (objectName().isEmpty()) {
+         setObjectName(QStringLiteral("plasma-screencast-%1").arg(nodeid));
+     }
+ 
+     const auto pwServerVersion = d->pwCore->serverVersion();
+     d->pwStream = pw_stream_new(**d->pwCore, objectName().toUtf8().constData(), nullptr);
++    if (!d->pwStream) {
++        qCWarning(PIPEWIRE_LOGGING) << "Failed to create pwStream";
++        return false;
++    }
+     d->pwNodeId = nodeid;
+     pw_stream_add_listener(d->pwStream, &d->streamListener, &pwStreamEvents, this);
+ 
+@@ -709,7 +711,10 @@
+ 
+ void PipeWireSourceStream::setActive(bool active)
+ {
+-    Q_ASSERT(d->pwStream);
++    if (!d->pwStream) {
++        qCWarning(PIPEWIRE_LOGGING) << "pwStream is null, cannot set active state";
++        return;
++    }
+     pw_stream_set_active(d->pwStream, active);
+ }
+ 
+@@ -728,7 +733,7 @@
+     return d->m_allowDmaBuf;
+ }
+ 
+-void PipeWireSourceStream::setAllowDmaBuf(bool allowed)
++void PipeWireSourceStream::setAllowDmaBuf(bool allowed) const
+ {
+     d->m_allowDmaBuf = allowed;
+ }
+diff '--color=auto' -burN kpipewire-6.2.5.old/src/pipewiresourcestream.h kpipewire-6.2.5/src/pipewiresourcestream.h
+--- kpipewire-6.2.5.old/src/pipewiresourcestream.h	2025-02-20 19:25:02.388563518 +0200
++++ kpipewire-6.2.5/src/pipewiresourcestream.h	2025-02-20 23:21:41.578603156 +0200
+@@ -149,7 +149,7 @@
+ 
+     bool usingDmaBuf() const;
+     bool allowDmaBuf() const;
+-    void setAllowDmaBuf(bool allowed);
++    void setAllowDmaBuf(bool allowed) const;
+ 
+ Q_SIGNALS:
+     void streamReady();
