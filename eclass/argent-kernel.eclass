@@ -16,7 +16,7 @@ K_ROGKERNEL_NAME="${K_ROGKERNEL_NAME:-${PN/${PN/-*}-}}"
 # be applied inside the tarball). Moreover, K_ROGKERNEL_NAME,
 # K_KERNEL_PATCH_VER will be ignored.
 # Example:
-#   K_ROGKERNEL_SELF_TARBALL_NAME="argent"
+#   K_ROGKERNEL_SELF_TARBALL_NAME="noxis"
 #   This would generate:
 #   SRC_URI="mirror://argent/sys-kernel/linux-${PV}+argent.tar.${K_TARBALL_EXT}"
 K_ROGKERNEL_SELF_TARBALL_NAME="${K_ROGKERNEL_SELF_TARBALL_NAME:-}"
@@ -283,7 +283,6 @@ _is_kernel_lts() {
 	[ "${_ver}" = "4.9" ] && return 0
 	[ "${_ver}" = "4.14" ] && return 0
 	[ "${_ver}" = "4.16" ] && return 0
-	[ "${_ver}" = "6.12" ] && return 0
 	return 1
 }
 
@@ -341,7 +340,7 @@ if [ -n "${K_ONLY_SOURCES}" ] || [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 	DEPEND="sys-apps/sed"
 	RDEPEND="${RDEPEND}"
 else
-	IUSE="btrfs dmraid +dracut iscsi luks lvm mdadm +plymouth splash sources_standalone"
+	IUSE="btrfs -grub2 dmraid +dracut iscsi luks lvm mdadm +plymouth splash sources_standalone"
 	if [ -n "${K_ROGKERNEL_ZFS}" ]; then
 		IUSE="${IUSE} zfs"
 	fi
@@ -558,8 +557,8 @@ _kernel_src_compile() {
 		--tempdir="${S}"/temp \
 		--logfile="${WORKDIR}"/genkernel.log \
 		--bootdir="${WORKDIR}"/boot \
-		--mountboot \
 		--module-prefix="${WORKDIR}"/lib \
+		--mountboot \
 		${GENKERNEL_MODE} || die "genkernel failed"
 
 	if [ -n "${K_MKIMAGE_KERNEL_ADDRESS}" ]; then
@@ -805,11 +804,12 @@ argent-kernel_pkg_postinst() {
 			_dracut_initramfs_create
 		fi
 
-		argent-kernel_grub2_mkconfig
-
-		kernel-2_pkg_postinst
-		local depmod_r=$(_get_release_level)
-		_update_depmod "${depmod_r}"
+		if use grub2 ; then
+			argent-kernel_grub2_mkconfig
+			kernel-2_pkg_postinst
+			local depmod_r=$(_get_release_level)
+			_update_depmod "${depmod_r}"
+		fi
 
 		elog "Please report kernel bugs at:"
 		elog "http://rogentos.ro"
@@ -835,7 +835,10 @@ argent-kernel_pkg_postrm() {
 		_initramfs_delete
 	fi
 	_remove_dkms_modules
-	argent-kernel_grub2_mkconfig
+
+	if use grub2 ; then
+		argent-kernel_grub2_mkconfig
+	fi
 
 	local depmod_r=$(_get_release_level)
 	_update_depmod "${depmod_r}"
