@@ -379,6 +379,7 @@ _update_depmod() {
 	get_version;
 
 	ebegin "Updating module dependencies for ${KV_FULL}"
+	eend
 	if [ -r "${KV_OUT_DIR}"/System.map ]; then
 		depmod -ae -F "${KV_OUT_DIR}"/System.map -b "${ROOT}" "${1}"
 		eend $?
@@ -390,6 +391,7 @@ _update_depmod() {
 		ewarn
 	fi
 	ebegin "Updated modules for "${KV_OUT_DIR}"/System.map"
+	eend
 }
 
 argent-kernel_pkg_setup() {
