@@ -358,7 +358,7 @@ else
 		dracut? ( sys-kernel/dracut )"
 	RDEPEND="sys-apps/sed
 		sys-kernel/linux-firmware
-		dracut? ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?])
+		dracut? ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
 	"
 	if [ -n "${K_REQUIRED_LINUX_FIRMWARE_VER}" ]; then
 		RDEPEND+=" >=sys-kernel/linux-firmware-${K_REQUIRED_LINUX_FIRMWARE_VER}"
