@@ -348,7 +348,6 @@ else
 		sys-apps/sed
 		dev-build/autoconf
 		dev-build/make
-		|| ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
 		splash? ( x11-themes/argent-artwork-core )
 		lvm? ( sys-fs/lvm2 sys-block/thin-provisioning-tools )
 		btrfs? ( sys-fs/btrfs-progs )
@@ -358,7 +357,9 @@ else
 		)
 		dracut? ( sys-kernel/dracut )"
 	RDEPEND="sys-apps/sed
-		sys-kernel/linux-firmware"
+		sys-kernel/linux-firmware
+		dracut? ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?])
+	"
 	if [ -n "${K_REQUIRED_LINUX_FIRMWARE_VER}" ]; then
 		RDEPEND+=" >=sys-kernel/linux-firmware-${K_REQUIRED_LINUX_FIRMWARE_VER}"
 	fi
