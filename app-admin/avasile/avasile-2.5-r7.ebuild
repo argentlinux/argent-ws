@@ -25,10 +25,6 @@ DEPEND="
 	sys-fs/mtools"
 RDEPEND="${DEPEND}"
 
-PATCHES=(
-	server? ( "${FILESDIR}/${P}-server.patch" )
-)
-
 src_install() {
 	dodir /usr/bin
 	exeinto /usr/bin
