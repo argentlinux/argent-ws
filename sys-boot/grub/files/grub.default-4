@@ -8,17 +8,17 @@
 # See the grub info page for documentation on possible variables and
 # their associated values.
 
-GRUB_DISTRIBUTOR="Gentoo"
+GRUB_DISTRIBUTOR="Argent"
 
 # Default menu entry
 #GRUB_DEFAULT=0
 
 # Boot the default entry this many seconds after the menu is displayed
-#GRUB_TIMEOUT=5
+GRUB_TIMEOUT=5
 #GRUB_TIMEOUT_STYLE=menu
 
 # Append parameters to the linux kernel command line
-#GRUB_CMDLINE_LINUX=""
+GRUB_CMDLINE_LINUX="quiet loglevel=1"
 #
 # Examples:
 #
@@ -34,26 +34,26 @@ GRUB_DISTRIBUTOR="Gentoo"
 # Uncomment to disable graphical terminal (grub-pc only)
 #GRUB_TERMINAL=console
 
-# The resolution used on graphical terminal.
-# Note that you can use only modes which your graphic card supports via VBE.
-# You can see them in real GRUB with the command `vbeinfo'.
-#GRUB_GFXMODE=640x480
+# Resolution used on graphical terminal.
+# The list of valid modes may be obtained using the 'vbeinfo' (PC BIOS) or
+# 'videoinfo' (EFI) command from a GRUB boot prompt.
+GRUB_GFXMODE="1366x768,1024x768,auto"
 
 # Set to 'text' to force the Linux kernel to boot in normal text
 # mode, 'keep' to preserve the graphics mode set using
 # 'GRUB_GFXMODE', 'WIDTHxHEIGHT'['xDEPTH'] to set a particular
 # graphics mode, or a sequence of these separated by commas or
 # semicolons to try several modes in sequence.
-#GRUB_GFXPAYLOAD_LINUX=
+GRUB_GFXPAYLOAD_LINUX="keep"
 
 # Path to theme spec txt file.
 # The starfield is by default provided with use truetype.
 # NOTE: when enabling custom theme, ensure you have required font/etc.
-#GRUB_THEME="/boot/grub/themes/starfield/theme.txt"
+GRUB_THEME="/usr/share/grub/themes/argent/theme.txt"
 
 # Background image used on graphical terminal.
 # Can be in various bitmap formats.
-#GRUB_BACKGROUND="/boot/grub/mybackground.png"
+GRUB_BACKGROUND="/usr/share/grub/themes/argent/terminal_bg.png"
 
 # Uncomment if you don't want GRUB to pass "root=UUID=xxx" parameter to kernel
 #GRUB_DISABLE_LINUX_UUID=true
@@ -74,3 +74,6 @@ GRUB_DISABLE_LINUX_PARTUUID=false
 # This is useful, for example, to allow users who can't see the screen
 # to know when they can make a choice on the menu.
 #GRUB_INIT_TUNE="60 800 1"
+
+# OS Prober enable
+GRUB_DISABLE_OS_PROBER="false"

@@ -16,29 +16,24 @@ EAPI=7
 # If any of the above applies to a user patch, the user should set the
 # corresponding variable in make.conf or the environment.
 
-if [[ ${PV} == 9999  ]]; then
-	GRUB_AUTORECONF=1
-	GRUB_BOOTSTRAP=1
-fi
-
-GRUB_AUTOGEN=1
 GRUB_AUTORECONF=1
-PYTHON_COMPAT=( python3_{8..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 WANT_LIBTOOL=none
 VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/dkiper.gpg
-
-if [[ -n ${GRUB_AUTOGEN} || -n ${GRUB_BOOTSTRAP} ]]; then
-	inherit python-any-r1
-fi
 
 if [[ -n ${GRUB_AUTORECONF} ]]; then
 	inherit autotools
 fi
 
-inherit bash-completion-r1 flag-o-matic multibuild optfeature toolchain-funcs verify-sig
+inherit bash-completion-r1 flag-o-matic multibuild optfeature python-any-r1 toolchain-funcs
+
+DESCRIPTION="GNU GRUB boot loader"
+HOMEPAGE="https://www.gnu.org/software/grub/"
 
 MY_P=${P}
 if [[ ${PV} != 9999 ]]; then
+	inherit verify-sig
+
 	if [[ ${PV} == *_alpha* || ${PV} == *_beta* || ${PV} == *_rc* ]]; then
 		# The quote style is to work with <=bash-4.2 and >=bash-4.3 #503860
 		MY_P=${P/_/'~'}
@@ -50,32 +45,30 @@ if [[ ${PV} != 9999 ]]; then
 	else
 		SRC_URI="
 			mirror://gnu/${PN}/${P}.tar.xz
+			https://dev.gentoo.org/~floppym/dist/${P}-bash-completion.patch.gz
 			verify-sig? ( mirror://gnu/${PN}/${P}.tar.xz.sig )
 		"
 		S=${WORKDIR}/${P%_*}
 	fi
-	KEYWORDS="amd64 arm arm64 ~ia64 ppc ppc64 ~riscv sparc x86"
+	BDEPEND="verify-sig? ( sec-keys/openpgp-keys-danielkiper )"
+	KEYWORDS="amd64 arm arm64 ~loong ppc ppc64 ~riscv sparc x86"
 else
 	inherit git-r3
 	EGIT_REPO_URI="https://git.savannah.gnu.org/git/grub.git"
 fi
 
-SRC_URI+=" https://dev.gentoo.org/~floppym/dist/${P}-backports-r3.tar.xz"
-
 PATCHES=(
-	"${WORKDIR}/${P}-backports"
 	"${FILESDIR}"/gfxpayload.patch
 	"${FILESDIR}"/grub-2.02_beta2-KERNEL_GLOBS.patch
 	"${FILESDIR}"/grub-2.06-test-words.patch
+	"${FILESDIR}"/grub-2.12-fwsetup.patch
+	"${WORKDIR}"/grub-2.12-bash-completion.patch
 )
 
 DEJAVU=dejavu-sans-ttf-2.37
-UNIFONT=unifont-12.1.02
+UNIFONT=unifont-15.0.06
 SRC_URI+=" fonts? ( mirror://gnu/unifont/${UNIFONT}/${UNIFONT}.pcf.gz )
-	themes? ( mirror://sourceforge/dejavu/${DEJAVU}.zip )"
-
-DESCRIPTION="GNU GRUB boot loader"
-HOMEPAGE="https://www.gnu.org/software/grub/"
+	themes? ( https://downloads.sourceforge.net/dejavu/${DEJAVU}.zip )"
 
 # Includes licenses for dejavu and unifont
 LICENSE="GPL-3+ BSD MIT fonts? ( GPL-2-with-font-exception ) themes? ( CC-BY-SA-3.0 BitstreamVera )"
@@ -93,7 +86,7 @@ REQUIRED_USE="
 	grub_platforms_loongson? ( fonts )
 "
 
-BDEPEND="
+BDEPEND+="
 	${PYTHON_DEPS}
 	>=sys-devel/flex-2.5.35
 	sys-devel/bison
@@ -119,17 +112,16 @@ BDEPEND="
 		virtual/pkgconfig
 	)
 	truetype? ( virtual/pkgconfig )
-	verify-sig? ( sec-keys/openpgp-keys-danielkiper )
 "
 DEPEND="
 	app-arch/xz-utils
 	>=sys-libs/ncurses-5.2-r5:0=
 	grub_platforms_emu? (
-		sdl? ( media-libs/libsdl )
+		sdl? ( media-libs/libsdl2 )
 	)
 	device-mapper? ( >=sys-fs/lvm2-2.02.45 )
 	libzfs? ( sys-fs/zfs:= )
-	mount? ( sys-fs/fuse:0 )
+	mount? ( sys-fs/fuse:3 )
 	truetype? ( media-libs/freetype:2= )
 	ppc? ( >=sys-apps/ibm-powerpc-utils-1.3.5 )
 	ppc64? ( >=sys-apps/ibm-powerpc-utils-1.3.5 )
@@ -143,7 +135,7 @@ RDEPEND="${DEPEND}
 	nls? ( sys-devel/gettext )
 "
 
-RESTRICT="!test? ( test )"
+RESTRICT="!test? ( test ) test? ( userpriv )"
 
 QA_EXECSTACK="usr/bin/grub-emu* usr/lib/grub/*"
 QA_PRESTRIPPED="usr/lib/grub/.*"
@@ -172,11 +164,7 @@ src_unpack() {
 src_prepare() {
 	default
 
-	if [[ -n ${GRUB_AUTOGEN} || -n ${GRUB_BOOTSTRAP} ]]; then
-		python_setup
-	else
-		export PYTHON=true
-	fi
+	python_setup
 
 	if [[ -n ${GRUB_BOOTSTRAP} ]]; then
 		eautopoint --force
@@ -188,6 +176,10 @@ src_prepare() {
 	if [[ -n ${GRUB_AUTORECONF} ]]; then
 		eautoreconf
 	fi
+
+	# Avoid error due to extra_deps.lst missing from source tarball:
+	#       make[3]: *** No rule to make target 'grub-core/extra_deps.lst', needed by 'syminfo.lst'.  Stop.
+	echo "depends bli part_gpt" > grub-core/extra_deps.lst || die
 }
 
 grub_do() {
@@ -232,7 +224,8 @@ grub_configure() {
 		$(use_enable themes grub-themes)
 		$(use_enable truetype grub-mkfont)
 		$(use_enable libzfs)
-		$(use_enable sdl grub-emu-sdl)
+		--enable-grub-emu-sdl=no
+		$(use_enable sdl grub-emu-sdl2)
 		${platform:+--with-platform=}${platform}
 
 		# Let configure detect this where supported
@@ -296,7 +289,9 @@ src_compile() {
 src_test() {
 	# The qemu dependency is a bit complex.
 	# You will need to adjust QEMU_SOFTMMU_TARGETS to match the cpu/platform.
-	grub_do emake check
+	local SANDBOX_WRITE=${SANDBOX_WRITE}
+	addwrite /dev
+	grub_do emake -j1 check
 }
 
 src_install() {
@@ -310,6 +305,10 @@ src_install() {
 
 	# https://bugs.gentoo.org/231935
 	dostrip -x /usr/lib/grub
+
+	sed -e "s/%PV%/${PV}/" "${FILESDIR}/sbat.csv" > "${T}/sbat.csv" || die
+	insinto /usr/share/grub
+	doins "${T}/sbat.csv"
 
 	if use elibc_musl; then
 		# https://bugs.gentoo.org/900348
@@ -335,7 +334,7 @@ pkg_postinst() {
 	else
 		elog
 		optfeature "detecting other operating systems (grub-mkconfig)" sys-boot/os-prober
-		optfeature "creating rescue media (grub-mkrescue)" dev-libs/libisoburn
+		optfeature "creating rescue media (grub-mkrescue)" dev-libs/libisoburn sys-fs/mtools
 		optfeature "enabling RAID device detection" sys-fs/mdadm
 		optfeature "automatically updating GRUB's configuration on each kernel installation" "sys-kernel/installkernel[grub]"
 	fi
