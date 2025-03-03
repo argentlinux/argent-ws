@@ -16,7 +16,7 @@ SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="+networkmanager +upower"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
