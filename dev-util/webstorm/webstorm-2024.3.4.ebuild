@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit desktop wrapper eapi9-ver
+inherit desktop wrapper
 
 DESCRIPTION="An integrated development environment for JavaScript and related technologies."
 HOMEPAGE="https://www.jetbrains.com/webstorm/"
