@@ -34,19 +34,10 @@ RESTRICT="bindist mirror"
 QA_PREBUILT="opt/${P}/*"
 
 BDEPEND=""
-RDEPEND="dev-libs/libdbusmenu
+RDEPEND="
 		dev-libs/wayland
-		llvm-core/lldb
-		media-libs/mesa[X(+)]
+		sys-libs/pam
 		sys-process/audit
-		x11-libs/libX11
-		x11-libs/libXcomposite
-		x11-libs/libXcursor
-		x11-libs/libXdamage
-		x11-libs/libXext
-		x11-libs/libXfixes
-		x11-libs/libXi
-		x11-libs/libXrandr
 "
 
 src_unpack() {
