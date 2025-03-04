@@ -75,7 +75,9 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	mapfile -t ARGENT_VBOX_STATE < /etc/argent-vbox/argent-vbox-state.conf
+	if use vbox ; then 
+		mapfile -t ARGENT_VBOX_STATE < /etc/argent-vbox/argent-vbox-state.conf
+	fi
 
 	if use vbox && [ "${ARGENT_VBOX_STATE}" = "1" ] ; then
 		systemctl enable argent-config-vbox
