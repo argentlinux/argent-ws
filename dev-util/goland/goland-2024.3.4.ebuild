@@ -29,9 +29,9 @@ LICENSE="|| ( JetBrains-business JetBrains-classroom JetBrains-educational JetBr
 	OFL-1.1
 	ZLIB
 "
-IUSE="bundled-xvfb"
 SLOT="0/2024"
 KEYWORDS="~amd64 ~arm64"
+IUSE="wayland"
 
 RESTRICT="bindist mirror"
 QA_PREBUILT="opt/${P}/*"
@@ -61,24 +61,20 @@ src_prepare() {
 	# removing debug symbols and relocating debug files as per #876295
 	# we're escaping all the files that contain $() in their name
 	# as they should not be executed
-	find . -type f ! -regex '.*\$\([^)]+\).*' -exec sh -c '
+	find . -type f ! -name '*$(*)*' -exec sh -c '
 		if file "{}" | grep -qE "ELF (32|64)-bit"; then
 			objcopy --remove-section .note.gnu.build-id "{}"
 			debugedit -b "${EPREFIX}/opt/${PN}" -d "/usr/lib/debug" -i "{}"
 		fi
 	' \;
 
-		if use bundled-xvfb; then
-			patchelf --set-rpath '$ORIGIN/../lib' "${S}"/plugins/remote-dev-server/selfcontained/bin/{Xvfb,xkbcomp} || die
-			patchelf --set-rpath '$ORIGIN' "${S}"/plugins/remote-dev-server/selfcontained/lib/lib*.so* || die
-		else
-			rm -vr "${S}"/plugins/remote-dev-server/selfcontained || die
-			sed '/export REMOTE_DEV_SERVER_IS_NATIVE_LAUNCHER/a export REMOTE_DEV_SERVER_USE_SELF_CONTAINED_LIBS=1' \
-			  -i bin/remote-dev-server.sh || die
-		fi
-
 	patchelf --set-rpath '$ORIGIN' "jbr/lib/libjcef.so" || die
 	patchelf --set-rpath '$ORIGIN' "jbr/lib/jcef_helper" || die
+
+	# As per https://blog.jetbrains.com/platform/2024/07/wayland-support-preview-in-2024-2/ for full wayland support
+	if use wayland; then
+		echo "-Dawt.toolkit.name=WLToolkit" >> bin/webstorm64.vmoptions || die
+	fi
 }
 
 src_install() {
@@ -94,34 +90,8 @@ src_install() {
 	make_wrapper "${PN}" "${dir}/bin/${PN}.sh"
 	newicon "bin/${PN}.png" "${PN}.png"
 	make_desktop_entry "${PN}" "Goland ${PV}" "${PN}" "Development;IDE;"
-}
 
-pkg_postinst() {
-	if [[ -z "${REPLACING_VERSIONS}" ]]; then
-			# This is a new installation, so:
-			echo
-			elog "It is strongly recommended to increase the inotify watch limit"
-			elog "to at least 524288. You can achieve this e.g. by calling"
-			elog "echo \"fs.inotify.max_user_watches = 524288\" > /etc/sysctl.d/30-idea-inotify-watches.conf"
-			elog "and reloading with \"sysctl --system\" (and restarting the IDE)."
-			elog "For details see:"
-			elog "    https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit"
-	fi
-
-	local replacing_version
-	for replacing_version in ${REPLACING_VERSIONS} ; do
-		if ver_test "${replacing_version}" -lt "2019.3-r1"; then
-			# This revbump requires user interaction.
-			echo
-			ewarn "Previous versions configured fs.inotify.max_user_watches without user interaction."
-			ewarn "Since version 2019.3-r1 you need to do so manually, e.g. by calling"
-			ewarn "echo \"fs.inotify.max_user_watches = 524288\" > /etc/sysctl.d/30-idea-inotify-watches.conf"
-			ewarn "and reloading with \"sysctl --system\" (and restarting the IDE)."
-			ewarn "For details see:"
-			ewarn "    https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit"
-
-			# Show this ewarn only once
-			break
-		fi
-	done
+	# recommended by: https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
+	insinto /usr/lib/sysctl.d
+	newins - 30-"${PN}"-inotify-watches.conf <<<"fs.inotify.max_user_watches = 524288"
 }
