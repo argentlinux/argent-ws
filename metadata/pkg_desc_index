@@ -1,0 +1,70 @@
+app-admin/avasile 2.5 2.5-r6 2.5-r7 2.5-r8 2.5-r9: Versatile Advanced Script for ISO and Latest Enchantments
+app-admin/calamares 3.2.2 3.3.6-r2 3.3.14 3.3.14-r3: Distribution-independent installer framework
+app-emulation/steam 1.0.0.79: Installer, launcher and supplementary files for Valve's Steam client
+app-eselect/eselect-mesa 0.0.10-r1: Utility to change the Mesa OpenGL driver being used
+app-eselect/eselect-opengl 1.3.1-r4: Utility to change the OpenGL interface being used
+app-misc/argent-config-files 1.0 1.0-r1 1.0-r2 1.0-r3 1.0-r4: Argent config files
+app-misc/argent-live 1 1-r1 1-r2: Argent live scripts
+app-misc/argent-skel 1.5.3 3.2 3.2-r7: Argent Linux skel tree
+app-misc/argent-version 1.2 1.3 2 2-r1 2-r2 2-r3 2-r4 2-r5 2-r6 2-r7 2-r8 2-r14 2-r15 2-r16 3: Argent system release virtual package
+app-misc/calamares-config-argent 1.5.3 1.5.3-r1 3.1-r5 3.1-r6 3.1-r7 3.1-r8 3.2 3.2-r1 3.2-r2 3.2-r3: Argent Linux Calamares modules config
+app-misc/calamares-runtime 2.0-r1 3.1-r1 3.1-r2 3.2 3.2-r1: Calamares distribution-independent installer framework runtime meta-package (containing all the runtime dependencies)
+app-misc/screenfetch 3.6.5-r1 9999: A Bash Screenshot Information Tool
+app-portage/epkg 0.8 0.8.1-r10 0.8.2 0.9.1 0.9.1-r1: Argent simple portage wrapper which works like any other package manager
+dev-util/clion 2022.3.2 2023.1.4 2023.3.4-r1 2024.3.3 2024.3.4: A complete toolset for C and C++ development
+dev-util/goland 2024.3.3 2024.3.4: Golang IDE by JetBrains
+dev-util/kbuild 0.1.9998_pre20131130-r1: A makefile framework for writing simple makefiles for complex tasks
+dev-util/pycharm-community 2024.3.2: Intelligent Python IDE with unique code assistance and analysis
+dev-util/pycharm-professional 2024.3.2: Intelligent Python IDE with unique code assistance and analysis
+dev-util/webstorm 2024.3.2 2024.3.2.1 2024.3.4: An integrated development environment for JavaScript and related technologies.
+kde-plasma/kinfocenter 5.15.0 5.27.11 6.0.2: Utility providing information about the computer hardware
+kde-plasma/kpipewire 6.2.5 6.3.0 6.3.1: Components relating to Flatpak pipewire use in Plasma
+media-video/open-in-mpv 2.4.1: Simple host script (in Go) for simple web extension to open videos in mpv
+media-video/pipewire 1.2.6 1.2.7 1.2.7-r1 9999: Multimedia processing graphs
+net-im/discord 0.0.87: All-in-one voice and text chat for gamers
+net-misc/postman-bin 11.31.3: API platform for building and using APIs
+sys-apps/baselayout 2.14-r2 2.14-r3 2.14-r4 2.15 2.15-r1: Filesystem baselayout and init scripts
+sys-apps/gentoo-systemd-integration 7 8: systemd integration files for Gentoo
+sys-apps/lsb-release 1.4: LSB version query program
+sys-apps/openrc 99999: OpenRC dummy package
+sys-apps/v86d 0.1.10 0.1.10-r1: A daemon to run x86 code in an emulated environment
+sys-boot/grub 2.12-r4 2.12-r5 9999: GNU GRUB boot loader
+sys-boot/grub-config-argent 2.0: Argent Linux GRUB configuration files
+sys-boot/os-prober 1.77-r10 1.81-r3 1.82 9999: Utility to detect other OSs on a set of drives
+sys-boot/plymouth 22.02.122-r2: Graphical boot animation (splash) and logger
+sys-boot/plymouth-openrc-plugin 0.1.3: Plymouth plugin for OpenRC
+sys-boot/unetbootin-static 625 625-r1: Universal Netboot Installer creates Live USB systems for various OS distributions
+sys-kernel/argent-sources 4.19.60 5.10.41 5.11.20 5.11.21 5.11.22 6.12.9: Official Argent Linux Standard kernel sources
+sys-kernel/bbswitch-dkms 0.8: BBswitch sources for linux
+sys-kernel/broadcom-sta-dkms 6.30.223.271-r5: Broadcom's IEEE 802.11a/b/g/n hybrid Linux device driver source
+sys-kernel/dkms 2.2.0.3-r2 2.2.0.3-r3 2.3-r1: Dynamic Kernel Module Support
+sys-kernel/dracut 050-r2 050-r3 051-r1 053: Generic initramfs generation tool
+sys-kernel/genkernel-next 63 66 68: Gentoo automatic kernel building scripts, reloaded
+sys-kernel/linux-argent 4.19.60 5.10.41 5.11.20 5.11.21 5.11.22 6.12.9: Official Argent Linux Standard kernel image
+sys-kernel/linux-firmware 20180103-r2 20180606-r1 20180717-r1 99999999: Linux firmware files
+sys-kernel/linux-headers 4.4 4.9 4.19 5.4-r1 5.9 5.10 5.11 5.12: Linux system headers
+sys-kernel/nvidia-drivers-dkms 370.28 384.98 387.22 390.59 390.77: NVIDIA driver sources for linux
+sys-kernel/tp_smapi-dkms 0.41: IBM ThinkPad SMAPI BIOS driver
+sys-libs/kpmcore 3.2.1: Library for managing partitions
+sys-power/bbswitch 0.8-r1: Toggle discrete NVIDIA Optimus graphics card
+virtual/jdk 1.8.0-r6 11-r1: Virtual for Java Development Kit (JDK)
+virtual/linux-binary-lts 4.19: Virtual for Linux binary LTS
+virtual/linux-sources 1 1-r1 4: Virtual for Linux kernel sources
+virtual/shadow 1: Virtual for user account management utilities
+x11-drivers/nvidia-drivers 560.35.03 565.77: NVIDIA Accelerated Graphics Driver
+x11-misc/sddm 0.18.1-r8 0.20.0-r1 0.21.0: Simple Desktop Display Manager
+x11-themes/argent-artwork-calamares 1.5.3 3.0-r1 3.0-r2 3.1 3.1.1: Argent Linux 3.0 branding component for Calamares
+x11-themes/argent-artwork-community 2.0 2.1 2.1-r1: Argent Artwork Community
+x11-themes/argent-artwork-core 1.5.3 3 3.1 3.1-r1 3.1-r2 3.1-r3: Offical Argent-Linux Core Artwork
+x11-themes/argent-artwork-gnome 1.0-r4: Argent Linux Official GNOME artwork
+x11-themes/argent-artwork-grub 1.5.3 3.0-r5: Argent-Linux GRUB2 Images
+x11-themes/argent-artwork-mate 3.1: Argent Linux Official MATE artwork
+x11-themes/argent-elementary-icons 1.0: Argent elementary icons
+x11-themes/argent-theme 1.5.3 2.2-r2 2.2-r3 2.2-r4 2.2-r5: Official Argent-Linux GTK theme
+x11-themes/argent-theme-lxqt 1.0-r4 1.0-r7 1.0-r8: Official Argent-Linux LXQT theme
+x11-themes/faenza-kupertino-icons 1.0: Argent faenza icons
+x11-themes/material-icon-theme 1.0 1.0-r1 1.0-r2 1.0-r3 1.0-r4 1.5.3: Icon theme following the Google's material design specifications
+x11-themes/numix-gtk-theme 2.4 2.6.7: A modern flat theme with a combination of light and dark elements
+x11-themes/numix-gtk-theme-dark 2.4: Numix GTK Theme
+x11-themes/numix-icon-theme 1.0 18.07.17: An official icon theme from the Numix Project
+x11-themes/numix-icon-theme-circle 1.0 18.08.29 18.09.19 18.10.03: An icon theme for Linux from the Numix project
