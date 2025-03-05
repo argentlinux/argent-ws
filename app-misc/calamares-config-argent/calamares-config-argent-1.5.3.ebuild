@@ -1,8 +1,9 @@
 # Copyright 1999-2015 Gentoo Foundation
+# Copyright 2015-2025 Argent Linux developers
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="7"
+EAPI="8"
 
 DESCRIPTION="Argent Linux Calamares modules config"
 HOMEPAGE=""
