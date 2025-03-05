@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Type=Application
 
-Exec=xdg-open http://rogentos.ro/
+Exec=xdg-open https://argentlinux.io
 Icon=/usr/share/pixmaps/argent-weblink.png
 
 Name=Argent Homepage

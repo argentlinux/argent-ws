@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Type=Application
 
-Exec=xdg-open http://wiki.rogentos.ro/wiki/Categorie:Argent_Linux
+Exec=xdg-open https://gitlab.com/argent/
 Icon=/usr/share/pixmaps/argent-weblink.png
 
 Name=Argent Documentation

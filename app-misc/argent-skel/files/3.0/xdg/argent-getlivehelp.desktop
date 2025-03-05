@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Type=Application
 
-Exec=xdg-open http://webchat.freenode.net/?channels=rogentos-dezvoltare
+Exec=xdg-open http://libera.chat/?channels=argent
 Icon=/usr/share/pixmaps/argent-weblink.png
 
 Name=Get Live Help
