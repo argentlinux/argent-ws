@@ -3,19 +3,19 @@
 # Distributed under the terms of the GNU General Public License v3
 # Maintainer bionel <bionel @ rogentos.ro >
 
-EAPI="7"
+EAPI="8"
 
 inherit  git-r3
 
 DESCRIPTION="Official Argent-Linux GTK theme"
-HOMEPAGE="http://www.rogentos.ro"
+HOMEPAGE="https://argentlinux.io"
 
 EGIT_BRANCH="master"
 EGIT_REPO_URI="https://gitlab.com/argent/argent-theme.git"
 
 LICENSE="GPLv3"
 SLOT="0"
-KEYWORDS="~arm x86 ~amd64"
+KEYWORDS="~arm x86 amd64"
 IUSE=""
 RDEPEND=""
 
