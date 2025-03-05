@@ -4,13 +4,13 @@
 
 EAPI="8"
 
-inherit  git-r3 xdg
+inherit git-r3 xdg
 
 DESCRIPTION="Icon theme following the Google's material design specifications"
-HOMEPAGE="https://gitlab.com/bionel/bionel-icons"
+HOMEPAGE="https://gitlab.com/argent/bionel-icons"
 
 EGIT_BRANCH="master"
-EGIT_REPO_URI="https://gitlab.com/bionel/bionel-icons.git"
+EGIT_REPO_URI="https://gitlab.com/argent/bionel-icons"
 
 LICENSE="Apache-2.0"
 SLOT="0"
