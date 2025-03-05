@@ -29,7 +29,7 @@ src_install() {
 	doins "${S}"/logo/*.png
 
     # We offer the option to not do a complete branding
-    if branding ; then 
+    if use branding ; then 
         insinto /usr/share/plymouth
 	    doins "${S}"/plymouth/bizcom.png
     fi
