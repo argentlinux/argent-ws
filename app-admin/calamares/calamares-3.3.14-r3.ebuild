@@ -21,6 +21,7 @@ IUSE="+branding +config +networkmanager +upower"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
+	dev-libs/icu:=
 	dev-cpp/yaml-cpp:=
 	$(python_gen_cond_dep '
 		>=dev-libs/boost-1.72.0:=[python,${PYTHON_USEDEP}]
