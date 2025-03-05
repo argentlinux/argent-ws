@@ -1,12 +1,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # Maintainer BlackNoxis <stefan.cristian at rogentos.ro>
 
-EAPI="7"
+EAPI=8
 
-inherit git-r3
+inherit git-r3 toolchain-funcs
 
 DESCRIPTION="Argent-Linux GRUB2 Images"
-HOMEPAGE="http://www.rogentos.ro"
+HOMEPAGE="http://argentlinux.io"
 
 EGIT_BRANCH="master"
 EGIT_REPO_URI="https://gitlab.com/argent/boot-core.git"
@@ -18,10 +18,7 @@ KEYWORDS="amd64 x86"
 IUSE=""
 RDEPEND=""
 
-S="${WORKDIR}"
-
-src_install () {
-	dodir /usr/share/grub/themes || die
-	insinto /usr/share/grub/themes || die
-	doins -r "${S}"/cdroot/boot/grub/themes/argent || die
+src_install() {
+	insinto /usr/share/grub/themes
+	doins -r "${S}"/cdroot/boot/grub/themes/argent
 }
