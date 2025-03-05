@@ -683,12 +683,12 @@ _kernel_src_install() {
 		insinto /etc/calamares/modules
 		doins "${FILESDIR}"/bootloader.conf
 		doins "${FILESDIR}"/dracut.conf
-		# envsubst '${K_ROGKERNEL_SELF_TARBALL_NAME}' < "${D}/etc/calamares/modules/bootloader.conf" > \
+		# envsubst '${ARGENT_KERNEL_FULL_NAME}' < "${D}/etc/calamares/modules/bootloader.conf" > \
 		# 	"${D}/etc/calamares/modules/bootloader.conf.new" && \
 		# 	mv "${D}/etc/calamares/modules/bootloader.conf.new" \
 		# 	"${D}/etc/calamares/modules/bootloader.conf" || die
 
-		# envsubst '${K_ROGKERNEL_SELF_TARBALL_NAME}' < "${D}/etc/calamares/modules/dracut.conf" > \
+		# envsubst '${ARGENT_KERNEL_FULL_NAME}' < "${D}/etc/calamares/modules/dracut.conf" > \
 		# 	"${D}/etc/calamares/modules/dracut.conf.new" && \
 		# 	mv "${D}/etc/calamares/modules/dracut.conf.new" \
 		# 	"${D}/etc/calamares/modules/dracut.conf" || die
