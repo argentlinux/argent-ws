@@ -12,7 +12,7 @@ SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/"${PN}"-${PV}
 LICENSE="CCPL-Attribution-ShareAlike-3.0"
 SLOT="0"
 KEYWORDS="~arm x86 amd64"
-IUSE=""
+IUSE="-branding"
 RDEPEND=""
 
 src_install() {
@@ -28,9 +28,13 @@ src_install() {
 	insinto /usr/share/pixmaps/
 	doins "${S}"/logo/*.png
 
-	# Plymouth theme
-	insinto /usr/share/plymouth
-	doins "${S}"/plymouth/bizcom.png # back to our bizcom
+    # We offer the option to not do a complete branding
+    if branding ; then 
+        insinto /usr/share/plymouth
+	    doins "${S}"/plymouth/bizcom.png
+    fi
+    
+    # Plymouth theme
 	insinto /usr/share/plymouth/themes
 	doins -r "${S}"/plymouth/themes/argent
 	#insinto /usr/share/plymouth/
