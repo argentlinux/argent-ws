@@ -337,15 +337,14 @@ _set_config_file_vars() {
 
 if [ -n "${K_ONLY_SOURCES}" ] || [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 	IUSE="${IUSE}"
-	DEPEND="sys-apps/sed"
+	DEPEND=""
 	RDEPEND="${RDEPEND}"
 else
-	IUSE="btrfs -grub2 dmraid +dracut iscsi luks lvm mdadm +plymouth splash sources_standalone"
+	IUSE="btrfs -grub2 dmraid +dracut installer iscsi luks lvm mdadm +plymouth splash sources_standalone"
 	if [ -n "${K_ROGKERNEL_ZFS}" ]; then
 		IUSE="${IUSE} zfs"
 	fi
 	DEPEND="app-arch/xz-utils
-		sys-apps/sed
 		dev-build/autoconf
 		dev-build/make
 		splash? ( x11-themes/argent-artwork-core )
@@ -356,7 +355,8 @@ else
 			sys-boot/plymouth
 		)
 		dracut? ( sys-kernel/dracut )"
-	RDEPEND="sys-apps/sed
+	RDEPEND="
+		sys-devel/gettext
 		sys-kernel/linux-firmware
 		dracut? ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
 	"
@@ -677,6 +677,22 @@ _kernel_src_install() {
 	echo "${KV_FULL}" > "RELEASE_LEVEL"
 	doins "RELEASE_LEVEL"
 	einfo "Installing ${base_dir}/RELEASE_LEVEL file: ${KV_FULL}"
+
+	if use installer ; then
+		# install the installer
+		insinto /etc/calamares/modules
+		doins "${FILESDIR}"/bootloader.conf
+		doins "${FILESDIR}"/dracut.conf
+		envsubst '${KV_FULL}' < "${D}/etc/calamares/modules/bootloader.conf" > \
+			"${D}/etc/calamares/modules/bootloader.conf.new" && \
+			mv "${D}/etc/calamares/modules/bootloader.conf.new" \
+			"${D}/etc/calamares/modules/bootloader.conf" || die
+
+		envsubst '${KV_FULL}' < "${D}/etc/calamares/modules/dracut.conf" > \
+			"${D}/etc/calamares/modules/dracut.conf.new" && \
+			mv "${D}/etc/calamares/modules/dracut.conf.new" \
+			"${D}/etc/calamares/modules/dracut.conf" || die
+	fi
 }
 
 argent-kernel_pkg_preinst() {
