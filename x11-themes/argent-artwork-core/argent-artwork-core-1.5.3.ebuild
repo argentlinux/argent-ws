@@ -6,16 +6,14 @@ EAPI="8"
 inherit mount-boot argent-artwork
 
 DESCRIPTION="Offical Argent-Linux Core Artwork"
-HOMEPAGE="http://www.rogentos.ro"
-SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/"${PN}"-${PV}.tar.gz"
+HOMEPAGE="https://argentlinux.io"
+SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/"${PN}"-${PV}.tar.xz"
 
 LICENSE="CCPL-Attribution-ShareAlike-3.0"
 SLOT="0"
-KEYWORDS="~arm ~x86 ~amd64"
+KEYWORDS="~arm x86 amd64"
 IUSE=""
 RDEPEND=""
-
-S="${WORKDIR}"/"${PN}"
 
 src_install() {
 	# Cursors
@@ -40,13 +38,10 @@ src_install() {
 
 	# Apply our tricks
 	insinto /usr/share/cursors/xorg-x11
-	dosym RezoBlue /usr/share/cursors/xorg-x11/default || "RezoBlue not found" #set default xcursor
+	dosym RezoBlue /usr/share/cursors/xorg-x11/default || "RezoBlue not found"
 }
 
 pkg_postinst() {
-	# mount boot first
-	mount-boot_mount_boot_partition
-
 	einfo "Please report bugs or glitches to"
 	einfo "https://github.com/rogentos/argent-ws/issues"
 }

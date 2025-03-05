@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # Maintainer BlackNoxis <stefan.cristian at rogentos.ro>
 
-EAPI="7"
-inherit  mount-boot argent-artwork
+EAPI="8"
+inherit mount-boot argent-artwork
 
 DESCRIPTION="Offical Argent-Linux Core Artwork"
 HOMEPAGE="http://www.rogentos.ro"
@@ -11,9 +11,9 @@ SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/"${PN}"-${PV}
 
 LICENSE="CCPL-Attribution-ShareAlike-3.0"
 SLOT="0"
-KEYWORDS="~arm x86 amd64"
-IUSE="plymouth"
-RDEPEND="sys-apps/findutils"
+KEYWORDS="~arm ~x86 ~amd64"
+IUSE=""
+RDEPEND=""
 
 S="${WORKDIR}"/"${PN}"
 
@@ -21,7 +21,6 @@ src_install() {
 	# Cursors
 	insinto /usr/share/cursors/xorg-x11/
 	doins -r "${S}"/mouse/RezoBlue
-	dosym RezoBlue /usr/share/cursors/xorg-x11/default || "RezoBlue not found"
 
 	# Wallpapers
 	insinto /usr/share/backgrounds/
@@ -32,17 +31,22 @@ src_install() {
 	doins "${S}"/logo/*.png
 
 	# Plymouth theme
-	if use plymouth; then
-		insinto /usr/share/plymouth
-		doins "${S}"/plymouth/bizcom.png
-		insinto /usr/share/plymouth/themes
-		doins -r "${S}"/plymouth/themes/argent
-	fi
+	insinto /usr/share/plymouth
+	doins "${S}"/plymouth/bizcom.png # back to our bizcom
+	insinto /usr/share/plymouth/themes
+	doins -r "${S}"/plymouth/themes/argent
+	#insinto /usr/share/plymouth/
+	#newins "${S}"/plymouth/themes/argent/argent-logo.png bizcom.png
+
+	# Apply our tricks
+	insinto /usr/share/cursors/xorg-x11
+	dosym RezoBlue /usr/share/cursors/xorg-x11/default || "RezoBlue not found" #set default xcursor
 }
 
 pkg_postinst() {
-	einfo "In order for this to take effect, you must regenerate grub."
+	# mount boot first
+	mount-boot_mount_boot_partition
 
 	einfo "Please report bugs or glitches to"
-	einfo "StefanCristian at gitlab.com/argent/argent-ws"
+	einfo "https://github.com/rogentos/argent-ws/issues"
 }
