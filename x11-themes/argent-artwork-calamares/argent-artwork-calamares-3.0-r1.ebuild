@@ -20,9 +20,9 @@ RDEPEND="app-admin/calamares"
 
 S="${WORKDIR}/${PN}-${PV}"
 
-src_prepare() {
-	epatch "${FILESDIR}"/"adjust-calamares-urls.patch"
-}
+PATCHES=(
+	"${FILESDIR}/adjust-calamares-urls-${PV}.patch"
+)
 
 src_install() {
 	dodir /etc/calamares/branding/argent_branding || die

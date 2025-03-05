@@ -18,9 +18,9 @@ IUSE=""
 
 RDEPEND="app-admin/calamares"
 
-src_prepare() {
-	epatch "${FILESDIR}"/"adjust-calamares-urls-${PV}.patch"
-}
+PATCHES=(
+	"${FILESDIR}/adjust-calamares-urls-${PV}.patch"
+)
 
 src_install() {
 	dodir /etc/calamares/branding/argent_branding || die

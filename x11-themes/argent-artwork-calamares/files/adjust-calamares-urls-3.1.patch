@@ -8,9 +8,9 @@ diff -Nur a/branding.desc b/branding.desc
 -    supportUrl:          http://rogentos.ro/#contact/
 -    knownIssuesUrl:      http://rogentos.ro/#about/
 -    releaseNotesUrl:     http://rogentos.ro/#about/
-+    supportUrl:          http://rogentos.ro/#contact
-+    knownIssuesUrl:      http://rogentos.ro/#about
-+    releaseNotesUrl:     http://rogentos.ro/
++    supportUrl:          https://discord.gg/hpmt5KU4yT
++    knownIssuesUrl:      https://github.com/rogentos/argent-ws/issues
++    releaseNotesUrl:     https://argentlinux.io
  
  images:
      productLogo:         "argent.png"
