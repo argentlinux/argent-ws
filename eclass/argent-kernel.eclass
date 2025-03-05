@@ -356,9 +356,9 @@ else
 		)
 		dracut? ( sys-kernel/dracut )"
 	RDEPEND="
-		sys-devel/gettext
 		sys-kernel/linux-firmware
 		dracut? ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
+		installer? ( sys-devel/gettext )
 	"
 	if [ -n "${K_REQUIRED_LINUX_FIRMWARE_VER}" ]; then
 		RDEPEND+=" >=sys-kernel/linux-firmware-${K_REQUIRED_LINUX_FIRMWARE_VER}"
