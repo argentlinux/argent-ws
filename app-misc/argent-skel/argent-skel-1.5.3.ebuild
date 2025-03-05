@@ -26,7 +26,10 @@ src_install () {
 	cp "${FILESDIR}"/3.0/xdg/*.directory "${D}"/usr/share/desktop-directories/ || die
 	dodir /usr/share/argent
 	cp -a "${FILESDIR}"/3.0/* "${D}"/usr/share/argent/ || die
-	doicon "${FILESDIR}"/3.0/img/argent-weblink.png
+	insinto /usr/share/argent/img/
+	doins "${FILESDIR}"/3.0/img/argent-weblink.png
+	insinto /usr/share/pixmaps/
+	doins "${FILESDIR}"/3.0/img/argent-weblink.png
 }
 
 pkg_postinst() {
