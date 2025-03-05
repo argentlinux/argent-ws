@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Type=Application
 
-Exec=xdg-open http://libera.chat/?channels=argent
+Exec=xdg-open http://kiwiirc.com/client/irc.libera.chat/#argent
 Icon=/usr/share/pixmaps/argent-weblink.png
 
 Name=Get Live Help
