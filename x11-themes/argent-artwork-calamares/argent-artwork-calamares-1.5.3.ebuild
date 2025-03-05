@@ -7,7 +7,7 @@ EAPI="8"
 
 inherit 
 
-DESCRIPTION="Argent Linux 3.0 branding component for Calamares"
+DESCRIPTION="Argent Linux 1.5 branding component for Calamares"
 HOMEPAGE="http://rogentos.ro"
 SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/${PN}/${P}.tar.xz"
 
@@ -17,10 +17,6 @@ KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="app-admin/calamares"
-
-PATCHES=(
-	"${FILESDIR}/adjust-calamares-urls-${PV}.patch"
-)
 
 src_install() {
 	dodir /etc/calamares/branding/argent_branding || die

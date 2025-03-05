@@ -2,9 +2,9 @@ diff -Nur a/branding.desc b/branding.desc
 --- a/branding.desc	2016-03-06 10:28:28.000000000 +0000
 +++ b/branding.desc	2016-08-21 19:06:34.280155216 +0100
 @@ -10,9 +10,9 @@
-     shortVersionedName:  Argent 1.0
+     shortVersionedName:  Argent 1.5
      bootloaderEntryName: Argent
-     productUrl:          http://rogentos.ro/
+     productUrl:          https://argentlinux.io
 -    supportUrl:          http://rogentos.ro/#contact/
 -    knownIssuesUrl:      http://rogentos.ro/#about/
 -    releaseNotesUrl:     http://rogentos.ro/#about/
