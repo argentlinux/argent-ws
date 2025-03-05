@@ -17,12 +17,11 @@ SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="amd64"
-IUSE="+networkmanager +upower"
+IUSE="+branding +config +networkmanager +upower"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
 	dev-cpp/yaml-cpp:=
-	dev-libs/icu:=
 	$(python_gen_cond_dep '
 		>=dev-libs/boost-1.72.0:=[python,${PYTHON_USEDEP}]
 		dev-libs/libpwquality[python,${PYTHON_USEDEP}]
@@ -51,6 +50,8 @@ RDEPEND="${DEPEND}
 	sys-boot/os-prober
 	sys-fs/squashfs-tools
 	sys-libs/timezone-data
+	branding? ( x11-themes/argent-artwork-calamares )
+	config? ( app-misc/calamares-config-argent )
 "
 BDEPEND=">=dev-qt/qttools-${QTMIN}:6[linguist]"
 
@@ -60,6 +61,8 @@ src_prepare() {
 		PYTHON_INCLUDE_PATH="$(python_get_library_path)"\
 		PYTHON_CFLAGS="$(python_get_CFLAGS)"\
 		PYTHON_LIBS="$(python_get_LIBS)"
+	sed -i 's|pkexec calamares|calamares-pkexec|' \
+		calamares.desktop || die
 }
 
 src_configure() {
@@ -105,4 +108,10 @@ src_test() {
 	)
 
 	cmake_src_test
+}
+
+
+src_install() {
+	ecm_src_install
+	dobin "${FILESDIR}"/calamares-pkexec
 }
