@@ -17,6 +17,8 @@ SLOT="0/0.9"
 KEYWORDS="amd64 x86"
 IUSE="+argent gentoo git"
 
+S="${WORKDIR}/${PN}-${PVR}"
+
 DEPEND="sys-devel/gettext"
 RDEPEND="app-portage/gentoolkit
 		app-portage/portage-utils
