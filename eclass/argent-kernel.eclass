@@ -391,7 +391,6 @@ _update_depmod() {
 		ewarn
 	fi
 	ebegin "Updated modules for "${KV_OUT_DIR}"/System.map"
-	eend 0
 }
 
 argent-kernel_pkg_setup() {
