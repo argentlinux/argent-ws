@@ -378,19 +378,16 @@ _update_depmod() {
 	# if we haven't determined the version yet, we need too.
 	get_version;
 
-	ebegin "Updating module dependencies for ${KV_FULL}"
-	eend 0
+	einfo "Updating module dependencies for ${KV_FULL}"
 	if [ -r "${KV_OUT_DIR}"/System.map ]; then
 		depmod -ae -F "${KV_OUT_DIR}"/System.map -b "${ROOT}" "${1}"
-		eend $?
 	else
 		ewarn
 		ewarn "${KV_OUT_DIR}/System.map not found."
 		ewarn "You must manually update the kernel module dependencies using depmod."
-		eend 1
 		ewarn
 	fi
-	ebegin "Updated modules for "${KV_OUT_DIR}"/System.map"
+	einfo "Updated modules for "${KV_OUT_DIR}"/System.map"
 }
 
 argent-kernel_pkg_setup() {
