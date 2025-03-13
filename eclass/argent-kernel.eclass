@@ -380,7 +380,7 @@ _update_depmod() {
 
 	einfo "Updating module dependencies for ${KV_FULL}"
 	if [ -r "${KV_OUT_DIR}"/System.map ]; then
-		depmod -ae -F "${KV_OUT_DIR}"/System.map -b "${ROOT}" "${1}"
+		depmod -ae -F "${KV_OUT_DIR}"/System.map -b "${ROOT}" "${1}" > /dev/null 2>&1
 	else
 		ewarn
 		ewarn "${KV_OUT_DIR}/System.map not found."
