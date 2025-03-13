@@ -6,7 +6,7 @@
 EAPI="8"
 
 DESCRIPTION="Argent simple portage wrapper which works like any other package manager"
-HOMEPAGE="http://rogentos.ro"
+HOMEPAGE="http://argentlinux.io"
 SRC_URI="https://gitlab.com/argent/epkg/-/archive/${PVR}/${PF}.tar.gz"
 
 # EGIT_BRANCH=master
