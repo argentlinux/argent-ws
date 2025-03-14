@@ -1,5 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
+# Copyright 2015-2025 Argent Linux Developers
 # Distributed under the terms of the GNU General Public License v2
-# Maintainer BlackNoxis <stefan.cristian at rogentos.ro>
 
 EAPI=8
 
