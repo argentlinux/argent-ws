@@ -5,24 +5,27 @@
 
 EAPI="8"
 
-inherit git-r3
-
 DESCRIPTION="Argent simple portage wrapper which works like any other package manager"
-HOMEPAGE="http://rogentos.ro"
+HOMEPAGE="http://argentlinux.io"
+SRC_URI="https://gitlab.com/argent/epkg/-/archive/${PVR}/${PF}.tar.gz"
 
-EGIT_BRANCH=master
-EGIT_REPO_URI="https://gitlab.com/argent/epkg.git"
+# EGIT_BRANCH=master
+# EGIT_REPO_URI="https://gitlab.com/argent/epkg.git"
 
 LICENSE="BSD-2"
 SLOT="0/0.9"
 KEYWORDS="amd64 x86"
-IUSE="+argent gentoo"
+IUSE="+argent gentoo git"
+
+S="${WORKDIR}/${PN}-${PVR}"
 
 DEPEND="sys-devel/gettext"
 RDEPEND="app-portage/gentoolkit
 		app-portage/portage-utils
 		sys-apps/coreutils
-		sys-apps/portage"
+		sys-apps/portage
+		git? ( dev-vcs/git[curl] )
+"
 REQUIRED_USE="|| ( argent gentoo )
 		argent? ( !gentoo )
 		gentoo? ( !argent )"
