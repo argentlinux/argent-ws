@@ -33,7 +33,9 @@ IUSE="wayland"
 RESTRICT="bindist mirror"
 QA_PREBUILT="opt/${P}/*"
 
-BDEPEND=""
+BDEPEND="dev-util/debugedit
+	dev-util/patchelf
+"
 RDEPEND="
 		dev-libs/wayland
 		sys-libs/pam
