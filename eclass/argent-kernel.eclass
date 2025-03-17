@@ -200,7 +200,12 @@ if [ "${K_ROGKERNEL_PATCH_UPSTREAM_TARBALL}" = "1" ]; then
 	UNIPATCH_LIST="${UNIPATCH_LIST} ${DISTDIR}/${_patch_name}"
 	unset _patch_name
 elif [ -n "${K_ROGKERNEL_SELF_TARBALL_NAME}" ]; then
-	SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/linux-${PVR}+${K_ROGKERNEL_SELF_TARBALL_NAME}.tar.${K_TARBALL_EXT}"
+	LOCAL_CKV="${K_ROGKERNEL_FORCE_UPPERLEVEL}.${K_ROGKERNEL_FORCE_SUBLEVEL}"
+	if [[ " 4.19.60 5.10.41 5.11.20 5.11.21 5.11.22 6.12.9 " == *" $LOCAL_CKV "* ]]; then
+		SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/linux-${PVR}+${K_ROGKERNEL_SELF_TARBALL_NAME}.tar.${K_TARBALL_EXT}"
+	else
+		SRC_URI="http://pkgwork.argentlinux.io/distfiles/${CATEGORY}/linux-${PVR}-${K_ROGKERNEL_SELF_TARBALL_NAME}.tar.${K_TARBALL_EXT}"
+	fi
 else
 	SRC_URI="${KERNEL_URI}"
 fi
@@ -404,7 +409,13 @@ argent-kernel_pkg_setup() {
 argent-kernel_src_unpack() {
 	local okv="${OKV}"
 	if [ -n "${K_ROGKERNEL_SELF_TARBALL_NAME}" ] && [ "${K_ROGKERNEL_PATCH_UPSTREAM_TARBALL}" != "1" ]; then
-		OKV="${PVR}+${K_ROGKERNEL_SELF_TARBALL_NAME}"
+		LOCAL_CKV="${K_ROGKERNEL_FORCE_UPPERLEVEL}.${K_ROGKERNEL_FORCE_SUBLEVEL}"
+
+		if [[ " 4.19.60 5.10.41 5.11.20 5.11.21 5.11.22 6.12.9 " == *" $LOCAL_CKV "* ]]; then
+			OKV="${PVR}+${K_ROGKERNEL_SELF_TARBALL_NAME}"
+		else
+			OKV="${PVR}-${K_ROGKERNEL_SELF_TARBALL_NAME}"
+		fi
 	fi
 	if [ "${K_KERNEL_NEW_VERSIONING}" = "1" ]; then
 		# workaround for kernel-2's universal_unpack assumptions
