@@ -1,3 +1,7 @@
 [submodule "redcore-desktop"]
 	path = redcore-desktop
 	url = https://gitlab.com/redcore/redcore-desktop.git
+[submodule "stefantalpalaru-overlay"]
+	path = stefantalpalaru-overlay
+	url = https://github.com/stefantalpalaru/gentoo-overlay.git
+	branch = master
