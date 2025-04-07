@@ -12,10 +12,9 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64"
-IUSE="+branding networkmanager upower"
+IUSE="networkmanager upower"
 
 DEPEND="
-	branding? ( >=x11-themes/argent-artwork-calamares-1.0 )
 	>=dev-libs/boost-1.55.0-r2[python_targets_python3_5]
 	>=dev-qt/qtwebengine-${QTMIN}:6[widgets]
 	>=kde-frameworks/ki18n-${KFMIN}:6
