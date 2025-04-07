@@ -42,7 +42,6 @@ src_install() {
 
 	insinto /usr/share/applications/
 	doins "${S}"/argent.desktop
-	cat "${S}"/argent.desktop
 
 	insinto /usr/bin/
 	dobin "${FILESDIR}"/calamares-pkexec
