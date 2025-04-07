@@ -7,8 +7,8 @@ ECM_TEST="true"
 PYTHON_COMPAT=( python3_{10..13} )
 
 QTMIN="6.7.1"
-KFMIN="6.0.0"
-inherit ecm python-single-r1
+KFMIN="6.9.0"
+inherit ecm python-single-r1 xdg
 
 DESCRIPTION="Distribution-independent installer framework"
 HOMEPAGE="https://calamares.io"
@@ -16,12 +16,13 @@ SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="amd64"
-IUSE="+networkmanager +upower"
+KEYWORDS="~amd64"
+IUSE=""
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
 	dev-cpp/yaml-cpp:=
+	dev-libs/icu:=
 	$(python_gen_cond_dep '
 		>=dev-libs/boost-1.72.0:=[python,${PYTHON_USEDEP}]
 		dev-libs/libpwquality[python,${PYTHON_USEDEP}]
@@ -29,37 +30,22 @@ DEPEND="${PYTHON_DEPS}
 	>=dev-qt/qtbase-${QTMIN}:6[concurrent,dbus,gui,network,widgets,xml]
 	>=dev-qt/qtdeclarative-${QTMIN}:6
 	>=dev-qt/qtsvg-${QTMIN}:6
-	>=dev-qt/qtwebengine-${QTMIN}:6[widgets]
 	>=kde-frameworks/kconfig-${KFMIN}:6
 	>=kde-frameworks/kcoreaddons-${KFMIN}:6
 	>=kde-frameworks/kcrash-${KFMIN}:6
-	>=kde-frameworks/ki18n-${KFMIN}:6
 	>=kde-frameworks/kpackage-${KFMIN}:6
 	>=kde-frameworks/kparts-${KFMIN}:6
-	>=kde-frameworks/kservice-${KFMIN}:6
-	>=kde-frameworks/kwidgetsaddons-${KFMIN}:6
-	sys-auth/polkit-qt[qt6(-)]
-	>=sys-libs/kpmcore-24.01.75:6=
-	sys-apps/dbus
 	sys-apps/dmidecode
+	>=sys-libs/kpmcore-24.01.75:6=
 	virtual/libcrypt:=
 "
 RDEPEND="${DEPEND}
 	app-admin/sudo
-	app-misc/calamares-config-argent
-	dev-libs/libatasmart
 	net-misc/rsync
-	|| (
-		sys-boot/grub:2
-		sys-apps/systemd[boot(-)]
-		sys-apps/systemd-utils[boot]
-	)
+	sys-boot/grub:2
 	sys-boot/os-prober
 	sys-fs/squashfs-tools
 	sys-libs/timezone-data
-	virtual/udev
-	networkmanager? ( net-misc/networkmanager )
-	upower? ( sys-power/upower )
 "
 BDEPEND=">=dev-qt/qttools-${QTMIN}:6[linguist]"
 
@@ -91,26 +77,20 @@ src_test() {
 	local myctestargs=(
 		# Skipped tests:
 		# packagechoosertest (file exists returned false)
+		# partitiondevicestest for trying to access host
+		# usershostnametest for changing hostname
+		# displaymanager for testing access on host DMs
 		#
 		# Requires network
 		# libcalamaresnetworktest
 		# test_libcalamaresuipaste
-		#
-		# Need investigation:
-		# validate-unpackfsc-unpackfsc
-		# validate-unpackfsc-1
-		# load-dummypython
-		# load-dummypython-1
-		#
-		# Requires removed dev-python/toml
-		# lint-displaymanager
 		#
 		# E1101
 		# lint-dummypython
 		#
 		# E0606
 		# lint-mount
-		-E "(lint-displaymanager|lint-dummypython|lint-mount|validate-unpackfsc-unpackfsc|validate-unpackfsc-1|packagechoosertest|load-dummypython|load-dummypython-1|libcalamaresnetworktest|test_libcalamaresuipaste)"
+		-E "(lint-displaymanager|lint-dummypython|lint-mount|validate-unpackfsc-unpackfsc|displaymanager|validate-unpackfsc-1|packagechoosertest|load-dummypython|load-dummypython-1|libcalamaresnetworktest|partitiondevicestest|usershostnametest|test_libcalamaresuipaste)"
 	)
 
 	cmake_src_test
