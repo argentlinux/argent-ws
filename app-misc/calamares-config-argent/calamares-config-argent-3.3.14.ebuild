@@ -32,7 +32,7 @@ src_prepare(){
 		calamares.desktop || die
 	sed -i 's|^Comment=.*|Comment=Argent System installer|' \
 		calamares.desktop || die
-	mv calamares.desktop argent.desktop || die
+	mv calamares.desktop argent-installer.desktop || die
 }
 
 src_install() {
@@ -41,7 +41,7 @@ src_install() {
 	doins -r "${FILESDIR}/"*
 
 	insinto /usr/share/applications/
-	doins "${S}"/argent.desktop
+	doins "${S}"/argent-installer.desktop
 
 	insinto /usr/bin/
 	dobin "${FILESDIR}"/calamares-pkexec
