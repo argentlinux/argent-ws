@@ -29,8 +29,6 @@ src_prepare(){
 		calamares.desktop || die
 	sed -i 's|GenericName=System Installer|GenericName=Argent Linux|' \
 		calamares.desktop || die
-	sed -i 's|Comment=|Comment=Argent Linux installer|' \
-		calamares.desktop || die
 	sed -i 's|^Comment=.*|Comment=Argent System installer|' \
 		calamares.desktop || die
 	mv calamares.desktop argent-installer.desktop || die
