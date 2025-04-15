@@ -145,7 +145,7 @@ pkg_postinst() {
 	optfeature "emoji support" media-fonts/noto-emoji
 	if has_version kde-plasma/kwin[-screencast] && use wayland; then
 		einfo " "
-		einfo "When using Kwin on Wayland, the kde-plasma/kwin[screencast] USE flag"
+		einfo "When using KWin on Wayland, the kde-plasma/kwin[screencast] USE flag"
 		einfo "must be enabled for screensharing."
 		einfo " "
 	fi
