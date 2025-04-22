@@ -25,7 +25,6 @@ src_prepare(){
     # from the original calamares installation
     addread "/usr/share/applications/${MY_PN}.desktop"
     cp "/usr/share/applications/${MY_PN}.desktop" "${S}/${MY_PN}.desktop" || die
-    ls -la ${S}/${MY_PN}.desktop || die
     sed -i 's|pkexec ${MY_PN}|${MY_PN}-pkexec|' \
         ${S}/${MY_PN}.desktop || die
     sed -i 's|Name=Install System|Name=Install Gentoo|' \
