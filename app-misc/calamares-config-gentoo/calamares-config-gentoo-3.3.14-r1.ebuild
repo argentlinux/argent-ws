@@ -33,9 +33,6 @@ src_prepare(){
     sed -i 's|^Comment=.*|Comment=gentoo System installer|' \
         ${MY_PN}.desktop || die
     mv ${MY_PN}.desktop gentoo-installer.desktop || die
-
-    insinto /etc/calamares/branding/gentoo_branding
-    doins -r "${FILESDIR}/artwork/*"
 }
 
 src_install() {
@@ -48,6 +45,9 @@ src_install() {
 
     insinto /usr/bin/
     dobin "${FILESDIR}"/${MY_PN}-pkexec
+
+    insinto /etc/calamares/branding/gentoo_branding
+    doins -r "${FILESDIR}/artwork/"*
 }
 
 pkg_postinst() {
