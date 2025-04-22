@@ -35,7 +35,7 @@ src_prepare(){
     mv ${MY_PN}.desktop gentoo-installer.desktop || die
 
     insinto /etc/calamares/branding/gentoo_branding
-    doins -r "${FILESDIR}/*"
+    doins -r "${FILESDIR}/artwork/*"
 }
 
 src_install() {
