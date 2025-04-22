@@ -1,0 +1,27 @@
+---
+componentName:  gentoo_branding
+
+strings:
+    productName:         Gentoo Linux
+    shortProductName:    Gentoo
+    version:             2.17
+    shortVersion:        2.17
+    versionedName:       Gentoo Linux 2.17
+    shortVersionedName:  Gentoo 2.17
+    bootloaderEntryName: Gentoo
+    productUrl:          https://www.gentoo.org/
+    supportUrl:          https://www.gentoo.org/inside-gentoo/contact/
+    knownIssuesUrl:      https://bugs.gentoo.org/
+    releaseNotesUrl:     https://www.gentoo.org/news/
+
+images:
+    productLogo:         "gentoo.png"
+    productIcon:         "gentoo.png"
+    productWelcome:      "languages.png"
+
+slideshow:               "show.qml"
+
+style:
+   sidebarBackground:    "#292F34"
+   sidebarText:          "#FFFFFF"
+   sidebarTextSelect:    "#292F34"
