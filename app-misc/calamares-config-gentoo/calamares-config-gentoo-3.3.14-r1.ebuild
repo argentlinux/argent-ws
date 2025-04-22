@@ -1,5 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
-# Copyright 2015-2025 gentoo Linux
+# Copyright 1999-2025 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
