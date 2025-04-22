@@ -9,30 +9,34 @@ MY_PN="calamares"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="Gentoo Linux ${MY_PN} installer config"
-HOMEPAGE=""
-SRC_URI="https://github.com/${MY_PN}/${MY_PN}/releases/download/v${PV}/${MY_P}.tar.gz"
+HOMEPAGE="https://gentoo.org"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
 
 RDEPEND="app-admin/${MY_PN}"
-S="${WORKDIR}/${MY_P}"
+S="${WORKDIR}"
 
 src_prepare(){
     default
 
+    # It will always have to read the calamares.desktop 
+    # from the original calamares installation
+    addread "/usr/share/applications/${MY_PN}.desktop"
+    cp "/usr/share/applications/${MY_PN}.desktop" "${S}/${MY_PN}.desktop" || die
+    ls -la ${S}/${MY_PN}.desktop || die
     sed -i 's|pkexec ${MY_PN}|${MY_PN}-pkexec|' \
-        ${MY_PN}.desktop || die
-    sed -i 's|Name=Install System|Name=Install gentoo|' \
-        ${MY_PN}.desktop || die
+        ${S}/${MY_PN}.desktop || die
+    sed -i 's|Name=Install System|Name=Install Gentoo|' \
+        ${S}/${MY_PN}.desktop || die
     sed -i 's|Icon=${MY_PN}|Icon=gentoo-logo|' \
-        ${MY_PN}.desktop || die
-    sed -i 's|GenericName=System Installer|GenericName=gentoo Linux|' \
-        ${MY_PN}.desktop || die
-    sed -i 's|^Comment=.*|Comment=gentoo System installer|' \
-        ${MY_PN}.desktop || die
-    mv ${MY_PN}.desktop gentoo-installer.desktop || die
+        ${S}/${MY_PN}.desktop || die
+    sed -i 's|GenericName=System Installer|GenericName=Gentoo Linux|' \
+        ${S}/${MY_PN}.desktop || die
+    sed -i 's|^Comment=.*|Comment=Gentoo System installer|' \
+        ${S}/${MY_PN}.desktop || die
+    cp ${S}/${MY_PN}.desktop ${S}/gentoo-installer.desktop || die
 }
 
 src_install() {
@@ -49,10 +53,4 @@ src_install() {
 
     insinto /etc/calamares/branding/gentoo_branding
     doins -r "${FILESDIR}/artwork/"*
-}
-
-pkg_postinst() {
-    if [[ -f "/usr/share/applications/${MY_PN}.desktop" ]]; then
-        rm -f "/usr/share/applications/${MY_PN}.desktop" || die
-    fi
 }
