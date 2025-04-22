@@ -38,7 +38,8 @@ src_prepare(){
 src_install() {
     dodir "/etc/${MY_PN}"
     insinto "/etc/${MY_PN}"
-    doins -r "${FILESDIR}/modules/"*
+    doins -r "${FILESDIR}/modules/"
+    doins -r "${FILESDIR}/settings.conf"
 
     insinto /usr/share/applications/
     doins "${S}"/gentoo-installer.desktop
