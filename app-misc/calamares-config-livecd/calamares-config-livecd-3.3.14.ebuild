@@ -9,15 +9,15 @@ MY_P="${MY_PN}-${PV}"
 
 inherit desktop
 
+HOMEPAGE="https://wiki.gentoo.org/wiki/No_homepage"
 DESCRIPTION="Gentoo Linux ${MY_PN} installer config"
-HOMEPAGE="https://www.gentoo.org/"
-SRC_URI="https://dev.gentoo.org/~wolf31o2/sources/gentoo-artwork-livecd/gentoo-artwork-livecd-2007.0.tar.bz2
+SRC_URI="mirror://gentoo/gentoo-artwork-livecd-2007.0.tar.bz2
 		mirror://gentoo/gentoo-artwork-0.2.tar.bz2"
 
 S="${WORKDIR}"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 RDEPEND="app-admin/calamares"
 
@@ -30,6 +30,9 @@ src_install() {
 
 	insinto /usr/bin/
 	dobin "${FILESDIR}"/${MY_PN}-pkexec
+
+	insinto /usr/share/icons/calamares-gentoo/64x64/
+	newins gentoo-artwork-0.2/icons/gentoo/64x64/gentoo.png gentoo.png
 
 	insinto /etc/calamares/branding/gentoo_branding
 	doins -r "${FILESDIR}/artwork/"*
