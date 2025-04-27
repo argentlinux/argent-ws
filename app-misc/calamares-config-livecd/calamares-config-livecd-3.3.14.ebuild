@@ -26,6 +26,9 @@ src_install() {
 	doins -r "${FILESDIR}/modules/"
 	doins -r "${FILESDIR}/settings.conf"
 
+	insinto /usr/$(get_libdir)/calamares/modules/
+	doins -r "${FILESDIR}/modules/downloadstage3"
+
 	domenu "${FILESDIR}/gentoo-installer.desktop"
 
 	insinto /usr/bin/
@@ -36,6 +39,8 @@ src_install() {
 
 	insinto /etc/calamares/branding/gentoo_branding
 	doins -r "${FILESDIR}/artwork/"*
+	
+	local i
 	for i in {1..10}; do
 		newins gentoo-livecd-2007.0/800x600.png "${i}.png"
 	done
