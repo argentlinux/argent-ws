@@ -24,11 +24,12 @@ src_prepare() {
     default
 
     local baselayout_version
-    baselayout_version="$(best_version sys-apps/baselayout | sed -E 's:.*/[^-]+-::')"
+	baselayout_version=$(best_version sys-apps/baselayout)
+	baselayout_version=${baselayout_version#*layout-}
 
     cp "${FILESDIR}/artwork/branding.desc" "${WORKDIR}/branding.desc" || die
 
-    if [[ -n "${baselayout_version}" ]]; then
+    if [[ -n ${baselayout_version} ]]; then
         sed -i "s|GENTOO_VERSION|${baselayout_version}|g" "${WORKDIR}/branding.desc" || die
     fi
 }
