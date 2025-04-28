@@ -37,6 +37,8 @@ def _safe_run(cmd):
         while True:
             retcode = proc.poll()
             if retcode is not None:
+                if retcode != 0:
+                    sys.exit(1)
                 return retcode
             if os.getppid() == 1:
                 proc.terminate()
@@ -47,7 +49,7 @@ def _safe_run(cmd):
                 sys.exit(1)
             time.sleep(1)
     except subprocess.SubprocessError:
-        pass
+        sys.exit(1)
 
 def run():
     base_url = "https://distfiles.gentoo.org/releases/amd64/autobuilds/current-stage3-amd64-openrc/"
@@ -56,10 +58,10 @@ def run():
         raise Exception("No stage3 tar.xz found!")
 
     full_tarball_url = base_url + latest_tarball
-    full_digest_url = base_url + latest_tarball + ".DIGESTS"
+    full_sha256_url = base_url + latest_tarball + ".sha256"
 
-    download_path = f"/tmp/{latest_tarball}"
-    digest_path = f"/tmp/{latest_tarball}.DIGESTS"
+    download_path = f"/mnt/{latest_tarball}"
+    sha256_path = f"/mnt/{latest_tarball}.sha256"
     extract_path = "/mnt/gentoo-rootfs"
 
     if os.path.exists(extract_path):
@@ -74,13 +76,15 @@ def run():
 
     if os.path.exists(download_path):
         os.remove(download_path)
-    if os.path.exists(digest_path):
-        os.remove(digest_path)
+    if os.path.exists(sha256_path):
+        os.remove(sha256_path)
 
     urllib.request.urlretrieve(full_tarball_url, download_path, _progress_hook)
     libcalamares.job.setprogress(40)
-    urllib.request.urlretrieve(full_digest_url, digest_path)
+    urllib.request.urlretrieve(full_sha256_url, sha256_path)
     libcalamares.job.setprogress(50)
+
+    _safe_run(["bash", "-c", f"cd /mnt && sha256sum -c {os.path.basename(sha256_path)}"])
 
     with tarfile.open(download_path, "r:xz") as tar:
         members = tar.getmembers()
@@ -91,9 +95,15 @@ def run():
             libcalamares.job.setprogress(50 + (i * 50 / total_members))
 
     os.remove(download_path)
-    os.remove(digest_path)
+    os.remove(sha256_path)
 
     shutil.copy2("/etc/resolv.conf", os.path.join(extract_path, "etc", "resolv.conf"))
+    os.makedirs(os.path.join(extract_path, "etc/portage/binrepos.conf"), exist_ok=True)
+    shutil.copy2(
+        "/etc/portage/binrepos.conf/gentoobinhost.conf",
+        os.path.join(extract_path, "etc/portage/binrepos.conf/gentoobinhost.conf")
+    )
+
     _safe_run(["chroot", extract_path, "getuto"])
 
     package_use_dir = os.path.join(extract_path, "etc/portage/package.use")

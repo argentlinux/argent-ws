@@ -4,10 +4,10 @@ componentName:  gentoo_branding
 strings:
     productName:         Gentoo Linux
     shortProductName:    Gentoo
-    version:             2.17
-    shortVersion:        2.17
-    versionedName:       Gentoo Linux 2.17
-    shortVersionedName:  Gentoo 2.17
+    version:             GENTOO_VERSION
+    shortVersion:        GENTOO_VERSION
+    versionedName:       Gentoo Linux GENTOO_VERSION
+    shortVersionedName:  Gentoo GENTOO_VERSION
     bootloaderEntryName: Gentoo
     productUrl:          https://www.gentoo.org/
     supportUrl:          https://www.gentoo.org/inside-gentoo/contact/
