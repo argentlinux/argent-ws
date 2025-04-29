@@ -21,29 +21,29 @@ KEYWORDS="~amd64"
 RDEPEND="app-admin/calamares"
 
 src_prepare() {
-    default
+	default
 
-    local baselayout_version
+	local baselayout_version
 	baselayout_version=$(best_version sys-apps/baselayout)
 	baselayout_version=${baselayout_version#*layout-}
 
-    cp "${FILESDIR}/artwork/branding.desc" "${WORKDIR}/branding.desc" || die
+	cp "${FILESDIR}/artwork/branding.desc" "${WORKDIR}/branding.desc" || die
 
-    if [[ -n ${baselayout_version} ]]; then
-        sed -i "s|GENTOO_VERSION|${baselayout_version}|g" "${WORKDIR}/branding.desc" || die
-    fi
+	if [[ -n ${baselayout_version} ]]; then
+		sed -i "s|GENTOO_VERSION|${baselayout_version}|g" "${WORKDIR}/branding.desc" || die
+	fi
 }
 
 src_install() {
 	insinto "/etc/${MY_PN}"
-	doins -r ${FILESDIR}/modules/
-	doins -r ${FILESDIR}/settings.conf
+	doins -r "${FILESDIR}"/modules/
+	doins -r "${FILESDIR}"/settings.conf
 
 	insinto /usr/$(get_libdir)/calamares/modules/
-	doins -r ${FILESDIR}/modules/downloadstage3
-	doins -r ${FILESDIR}/modules/dracut_gentoo
+	doins -r "${FILESDIR}"/modules/downloadstage3
+	doins -r "${FILESDIR}"/modules/dracut_gentoo
 
-	domenu ${FILESDIR}/gentoo-installer.desktop
+	domenu "${FILESDIR}"/gentoo-installer.desktop
 
 	insinto /usr/bin/
 	dobin "${FILESDIR}"/${MY_PN}-pkexec
@@ -52,8 +52,8 @@ src_install() {
 	newins gentoo-artwork-0.2/icons/gentoo/64x64/gentoo.png gentoo.png
 
 	insinto /etc/calamares/branding/gentoo_branding
-	doins -r ${FILESDIR}/artwork/show.qml
-	doins -r ${WORKDIR}/branding.desc
+	doins -r "${FILESDIR}"/artwork/show.qml
+	doins -r "${WORKDIR}"/branding.desc
 
 	local i
 	for i in {1..10}; do
