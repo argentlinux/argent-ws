@@ -6,8 +6,9 @@ EAPI="8"
 
 MY_PN="calamares"
 MY_P="${MY_PN}-${PV}"
+PYTHON_COMPAT=( python3_{11..13} )
 
-inherit desktop
+inherit desktop python-single-r1
 
 DESCRIPTION="Gentoo Linux ${MY_PN} installer config"
 HOMEPAGE="https://wiki.gentoo.org/wiki/No_homepage"
@@ -18,42 +19,56 @@ S="${WORKDIR}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-RDEPEND="app-admin/calamares"
+DEPEND="
+    ${PYTHON_DEPS}
+    dev-python/pygobject:3
+    x11-libs/gtk+:3
+    x11-libs/gdk-pixbuf
+    x11-libs/pango
+"
+RDEPEND="${DEPEND}
+		app-admin/calamares"
 
 src_prepare() {
-    default
+	default
 
-    local baselayout_version
+	local baselayout_version
 	baselayout_version=$(best_version sys-apps/baselayout)
 	baselayout_version=${baselayout_version#*layout-}
 
-    cp "${FILESDIR}/artwork/branding.desc" "${WORKDIR}/branding.desc" || die
+	cp "${FILESDIR}/artwork/branding.desc" "${WORKDIR}/branding.desc" || die
 
-    if [[ -n ${baselayout_version} ]]; then
-        sed -i "s|GENTOO_VERSION|${baselayout_version}|g" "${WORKDIR}/branding.desc" || die
-    fi
+	if [[ -n ${baselayout_version} ]]; then
+		sed -i "s|GENTOO_VERSION|${baselayout_version}|g" "${WORKDIR}/branding.desc" || die
+	fi
 }
 
 src_install() {
 	insinto "/etc/${MY_PN}"
-	doins -r ${FILESDIR}/modules/
-	doins -r ${FILESDIR}/settings.conf
+	doins -r "${FILESDIR}"/settings.conf
+
+	insinto "/etc/${MY_PN}/modules"
+	for conf_file in "${FILESDIR}"/modules/*.conf; do
+		newins "${conf_file}" "$(basename "${conf_file}")"
+	done
 
 	insinto /usr/$(get_libdir)/calamares/modules/
-	doins -r ${FILESDIR}/modules/downloadstage3
-	doins -r ${FILESDIR}/modules/dracut_gentoo
+	doins -r "${FILESDIR}"/modules/downloadstage3
+	doins -r "${FILESDIR}"/modules/dracut_gentoo
+	doins -r "${FILESDIR}"/modules/stage3chooser
 
-	domenu ${FILESDIR}/gentoo-installer.desktop
+	domenu "${FILESDIR}"/gentoo-installer.desktop
 
 	insinto /usr/bin/
-	dobin "${FILESDIR}"/${MY_PN}-pkexec
+	dobin "${FILESDIR}/${MY_PN}-pkexec"
+	dobin "${FILESDIR}"/stage3chooser.py
 
 	insinto /usr/share/icons/calamares-gentoo/64x64/
 	newins gentoo-artwork-0.2/icons/gentoo/64x64/gentoo.png gentoo.png
 
 	insinto /etc/calamares/branding/gentoo_branding
-	doins -r ${FILESDIR}/artwork/show.qml
-	doins -r ${WORKDIR}/branding.desc
+	doins -r "${FILESDIR}"/artwork/show.qml
+	doins -r "${WORKDIR}"/branding.desc
 
 	local i
 	for i in {1..10}; do
