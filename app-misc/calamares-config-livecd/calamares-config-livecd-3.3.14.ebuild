@@ -7,6 +7,7 @@ EAPI="8"
 MY_PN="calamares"
 MY_P="${MY_PN}-${PV}"
 PYTHON_COMPAT=( python3_{11..13} )
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 inherit desktop python-single-r1
 
