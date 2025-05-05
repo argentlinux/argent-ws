@@ -1,9 +1,9 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-inherit desktop readme.gentoo-r1 wrapper xdg
+inherit desktop readme.gentoo-r1 wrapper xdg-utils
 
 DESCRIPTION="Intelligent Python IDE with unique code assistance and analysis"
 
@@ -24,28 +24,20 @@ SRC_URI="
 	)
 "
 
-if [[ ${PN} == *-professional ]]; then
+if [[ "${PN}" == *-professional ]]; then
 	S="${WORKDIR}/${PN/%-professional/}-${PV}"
-	LICENSE="|| ( JetBrains-business JetBrains-classroom JetBrains-educational JetBrains-individual )
-	Apache-2.0 BSD BSD-2 CC0-1.0 CC-BY-2.5 CC-BY-3.0 CC-BY-4.0 CPL-1.0 CDDL CDDL-1.1 EPL-1.0 EPL-2.0
-	GPL-2 GPL-2-with-classpath-exception ISC JDOM LGPL-2.1 LGPL-3 MIT MPL-1.1 MPL-2.0 OFL-1.1
-	PYTHON Unicode-DFS-2016 Unlicense UPL-1.0 ZLIB"
-else
-	LICENSE="|| ( JetBrains-business JetBrains-classroom JetBrains-educational JetBrains-individual )
-	Apache-2.0 BSD BSD-2 CC0-1.0 CC-BY-2.5 CC-BY-3.0 CPL-1.0 CDDL-1.1 EPL-1.0 GPL-2
-	GPL-2-with-classpath-exception ISC JDOM JSON LGPL-2+ LGPL-2.1 LGPL-3 MIT MPL-1.1 MPL-2.0
-	OFL-1.1 UPL-1.0 ZLIB"
 fi
 
+LICENSE="Apache-2.0 BSD CDDL MIT-with-advertising"
 SLOT="0"
-KEYWORDS="-* amd64 ~arm64 x86"
+KEYWORDS="~amd64 ~arm64 ~x86"
 IUSE="+bundled-jdk"
 
-if [[ ${PN} == *-professional ]]; then
+if [[ "${PN}" == *-professional ]]; then
 	IUSE+=" +bundled-xvfb"
 fi
 
-BDEPEND="dev-util/debugedit
+BDEPEND="
 	dev-util/patchelf
 "
 
@@ -55,7 +47,7 @@ BDEPEND="dev-util/debugedit
 #  So the dependencies are actually needed.
 RDEPEND="
 	!bundled-jdk? (
-		>=virtual/jre-17:*
+		>=virtual/jre-1.8
 	)
 	bundled-jdk? (
 		app-accessibility/at-spi2-core:2
@@ -89,11 +81,10 @@ RDEPEND="
 	)
 "
 
-if [[ ${PN} == *-professional ]]; then
+if [[ "${PN}" == *-professional ]]; then
 RDEPEND+="
 	bundled-xvfb? (
 		dev-libs/libpcre2
-		sys-libs/pam
 		sys-process/audit
 	)
 	!bundled-xvfb? (
@@ -101,6 +92,8 @@ RDEPEND+="
 	)
 "
 fi
+
+RESTRICT="test"
 
 QA_PREBUILT="opt/${PN}/*"
 
@@ -135,11 +128,6 @@ src_prepare() {
 		-e "\$a#-----------------------------------------------------------------------" \
 		-e "\$aide.no.platform.update=Gentoo" bin/idea.properties
 
-	# removing debug symbols and relocating debug files as per #876295
-	find . -type f -exec sh -c 'file "{}" | grep -qE "ELF (32|64)-bit" && \
-		objcopy --remove-section .note.gnu.build-id "{}" && \
-		debugedit -b "${EPREFIX}/opt/${PN}" -d "/usr/lib/debug" -i "{}"' \;
-
 	if use bundled-jdk; then
 		patchelf --set-rpath '$ORIGIN/../lib' "jbr/bin/"* || die
 		patchelf --set-rpath '$ORIGIN' "jbr/lib/"{libjcef.so,jcef_helper} || die
@@ -148,7 +136,7 @@ src_prepare() {
 		rm -r "jbr" || die
 	fi
 
-	if [[ ${PN} == *-professional ]]; then
+	if [[ "${PN}" == *-professional ]]; then
 		if use bundled-xvfb; then
 			patchelf --set-rpath '$ORIGIN/../lib' "${S}"/plugins/remote-dev-server/selfcontained/bin/{Xvfb,xkbcomp} || die
 			patchelf --set-rpath '$ORIGIN' "${S}"/plugins/remote-dev-server/selfcontained/lib/lib*.so* || die
@@ -182,11 +170,10 @@ src_install() {
 		fperms 755 "${DIR}"/"${JRE_DIR}"/lib/{cef_server,chrome-sandbox,jcef_helper,jexec,jspawnhelper}
 	fi
 
-	if [[ ${PN} == *-professional ]]; then
+	if [[ "${PN}" == *-professional ]]; then
 		if use bundled-xvfb; then
 			fperms 755 "${DIR}"/plugins/remote-dev-server/selfcontained/bin/{Xvfb,xkbcomp}
 		fi
-		fperms 755 "${DIR}" "${DIR}"/bin/remote-dev-server{,.sh}
 	fi
 
 	make_wrapper "${PN}" "${DIR}/bin/pycharm"
@@ -200,4 +187,12 @@ src_install() {
 	cat > "${ED}/usr/lib/sysctl.d/30-${PN}-inotify-watches.conf" <<-EOF || die
 		fs.inotify.max_user_watches = 524288
 	EOF
+}
+
+pkg_postinst() {
+	xdg_icon_cache_update
+}
+
+pkg_postrm() {
+	xdg_icon_cache_update
 }
