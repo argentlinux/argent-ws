@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit desktop readme.gentoo-r1 wrapper xdg
+inherit desktop readme.gentoo-r1 toolchain-funcs wrapper xdg
 
 DESCRIPTION="Intelligent Python IDE with unique code assistance and analysis"
 
@@ -37,7 +37,7 @@ else
 	OFL-1.1 UPL-1.0 ZLIB"
 fi
 
-SLOT="0"
+SLOT="0/2024"
 KEYWORDS="-* amd64 ~arm64 x86"
 IUSE="+bundled-jdk"
 
@@ -105,6 +105,7 @@ fi
 QA_PREBUILT="opt/${PN}/*"
 
 src_prepare() {
+	tc-export OBJCOPY
 	default
 
 	rm -v  "${S}"/help/ReferenceCardForMac.pdf || die
@@ -135,10 +136,26 @@ src_prepare() {
 		-e "\$a#-----------------------------------------------------------------------" \
 		-e "\$aide.no.platform.update=Gentoo" bin/idea.properties
 
+	# excepting files that should be kept for remote plugins
+	local skip_nonx86_files=(
+		"./plugins/platform-ijent-impl/ijent-aarch64-unknown-linux-musl-release"
+		"./plugins/clion-radler/DotFiles/linux-musl-arm64/jb_zip_unarchiver"
+		"./plugins/clion-radler/DotFiles/linux-arm/jb_zip_unarchiver"
+		"./plugins/clion-radler/DotFiles/linux-musl-arm/jb_zip_unarchiver"
+		"./plugins/gateway-plugin/lib/remote-dev-workers/remote-dev-worker-linux-arm64"
+	)
 	# removing debug symbols and relocating debug files as per #876295
-	find . -type f -exec sh -c 'file "{}" | grep -qE "ELF (32|64)-bit" && \
-		objcopy --remove-section .note.gnu.build-id "{}" && \
-		debugedit -b "${EPREFIX}/opt/${PN}" -d "/usr/lib/debug" -i "{}"' \;
+	# we're escaping all the files that contain $() in their name
+	# as they should not be executed
+	find . -type f ! -name '*$(*)*' -print0 | while IFS= read -r -d '' file; do
+		for skip in "${skip_nonx86_files[@]}"; do
+			[[ ${file} == "${skip}" ]] && continue 2
+		done
+		if file "${file}" | grep -qE "ELF (32|64)-bit"; then
+			${OBJCOPY} --remove-section .note.gnu.build-id "${file}" || die
+			debugedit -b "${EPREFIX}/opt/${PN}" -d "/usr/lib/debug" -i "${file}" || die
+		fi
+	done
 
 	if use bundled-jdk; then
 		patchelf --set-rpath '$ORIGIN/../lib' "jbr/bin/"* || die
