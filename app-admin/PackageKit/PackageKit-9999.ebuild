@@ -23,7 +23,7 @@ fi
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 IUSE="introspection policykit bash-completion cron gtk-doc systemd test vala"
 
 RESTRICT="!test? ( test )"
