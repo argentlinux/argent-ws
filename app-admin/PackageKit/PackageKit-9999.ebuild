@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..12} )
+PYTHON_COMPAT=( python3_{11..13} )
 
 if [[ ${PV} == 9999 ]]; then
 	inherit meson python-any-r1 gnome2-utils xdg git-r3
@@ -61,8 +61,8 @@ src_configure() {
 src_install() {
     meson_src_install
 
+    fperms +x /usr/share/PackageKit/helpers/portage/portageBackend.py
     dosym "vaapigen-${PV}" "/usr/bin/vaapigen"
 
-    # Optional cleanup or reorganization for Gentoo style
     dodoc README.md AUTHORS NEWS
 }
