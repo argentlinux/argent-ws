@@ -59,9 +59,10 @@ src_configure() {
 }
 
 src_install() {
+    find . -iname '*portageBackend.py*'
     meson_src_install
 
-    fperms +x /usr/share/PackageKit/helpers/portage/portageBackend.py
+    fperms +x ${D}/usr/share/PackageKit/helpers/portage/portageBackend.py
     dosym "vaapigen-${PV}" "/usr/bin/vaapigen"
 
     dodoc README.md AUTHORS NEWS
