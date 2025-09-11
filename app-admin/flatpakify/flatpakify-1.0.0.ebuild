@@ -9,7 +9,7 @@ inherit meson python-single-r1
 
 DESCRIPTION="Tool to create Flatpak bundles from Portage ebuilds"
 HOMEPAGE="https://github.com/StefanCristian/${PN}"
-SRC_URI="https://github.com/StefanCristian/${PN}/archive/${P}.tar.xz"
+SRC_URI="https://github.com/StefanCristian/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
