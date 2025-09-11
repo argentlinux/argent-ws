@@ -18,9 +18,9 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}"
 RDEPEND="${DEPEND}
-    app-admin/sudo
+	app-admin/sudo
 	dev-util/flatpak-builder
-    sys-apps/flatpak
+	sys-apps/flatpak
 	sys-apps/portage"
 BDEPEND="dev-build/meson
 	${PYTHON_DEPS}"
