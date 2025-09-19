@@ -1,0 +1,16 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DEPEND=sys-devel/gettext
+DESCRIPTION=Argent simple portage wrapper which works like any other package manager
+EAPI=8
+HOMEPAGE=http://rogentos.ro
+INHERIT=git-r3
+IUSE=+argent gentoo
+KEYWORDS=amd64 x86
+LICENSE=BSD-2
+PROPERTIES=live
+RDEPEND=app-portage/gentoolkit app-portage/portage-utils sys-apps/coreutils sys-apps/portage
+REQUIRED_USE=|| ( argent gentoo ) argent? ( !gentoo ) gentoo? ( !argent )
+SLOT=0/0.9
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=dbf66c353661de057f0a1fe1b94aeec8
