@@ -8,4 +8,4 @@ LICENSE=GPL-2
 RDEPEND=app-admin/calamares x11-themes/argent-artwork-core x11-themes/argent-artwork-calamares
 SLOT=0
 _eclasses_=xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
-_md5_=ecb32308ffe7b666635a380c57d28b31
+_md5_=b2c6f958011a7d9519245df938c89ab2
