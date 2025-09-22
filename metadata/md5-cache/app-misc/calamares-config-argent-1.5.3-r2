@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Argent Linux Calamares modules config
+EAPI=8
+IUSE=installer
+KEYWORDS=amd64 x86
+LICENSE=GPL-2
+RDEPEND=app-admin/calamares
+SLOT=0
+_md5_=a2057997d1dae6eb0604c2f5032c8314
