@@ -31,6 +31,7 @@ src_install() {
 
 	insinto /usr/bin/
 	doins "${S}"/calamares-pkexec
+	fperms +x /usr/bin/calamares-pkexec
 
 	insinto /usr/share/applications/
 	doins "${S}"/argent-installer.desktop
