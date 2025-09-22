@@ -14,7 +14,8 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="installer"
 
-RDEPEND="app-admin/calamares"
+RDEPEND="app-admin/calamares
+	x11-themes/argent-artwork-calamares"
 
 S="${FILESDIR}"
 
