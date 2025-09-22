@@ -1,0 +1,16 @@
+---
+$schema: https://json-schema.org/schema#
+$id: https://calamares.io/schemas/argent_postinstall
+additionalProperties: false
+type: object
+properties:
+    commands:
+        type: array
+        items:
+            oneOf:
+                - type: string
+                - type: array
+                  items:
+                      type: string
+        description: "List of commands to run in the target system after user creation"
+        default: []
