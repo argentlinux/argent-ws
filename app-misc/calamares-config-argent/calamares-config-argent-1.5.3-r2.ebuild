@@ -5,6 +5,8 @@
 
 EAPI="8"
 
+inherit xdg
+
 DESCRIPTION="Argent Linux Calamares modules config"
 HOMEPAGE=""
 SRC_URI=""
@@ -12,17 +14,24 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="installer"
+IUSE=""
 
 RDEPEND="app-admin/calamares
+	x11-themes/argent-artwork-core
 	x11-themes/argent-artwork-calamares"
 
 S="${FILESDIR}"
 
 src_install() {
-	dodir "/etc/calamares" || die
-	insinto "/etc/calamares" || die
-	doins -r "${S}/"* || die
-	insinto "/usr/$(get_libdir)/calamares/modules" || die
-	doins -r "${S}/modules/argent_postinstall" || die
+	dodir "/etc/calamares"
+	insinto "/etc/calamares"
+	doins -r "${S}/"*
+	insinto "/usr/$(get_libdir)/calamares/modules"
+	doins -r "${S}/modules/argent_postinstall"
+
+	insinto /usr/bin/
+	doins "${S}"/calamares-pkexec
+
+	insinto /usr/share/applications/
+	doins "${S}"/argent-installer.desktop
 }
