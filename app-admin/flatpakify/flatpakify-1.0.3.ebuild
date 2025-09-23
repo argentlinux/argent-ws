@@ -18,7 +18,11 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}"
 RDEPEND="${DEPEND}
-	app-admin/sudo
+    || (
+        app-admin/doas
+        kde-plasma/kdesu-gui
+        app-admin/sudo
+    )
 	dev-util/flatpak-builder
 	sys-apps/flatpak
 	sys-apps/portage"

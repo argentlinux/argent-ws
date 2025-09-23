@@ -12,7 +12,6 @@
         use in overlays or local packaging workflows. It can generate
         Flatpaks (with generated manifests) from existing ebuilds.
     </longdescription>
-    <homepage>https://github.com/StefanCristian/flatpakify</homepage>
     <upstream>
         <remote-id type="github">StefanCristian/flatpakify</remote-id>
         <remote-id type="gitlab">StefanCristian/flatpakify</remote-id>
