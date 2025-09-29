@@ -18,7 +18,7 @@ else
 fi
 
 LICENSE="LGPL-2.1+"
-SLOT="0"
+SLOT="6"
 IUSE="qt5 +qt6 test"
 
 DEPEND="
