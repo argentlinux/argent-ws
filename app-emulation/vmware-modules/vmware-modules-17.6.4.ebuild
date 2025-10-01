@@ -11,7 +11,7 @@ HOMEPAGE="https://gitlab.com/argent/"
 # Highest kernel version known to work:
 MY_KERNEL_VERSION="6.16"
 
-SRC_URI="https://gitlab.com/argent/vmware-modules/-/archive/17.6.4/vmware-modules-17.6.4.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://gitlab.com/argent/${PN}/-/archive/${PV}/${P}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
