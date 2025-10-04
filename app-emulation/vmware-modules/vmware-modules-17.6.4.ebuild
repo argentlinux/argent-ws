@@ -21,6 +21,8 @@ RDEPEND="
 	acct-group/vmware
 "
 
+PATCHES="${FILESDIR}/${P}-hostif.patch"
+
 pkg_setup() {
 	CONFIG_CHECK="~HIGH_RES_TIMERS"
 	if kernel_is -ge 5 5; then
