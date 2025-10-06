@@ -660,8 +660,14 @@ _kernel_src_install() {
 	# cleanup previous
 	rm -f build source || die
 	# create sane symlinks
-	ln -sf "../../..${KV_OUT_DIR}" source || die "cannot create source symlink"
-	ln -sf "../../..${KV_OUT_DIR}" build || die "cannot create build symlink"
+	if [ -d "../../..${KV_OUT_DIR}" ]; then
+		ln -sf "../../..${KV_OUT_DIR}" source || die "cannot create source symlink"
+		ln -sf "../../..${KV_OUT_DIR}" build || die "cannot create build symlink"
+	else
+		ewarn "Kernel source directory ../../../${KV_OUT_DIR} does not exist conventionally"
+		ln -sf "../../../..${KV_OUT_DIR}" source || die "cannot create source symlink"
+		ln -sf "../../../..${KV_OUT_DIR}" build || die "cannot create build symlink"
+	fi
 	cd "${S}" || die
 
 	# drop ${D}/lib/firmware, virtual/linux-firmwares provides it
