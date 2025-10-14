@@ -14,7 +14,7 @@ HOMEPAGE="https://userbase.kde.org/Discover"
 LICENSE="GPL-2" # TODO: CHECK
 SLOT="6"
 KEYWORDS="amd64 arm64 ~loong ~ppc64 ~riscv ~x86"
-IUSE="+firmware flatpak +packagekit snap telemetry webengine"
+IUSE="+firmware flatpak packagekit snap telemetry webengine"
 
 COMMON_DEPEND="
 	>=dev-libs/appstream-1.0.4:=[qt6]
