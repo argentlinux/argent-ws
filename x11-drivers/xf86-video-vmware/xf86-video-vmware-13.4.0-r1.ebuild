@@ -12,6 +12,6 @@ KEYWORDS="amd64 ~arm64 ~x86"
 RDEPEND="
 	kernel_linux? (
 		>=x11-libs/libdrm-2.4.96[video_cards_vmware]
-		<media-libs/mesa-25.2[xa]
+		media-libs/mesa
 	)"
 DEPEND="${RDEPEND}"
