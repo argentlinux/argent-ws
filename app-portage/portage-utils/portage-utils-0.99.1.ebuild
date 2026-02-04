@@ -12,7 +12,8 @@ if [[ ${PV} == *9999 ]]; then
 	inherit git-r3 autotools
 	EGIT_REPO_URI="https://anongit.gentoo.org/git/proj/portage-utils.git"
 else
-	SRC_URI="https://gitlab.com/argent/portage-utils/-/archive/v${PV}.tar.gz"
+	SRC_URI="https://gitlab.com/argent/portage-utils/-/archive/v${PV}/portage-utils-v${PV}.tar.gz"
+	S="${WORKDIR}/${P}"
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~arm64-macos ~x64-macos ~x64-solaris"
 fi
 
