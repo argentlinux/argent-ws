@@ -16,10 +16,8 @@ EAPI=8
 # If any of the above applies to a user patch, the user should set the
 # corresponding variable in make.conf or the environment.
 
-if [[ ${PV} == 9999  ]]; then
-	GRUB_AUTORECONF=1
-	GRUB_BOOTSTRAP=1
-fi
+GRUB_AUTOGEN=1
+GRUB_AUTORECONF=1
 
 PYTHON_COMPAT=( python3_{11..14} )
 WANT_LIBTOOL=none
@@ -48,6 +46,7 @@ if [[ ${PV} != 9999 ]]; then
 		SRC_URI="
 			mirror://gnu/${PN}/${P}.tar.xz
 			verify-sig? ( mirror://gnu/${PN}/${P}.tar.xz.sig )
+			https://dev.gentoo.org/~floppym/dist/${P}-lld-support.tar.xz
 		"
 		S=${WORKDIR}/${P%_*}
 	fi
@@ -176,6 +175,10 @@ src_unpack() {
 }
 
 src_prepare() {
+	local PATCHES=(
+		"${WORKDIR}/${P}-lld-support"
+	)
+
 	default
 
 	python_setup
@@ -284,7 +287,7 @@ src_configure() {
 		-e "s/@PV@/${PV}/"
 		-e "s/@PVR@/${PVR}/"
 		-e "s/@GEN_GRUB@/5/"
-		-e "s/@GEN_GENTOO@/1/"
+		-e "s/@GEN_ARGENT@/1/"
 	)
 	sed "${sedargs[@]}" "${FILESDIR}/sbat.csv.in" > "${WORKDIR}/sbat.csv" || die
 
