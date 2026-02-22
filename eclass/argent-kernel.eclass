@@ -349,9 +349,10 @@ else
 	if [ -n "${K_ROGKERNEL_ZFS}" ]; then
 		IUSE="${IUSE} zfs"
 	fi
-	DEPEND="app-arch/xz-utils
+	BDEPEND="app-arch/xz-utils
 		dev-build/autoconf
-		dev-build/make
+		dev-build/make"
+	DEPEND="
 		splash? ( x11-themes/argent-artwork-core )
 		lvm? ( sys-fs/lvm2 sys-block/thin-provisioning-tools )
 		btrfs? ( sys-fs/btrfs-progs )
