@@ -380,23 +380,23 @@ fi
 # This is more or less the same of linux-mod update_depmod, with the
 # exception of accepting parameter which is passed to depmod -r switch
 _update_depmod() {
+	local depmod_kv="${1}"
+	[[ -z "${depmod_kv}" ]] && { ewarn "_update_depmod: no kernel version supplied, skipping depmod"; return 0; }
 
-	# if we haven't determined the version yet, we need too.
-	get_version;
-
-	einfo "Updating module dependencies for ${KV_FULL}"
-	if [ -r "${KV_OUT_DIR}"/System.map ]; then
-		set -x
-		depmod -ae -F "${KV_OUT_DIR}"/System.map -b "${ROOT}" "${1}" > /dev/null 2>&1 || true
-		depmod -ae -F "${KV_OUT_DIR}"/System.map -b "${ROOT:-/}" ${KV_FULL} > /dev/null 2>&1 || true
-		set +x
-	else
-		ewarn
-		ewarn "${KV_OUT_DIR}/System.map not found."
-		ewarn "You must manually update the kernel module dependencies using depmod."
-		ewarn
+	# aattempt to resolve KV_OUT_DIR from the passed version if not already set
+	local kv_out="${KV_OUT_DIR}"
+	if [[ -z "${kv_out}" ]]; then
+		kv_out="/usr/src/linux-${depmod_kv}"
 	fi
-	einfo "Updated modules for "${KV_OUT_DIR}"/System.map"
+
+	einfo "Updating module dependencies for ${depmod_kv}"
+	if [ -r "${kv_out}/System.map" ]; then
+		depmod -ae -F "${kv_out}/System.map" -b "${ROOT:-/}" "${depmod_kv}" > /dev/null 2>&1 || true
+	else
+		ewarn "${kv_out}/System.map not found."
+		ewarn "You must manually update the kernel module dependencies using depmod."
+	fi
+	einfo "Updated modules for ${kv_out}/System.map"
 }
 
 argent-kernel_pkg_setup() {
@@ -842,21 +842,22 @@ argent-kernel_pkg_postinst() {
 			_dracut_initramfs_create
 		fi
 
+		K_SYMLINK=1 kernel-2_pkg_postinst
+		local depmod_r=$(_get_release_level)
+		_update_depmod "${depmod_r}"
+
 		if use grub2 ; then
 			argent-kernel_grub2_mkconfig
-			kernel-2_pkg_postinst
-			local depmod_r=$(_get_release_level)
-			_update_depmod "${depmod_r}"
 		fi
 
 		elog "Please report kernel bugs at:"
-		elog "http://rogentos.ro"
-		elog "RogentOS Team recommends that portage users install"
+		elog "https://argentlinux.io/bugs/"
+		elog "Argent Systems Team recommends that portage users install"
 		elog "${K_KERNEL_SOURCES_PKG} if you want"
 		elog "to build any packages that install kernel modules"
 		elog "(such as ati-drivers, nvidia-drivers, virtualbox, etc...)."
 	else
-		kernel-2_pkg_postinst
+		K_SYMLINK=1 kernel-2_pkg_postinst
 		local depmod_r=$(_get_release_level)
 		_update_depmod "${depmod_r}"
 	fi
