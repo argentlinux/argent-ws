@@ -23,7 +23,6 @@ RESTRICT="bindist mirror test"
 # find ~/.steam/root/ -exec readelf -d {} + 2>/dev/null | grep -F NEEDED | sort -u | grep -F -v -f <(ls -1 ~/.steam/root/ubuntu12_32/)
 
 RDEPEND="
-	!app-emulation/steam
 	app-alternatives/tar
 	app-arch/xz-utils
 	app-shells/bash
@@ -101,7 +100,7 @@ RDEPEND="
 	)
 	video_cards_nvidia? (
 		x11-drivers/nvidia-drivers[abi_x86_32,X]
-		vulkan? ( media-libs/vulkan-loader[layers] )
+		vulkan? ( media-libs/vulkan-layers[abi_x86_32,wayland?,X] )
 	)
 
 	joystick? (
@@ -161,11 +160,14 @@ src_prepare() {
 	# Still need EPREFIX in the sed replacements above because the
 	# regular expression used by hprefixify doesn't match there.
 	hprefixify bin_steam.sh steam-wrapper.sh
+
+	# Allow the desktop launcher to use wrappers from the PATH.
+	sed -i "s:/usr/bin/::g" steam.desktop || die
 }
 
 src_install() {
 	emake install-{icons,bootstrap} \
-		DESTDIR="${D}" PREFIX="${EPREFIX}/usr"
+		  DESTDIR="${D}" PREFIX="${EPREFIX}/usr"
 
 	newbin steam-wrapper.sh steam
 	exeinto /usr/lib/steam
