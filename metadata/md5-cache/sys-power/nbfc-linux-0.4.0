@@ -1,0 +1,16 @@
+BDEPEND=virtual/pkgconfig virtual/pkgconfig
+DEFINED_PHASES=install postinst setup
+DEPEND=sys-apps/dmidecode
+DESCRIPTION=NoteBook FanControl ported to Linux
+EAPI=8
+HOMEPAGE=https://github.com/nbfc-linux/nbfc-linux
+INHERIT=linux-info systemd
+IUSE=zsh-completion bash-completion fish-completion
+KEYWORDS=-* amd64
+LICENSE=GPL-3
+RDEPEND=sys-apps/dmidecode
+RESTRICT=mirror
+SLOT=0
+SRC_URI=https://github.com/nbfc-linux/nbfc-linux/archive/0.4.0.tar.gz -> nbfc-linux-0.4.0.tar.gz
+_eclasses_=toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	linux-info	efd923656513c879204fec6638eadee5	systemd	a964c0cbe818b5729da1dbfcee5be861
+_md5_=e52d74bb1f7956e5de4b12b7892070d5
