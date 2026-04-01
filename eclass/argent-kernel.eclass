@@ -482,9 +482,14 @@ _kernel_copy_config() {
 			elog "Using kernel config: ${cfg}"
 			# kernel version verification to make sure we're mentioning the right compiler version
 			# with what the source has been built, not how the source has been packaged
-			local gcc_ver gcc_vertext
-			gcc_ver=$(( $(gcc-major-version) * 10000 + $(gcc-minor-version) * 100 + $(gcc-micro-version) ))
-			gcc_vertext=$($(tc-getCC) --version | head -n1)
+			local gcc_major gcc_ver gcc_cc gcc_vertext
+			gcc_major=$(gcc-major-version)
+			gcc_ver=$(( gcc_major * 10000 + $(gcc-minor-version) * 100 + $(gcc-micro-version) ))
+			read -r gcc_cc < <(type -P -- \
+				"${CHOST}-gcc-${gcc_major}" "${CHOST}-gcc" \
+				"gcc-${gcc_major}" "gcc") || true
+			: "${gcc_cc:=$(tc-getCC)}"
+			gcc_vertext=$("${gcc_cc}" --version | head -n1)
 			sed -i \
 				-e "s@^CONFIG_GCC_VERSION=.*@CONFIG_GCC_VERSION=${gcc_ver}@" \
 				-e "s@^CONFIG_CC_VERSION_TEXT=.*@CONFIG_CC_VERSION_TEXT=\"${gcc_vertext}\"@" \
