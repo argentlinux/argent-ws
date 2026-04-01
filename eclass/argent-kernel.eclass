@@ -577,6 +577,12 @@ _kernel_src_compile() {
 	OLDARCH="${ARCH}"
 	unset ARCH
 	unset LDFLAGS
+	local _gcc_major _gcc_cc
+	_gcc_major=$(gcc-major-version)
+	read -r _gcc_cc < <(type -P -- \
+		"${CHOST}-gcc-${_gcc_major}" "${CHOST}-gcc" \
+		"gcc-${_gcc_major}" "gcc") || true
+	export CC="${_gcc_cc:-$(tc-getCC)}"
 	DEFAULT_KERNEL_SOURCE="${S}" CMD_KERNEL_DIR="${S}" genkernel "${GKARGS[@]}" ${K_GENKERNEL_ARGS} \
 		--kerneldir="${S}" \
 		--kernel-config="${WORKDIR}"/config \
