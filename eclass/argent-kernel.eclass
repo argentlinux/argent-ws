@@ -177,7 +177,7 @@ K_DEBLOB_AVAILABLE=0
 ETYPE="sources"
 K_TARBALL_EXT="${K_TARBALL_EXT:-xz}"
 
-inherit multilib kernel-2 argent-artwork mount-boot linux-info
+inherit multilib kernel-2 argent-artwork mount-boot linux-info toolchain-funcs
 
 CKV="${K_ROGKERNEL_FORCE_UPPERLEVEL}.${K_ROGKERNEL_FORCE_SUBLEVEL}"
 
@@ -480,6 +480,15 @@ _kernel_copy_config() {
 		if [ -f "${cfg}" ]; then
 			cp "${cfg}" "${1}" || die "cannot copy kernel config ${cfg} -> ${1}"
 			elog "Using kernel config: ${cfg}"
+			# kernel version verification to make sure we're mentioning the right compiler version
+			# with what the source has been built, not how the source has been packaged
+			local gcc_ver gcc_vertext
+			gcc_ver=$(( $(gcc-major-version) * 10000 + $(gcc-minor-version) * 100 + $(gcc-micro-version) ))
+			gcc_vertext=$($(tc-getCC) --version | head -n1)
+			sed -i \
+				-e "s@^CONFIG_GCC_VERSION=.*@CONFIG_GCC_VERSION=${gcc_ver}@" \
+				-e "s@^CONFIG_CC_VERSION_TEXT=.*@CONFIG_CC_VERSION_TEXT=\"${gcc_vertext}\"@" \
+				"${1}" || die
 			found=1
 			break
 		fi
