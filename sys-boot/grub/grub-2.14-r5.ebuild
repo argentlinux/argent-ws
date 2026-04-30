@@ -16,10 +16,8 @@ EAPI=8
 # If any of the above applies to a user patch, the user should set the
 # corresponding variable in make.conf or the environment.
 
-if [[ ${PV} == 9999  ]]; then
-	GRUB_AUTORECONF=1
-	GRUB_BOOTSTRAP=1
-fi
+GRUB_AUTOGEN=1
+GRUB_AUTORECONF=1
 
 PYTHON_COMPAT=( python3_{11..14} )
 WANT_LIBTOOL=none
@@ -28,7 +26,7 @@ if [[ -n ${GRUB_AUTORECONF} ]]; then
 	inherit autotools
 fi
 
-inherit bash-completion-r1 eapi9-ver flag-o-matic multibuild optfeature
+inherit bash-completion-r1 eapi9-pipestatus eapi9-ver flag-o-matic multibuild optfeature
 inherit python-any-r1 secureboot toolchain-funcs verify-sig
 
 DESCRIPTION="GNU GRUB boot loader"
@@ -48,6 +46,7 @@ if [[ ${PV} != 9999 ]]; then
 		SRC_URI="
 			mirror://gnu/${PN}/${P}.tar.xz
 			verify-sig? ( mirror://gnu/${PN}/${P}.tar.xz.sig )
+			https://dev.gentoo.org/~floppym/dist/${P}-patches.tar.xz
 		"
 		S=${WORKDIR}/${P%_*}
 	fi
@@ -57,7 +56,7 @@ if [[ ${PV} != 9999 ]]; then
 			sec-keys/openpgp-keys-unifont
 		)
 	"
-	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
+	KEYWORDS="amd64 arm arm64 ~loong ppc ppc64 ~riscv ~sparc x86"
 else
 	inherit git-r3
 	EGIT_REPO_URI="https://git.savannah.gnu.org/git/grub.git"
@@ -176,6 +175,16 @@ src_unpack() {
 }
 
 src_prepare() {
+	# Bug 971544
+	find grub-core/lib/gnulib -name '*.in.h' | sed 's/.in.h$/.h/' | xargs rm -fv
+	pipestatus || die
+
+	local PATCHES=(
+		"${WORKDIR}/${P}-patches"
+		"${FILESDIR}/${P}-efi_uga.patch"
+		"${FILESDIR}/${P}-gfxpayload.patch"
+	)
+
 	default
 
 	python_setup
@@ -299,7 +308,10 @@ src_configure() {
 
 src_compile() {
 	# Sandbox bug 404013.
-	use libzfs && { addpredict /etc/dfs; addpredict /dev/zfs; }
+	if use libzfs; then
+		addpredict /etc/dfs
+		addpredict /dev/zfs
+	fi
 
 	grub_do emake
 	use doc && grub_do_once emake -C docs html
