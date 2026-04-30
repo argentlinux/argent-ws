@@ -14,7 +14,7 @@ K_KERNEL_NEW_VERSIONING="1"
 
 inherit argent-kernel
 
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 DESCRIPTION="Official Argent Linux Standard kernel sources"
 RESTRICT="mirror"
 IUSE="grub2 sources_standalone"
