@@ -15,7 +15,7 @@ S="${WORKDIR}/${PN}"
 
 LICENSE="ValveSteamLicense MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="+desktop-portal +dialogs +joystick +pulseaudio +steamruntime steamvr trayicon +udev video_cards_nvidia +vulkan wayland"
 RESTRICT="bindist mirror test"
 
