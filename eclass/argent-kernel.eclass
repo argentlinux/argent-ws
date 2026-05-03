@@ -172,12 +172,25 @@ K_MKIMAGE_KERNEL_ADDRESS="${K_MKIMAGE_KERNEL_ADDRESS:-}"
 
 KERN_INITRAMFS_SEARCH_NAME="${KERN_INITRAMFS_SEARCH_NAME:-initramfs-genkernel*${K_ROGKERNEL_NAME}}"
 
+# @ECLASS-VARIABLE: ARG_KERNEL_DEP
+# @DESCRIPTION:
+# Dependency string to be used by kernel module packages that want to be
+# automatically rebuilt whenever a new Argent Linux kernel is installed.
+# Add this to a module package's RDEPEND conditioned on USE=arg-kernel:
+#
+#   RDEPEND="arg-kernel? ( ${ARG_KERNEL_DEP} )"
+#
+# The subslot dependency (:=) ensures portage schedules a rebuild of the
+# module package whenever virtual/arg-kernel changes its subslot (i.e.
+# when a new sys-kernel/linux-argent version is installed).
+ARG_KERNEL_DEP="virtual/arg-kernel:="
+
 # Disable deblobbing feature
 K_DEBLOB_AVAILABLE=0
 ETYPE="sources"
 K_TARBALL_EXT="${K_TARBALL_EXT:-xz}"
 
-inherit argent-kernel-utils multilib kernel-2 argent-artwork mount-boot linux-info toolchain-funcs
+inherit multilib kernel-2 argent-artwork mount-boot linux-info toolchain-funcs
 
 CKV="${K_ROGKERNEL_FORCE_UPPERLEVEL}.${K_ROGKERNEL_FORCE_SUBLEVEL}"
 
@@ -345,10 +358,11 @@ if [ -n "${K_ONLY_SOURCES}" ] || [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 	DEPEND=""
 	RDEPEND="${RDEPEND}"
 else
-	IUSE="btrfs -grub2 dmraid +dracut installer iscsi luks lvm mdadm +plymouth splash sources_standalone"
+	IUSE="arg-kernel btrfs -grub2 dmraid +dracut installer iscsi luks lvm mdadm +plymouth splash sources_standalone"
 	if [ -n "${K_ROGKERNEL_ZFS}" ]; then
 		IUSE="${IUSE} zfs"
 	fi
+	PDEPEND="arg-kernel? ( ~virtual/arg-kernel-${PV} )"
 	BDEPEND="app-arch/xz-utils
 		dev-build/autoconf
 		dev-build/make"
@@ -737,6 +751,25 @@ _kernel_src_install() {
 argent-kernel_pkg_preinst() {
 	if _is_kernel_binary; then
 		mount-boot_pkg_preinst
+	fi
+}
+
+# @FUNCTION: argent-kernel_check_arg_kernel
+# @DESCRIPTION:
+# To be called from pkg_postinst of kernel module packages.
+# Prints a notice when USE=arg-kernel is enabled, or a warning when
+# virtual/arg-kernel is installed but USE=arg-kernel is not set for
+# the current package. Mirrors the behaviour of dist-kernel in
+# linux-mod-r1.eclass.
+argent-kernel_check_arg_kernel() {
+	if in_iuse arg-kernel && use arg-kernel; then
+		einfo "This module will be automatically rebuilt by portage"
+		einfo "when sys-kernel/linux-argent is upgraded (USE=arg-kernel)."
+	elif has_version "virtual/arg-kernel" && in_iuse arg-kernel && ! use arg-kernel; then
+		ewarn "virtual/arg-kernel is installed, but USE=\"arg-kernel\""
+		ewarn "is not enabled for ${CATEGORY}/${PN}."
+		ewarn "It is recommended to globally enable the arg-kernel USE flag"
+		ewarn "so that this module is automatically rebuilt on Argent kernel upgrades."
 	fi
 }
 
