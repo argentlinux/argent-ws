@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="project">
+    <email>kernel@argentlinux.io</email>
+    <name>Argent Linux Kernel Project</name>
+  </maintainer>
+  <longdescription>
+    Virtual package that depends on any installed Argent Linux kernel
+    (sys-kernel/linux-argent). Used by kernel module packages to declare
+    a subslot dependency so that portage automatically schedules a rebuild
+    whenever a new Argent kernel version is installed (USE="arg-kernel").
+  </longdescription>
+</pkgmetadata>

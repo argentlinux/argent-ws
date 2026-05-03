@@ -177,7 +177,7 @@ K_DEBLOB_AVAILABLE=0
 ETYPE="sources"
 K_TARBALL_EXT="${K_TARBALL_EXT:-xz}"
 
-inherit multilib kernel-2 argent-artwork mount-boot linux-info toolchain-funcs
+inherit argent-kernel-utils multilib kernel-2 argent-artwork mount-boot linux-info toolchain-funcs
 
 CKV="${K_ROGKERNEL_FORCE_UPPERLEVEL}.${K_ROGKERNEL_FORCE_SUBLEVEL}"
 
@@ -876,6 +876,19 @@ argent-kernel_pkg_postinst() {
 		elog "${K_KERNEL_SOURCES_PKG} if you want"
 		elog "to build any packages that install kernel modules"
 		elog "(such as ati-drivers, nvidia-drivers, virtualbox, etc...)."
+
+		# notify about arg-kernel module auto-rebuild tracking
+		if has_version "virtual/arg-kernel"; then
+			einfo ""
+			einfo "Kernel module packages with USE=arg-kernel will be scheduled"
+			einfo "by portage for an automatic rebuild against ${KV_FULL}."
+		else
+			einfo ""
+			einfo "To enable automatic rebuilds of kernel modules on kernel upgrades,"
+			einfo "add \"arg-kernel\" to your global USE flags and install"
+			einfo "virtual/arg-kernel. Then add USE=arg-kernel to your module packages"
+			einfo "(e.g. app-emulation/vmware-modules, x11-drivers/nvidia-drivers)."
+		fi
 	else
 		K_SYMLINK=1 kernel-2_pkg_postinst
 		local depmod_r=$(_get_release_level)

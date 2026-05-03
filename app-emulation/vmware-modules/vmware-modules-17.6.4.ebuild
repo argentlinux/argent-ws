@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit flag-o-matic linux-mod-r1 udev
+inherit argent-kernel-utils flag-o-matic linux-mod-r1 udev
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://gitlab.com/argent/"
@@ -16,9 +16,11 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 RESTRICT="mirror"
+IUSE="arg-kernel"
 
 RDEPEND="
 	acct-group/vmware
+	arg-kernel? ( ${ARG_KERNEL_DEP} )
 "
 
 pkg_setup() {
@@ -96,6 +98,7 @@ src_install() {
 pkg_postinst() {
 	linux-mod-r1_pkg_postinst
 	udev_reload
+	argent-kernel_check_arg_kernel
 	ewarn "Don't forget to run '/etc/init.d/vmware restart' to use the new kernel modules."
 }
 

@@ -1,0 +1,7 @@
+DEFINED_PHASES=-
+DESCRIPTION=Virtual to depend on any Argent Linux kernel
+EAPI=8
+KEYWORDS=amd64 ~x86
+RDEPEND=~sys-kernel/linux-argent-6.12.85
+SLOT=0/6.12.85
+_md5_=82c8aa088f7766c3354c4d944f5bdb24
