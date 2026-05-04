@@ -1,0 +1,12 @@
+BDEPEND=virtual/pkgconfig >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install postrm unpack
+DESCRIPTION=Argent live scripts
+EAPI=8
+HOMEPAGE=http://www.rogentos.ro
+INHERIT=systemd git-r3
+KEYWORDS=amd64 x86
+LICENSE=GPL-2
+PROPERTIES=live
+SLOT=0
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	systemd	a964c0cbe818b5729da1dbfcee5be861	git-r3	7b584b5dc33e3bc66ff5b9271bf41764
+_md5_=44a2c12d2e7b4068df92b9082bc14c2f
