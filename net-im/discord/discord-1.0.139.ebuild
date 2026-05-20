@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit desktop optfeature xdg
+inherit optfeature xdg
 
 DESCRIPTION="All-in-one voice and text chat for gamers"
 HOMEPAGE="https://discord.com/"
@@ -13,7 +13,7 @@ S="${WORKDIR}/${PN^}"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 IUSE="appindicator"
 RESTRICT="bindist mirror strip test"
 
@@ -51,20 +51,29 @@ RDEPEND="
 
 QA_PREBUILT="*"
 
+CONFIG_CHECK="~USER_NS"
+
 src_install() {
 	dobin "${PN}"
 
 	insinto "/usr/share/${PN}"
 	insopts -m0755
 	doins updater_bootstrap
-
-	doicon -s 256 "${PN}.png"
-	domenu "${PN}.desktop"
 }
 
 pkg_postinst() {
 	xdg_pkg_postinst
-	optfeature "GUI progress dialog during first-run bootstrap" gnome-extra/zenity
+
+	optfeature_header "Install the following packages for additional support:"
+	optfeature "sound support" \
+		media-sound/pulseaudio media-sound/apulse[sdk] media-video/pipewire
+	optfeature "emoji support" media-fonts/noto-emoji
+	if has_version kde-plasma/kwin[-screencast] && use wayland; then
+		einfo " "
+		einfo "When using KWin on Wayland, the kde-plasma/kwin[screencast] USE flag"
+		einfo "must be enabled for screensharing."
+		einfo " "
+	fi
 	einfo "Discord 1.0.x is a bootstrapper: the real client is downloaded to"
 	einfo "~/.config/discord/ on first launch and is not managed by Portage."
 }
