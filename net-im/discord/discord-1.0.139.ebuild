@@ -13,7 +13,7 @@ S="${WORKDIR}/${PN^}"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="appindicator"
 RESTRICT="bindist mirror strip test"
 
