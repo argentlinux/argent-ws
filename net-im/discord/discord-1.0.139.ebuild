@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit optfeature xdg
+inherit desktop optfeature xdg
 
 DESCRIPTION="All-in-one voice and text chat for gamers"
 HOMEPAGE="https://discord.com/"
@@ -59,6 +59,8 @@ src_install() {
 	insinto "/usr/share/${PN}"
 	insopts -m0755
 	doins updater_bootstrap
+
+	make_desktop_entry discord Discord
 }
 
 pkg_postinst() {

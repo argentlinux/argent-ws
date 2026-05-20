@@ -3,7 +3,7 @@ DESCRIPTION=All-in-one voice and text chat for gamers
 EAPI=8
 HOMEPAGE=https://discord.com/
 IDEPEND=dev-util/desktop-file-utils x11-misc/shared-mime-info
-INHERIT=optfeature xdg
+INHERIT=desktop optfeature xdg
 IUSE=appindicator
 KEYWORDS=amd64
 LICENSE=all-rights-reserved
@@ -11,5 +11,5 @@ RDEPEND=>=app-accessibility/at-spi2-core-2.46.0:2 dev-libs/expat dev-libs/glib:2
 RESTRICT=bindist mirror strip test
 SLOT=0
 SRC_URI=https://dl.discordapp.net/apps/linux/1.0.139/discord-1.0.139.tar.gz
-_eclasses_=optfeature	538bce96e5589935b57e178e8635f301	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
-_md5_=9b74789bc995e274cdc4173c02326e5f
+_eclasses_=desktop	26d57169ca094c04be416993844ec8bc	optfeature	538bce96e5589935b57e178e8635f301	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_md5_=fd55e22ecc1592bd37cf16961ec43866
