@@ -1,0 +1,30 @@
+Workaround dev-libs/elfutils (libelf) bug 34468 by using the mmap ELF writer.
+
+libelf's non-mmap elf_update() writer (ELF_C_RDWR) can overwrite a
+section-header table that lives in a gap between section data, without
+writing the (unchanged, non-dirty) section headers back. This corrupts
+the ELF: the section-header string table entry gets zeroed and later file
+offsets drift out of sync with their virtual addresses, so ldconfig reports
+the library as "truncated".
+
+It is triggered when patchelf places the section-header table in such a gap
+(e.g. media-libs/opencv setting a long DT_SONAME like
+libopencv_videoio_gstreamer.412.amd64.so) and portage's estrip then runs
+debugedit -i to (re)compute the build-id, calling elf_update().
+
+The ELF_C_RDWR_MMAP writer handles this layout correctly by skipping the gap.
+
+Gentoo bug: https://bugs.gentoo.org/980264
+elfutils bug: https://sourceware.org/bugzilla/show_bug.cgi?id=34468
+
+--- a/tools/debugedit.c
++++ b/tools/debugedit.c
+@@ -3580,7 +3580,7 @@
+   if (dest_dir == NULL && (!do_build_id || no_recompute_build_id))
+     elf = elf_begin (fd, ELF_C_READ, NULL);
+   else
+-    elf = elf_begin (fd, ELF_C_RDWR, NULL);
++    elf = elf_begin (fd, ELF_C_RDWR_MMAP, NULL);
+   if (elf == NULL)
+     {
+       error (0, 0, "cannot open ELF file: %s", elf_errmsg (-1));
