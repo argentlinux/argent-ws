@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DEPEND==sys-kernel/bbswitch-dkms-0.8
+DESCRIPTION=Toggle discrete NVIDIA Optimus graphics card
+EAPI=7
+HOMEPAGE=https://github.com/Bumblebee-Project/bbswitch
+KEYWORDS=amd64 x86
+LICENSE=GPL-3+
+SLOT=0
+_md5_=50171426f7e4b53a0e0ab5f2b8eb3ea0

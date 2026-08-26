@@ -1,0 +1,12 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DESCRIPTION=Official Argent-Linux GTK theme
+EAPI=7
+HOMEPAGE=http://www.rogentos.ro
+INHERIT=git-r3
+KEYWORDS=~arm x86 ~amd64
+LICENSE=GPLv3
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
+_md5_=fc4c6fa09249bd77155b0d1803289352

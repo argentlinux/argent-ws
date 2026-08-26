@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=Gentoo Linux calamares installer config
+EAPI=8
+HOMEPAGE=https://gentoo.org
+KEYWORDS=amd64 x86
+LICENSE=GPL-2
+RDEPEND=app-admin/calamares
+SLOT=0
+SRC_URI=https://dev.gentoo.org/~wolf31o2/sources/gentoo-artwork-livecd/gentoo-artwork-livecd-2007.0.tar.bz2 mirror://gentoo/gentoo-artwork-0.2.tar.bz2
+_md5_=712d37ef1fa843eb2bd0f588b8b8a725

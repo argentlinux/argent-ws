@@ -1,0 +1,9 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=firmware? ( sys-kernel/linux-firmware )
+DESCRIPTION=Virtual for Linux kernel sources
+EAPI=3
+IUSE=firmware
+KEYWORDS=amd64 x86
+RDEPEND=sys-kernel/argent-sources
+SLOT=0
+_md5_=72c52be286dd7f6e8d880eef11549900

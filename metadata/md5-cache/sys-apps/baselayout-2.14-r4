@@ -1,0 +1,14 @@
+BDEPEND=sys-devel/gnuconfig >=app-portage/elt-patches-20250306 || ( >=dev-build/automake-1.18.1:1.18 ) || ( >=dev-build/autoconf-2.73:2.73 >=dev-build/autoconf-2.72-r1:2.72 ) >=dev-build/libtool-2.4.7-r3
+DEFINED_PHASES=install postinst preinst prepare setup
+DESCRIPTION=Filesystem baselayout and init scripts
+EAPI=7
+HOMEPAGE=https://wiki.gentoo.org/wiki/No_homepage
+INHERIT=autotools multilib prefix
+IUSE=build +split-usr
+KEYWORDS=~riscv
+LICENSE=GPL-2
+RDEPEND=!sys-apps/baselayout-prefix
+SLOT=0
+SRC_URI=https://gitweb.gentoo.org/proj/baselayout.git/snapshot/baselayout-2.14.tar.bz2
+_eclasses_=autotools	0698802996fcfe9a604eac3c1f6e7112	gnuconfig	b4fa4889c6f586d6b069215a86dd9e53	libtool	6a96cd90e5da8c7c615015479f46f1a4	multilib	fc812e8eb2170022c28272d80a1f9e77	prefix	c3c4c93ebda319c0fa7ed6f942ba1010	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=3bbcd13b5f2b0943ec13b55637b5b744

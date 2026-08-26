@@ -1,0 +1,12 @@
+DEFINED_PHASES=install postinst postrm preinst prerm pretend
+DESCRIPTION=Offical Argent-Linux Core Artwork
+EAPI=8
+HOMEPAGE=https://argentlinux.io
+INHERIT=mount-boot argent-artwork
+IUSE=-branding
+KEYWORDS=~arm x86 amd64
+LICENSE=CCPL-Attribution-ShareAlike-3.0
+SLOT=0
+SRC_URI=http://pkgwork.argentlinux.io/distfiles/x11-themes/argent-artwork-core/argent-artwork-core-1.5.3.tar.xz
+_eclasses_=argent-artwork	09f4484ea9cc13b65adaf9f7dcd167c2	mount-boot	2457686015a19b48bcaedc5f7cc19505	mount-boot-utils	2551bac1a772f4b6beacb494a750ae92
+_md5_=3dfc49f31b06ea340954a93d8c5ed2c3

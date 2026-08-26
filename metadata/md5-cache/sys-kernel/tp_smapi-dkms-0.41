@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install postinst prepare prerm
+DEPEND=sys-kernel/dkms
+DESCRIPTION=IBM ThinkPad SMAPI BIOS driver
+EAPI=7
+HOMEPAGE=https://github.com/evgeni/tp_smapi/ http://tpctl.sourceforge.net/
+KEYWORDS=amd64 x86
+LICENSE=GPL-2
+RDEPEND=sys-kernel/dkms
+SLOT=0
+SRC_URI=mirror://github/evgeni/tp_smapi/tp_smapi-0.41.tar.gz
+_md5_=02beef5afbfb786a583eed989e5c3f25

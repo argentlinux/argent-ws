@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=Universal Netboot Installer creates Live USB systems for various OS distributions
+EAPI=7
+HOMEPAGE=http://unetbootin.sourceforge.net
+KEYWORDS=amd64 x86
+LICENSE=GPL-2
+RDEPEND=app-arch/p7zip media-libs/libpng:1.2
+SLOT=0
+SRC_URI=http://pkg.rogentos.ro/distfiles/sys-boot/unetbootin-static/unetbootin-static-625.tar.bz2
+_md5_=498288b2a938ac4a6a72adf689d185bf

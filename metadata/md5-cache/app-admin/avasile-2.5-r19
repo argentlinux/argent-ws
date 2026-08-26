@@ -11,5 +11,5 @@ LICENSE=GPL-2
 PROPERTIES=live
 RDEPEND=sys-fs/squashfs-tools sys-boot/grub:2 dev-libs/libisoburn sys-fs/mtools
 SLOT=0/2.4
-_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
 _md5_=b8161023641accab8811889b13bfa637

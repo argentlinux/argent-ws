@@ -1,0 +1,7 @@
+DEFINED_PHASES=-
+DESCRIPTION=Virtual for Linux binary LTS
+EAPI=7
+KEYWORDS=amd64 x86
+RDEPEND=sys-kernel/linux-argent:4.19
+SLOT=4.19
+_md5_=a4c5985071c5cebe8b12f0cb2da52cdc

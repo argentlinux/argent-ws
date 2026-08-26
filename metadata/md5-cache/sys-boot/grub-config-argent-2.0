@@ -1,0 +1,8 @@
+DEFINED_PHASES=install postinst preinst
+DESCRIPTION=Argent Linux GRUB configuration files
+EAPI=7
+KEYWORDS=amd64 x86
+LICENSE=GPL-2
+RDEPEND=sys-boot/grub
+SLOT=0
+_md5_=bd5ed719a15c82a1837d5937549289de

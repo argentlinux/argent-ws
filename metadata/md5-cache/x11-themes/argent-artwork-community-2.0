@@ -1,0 +1,7 @@
+DEFINED_PHASES=install
+DESCRIPTION=Argent Artwork Community
+EAPI=7
+HOMEPAGE=http://rogentos.ro
+KEYWORDS=amd64 x86
+SLOT=0
+_md5_=17c4c80463ec47e0d3b0dceb18a3bc68

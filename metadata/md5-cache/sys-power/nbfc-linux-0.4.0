@@ -12,5 +12,5 @@ RDEPEND=sys-apps/dmidecode
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/nbfc-linux/nbfc-linux/archive/0.4.0.tar.gz -> nbfc-linux-0.4.0.tar.gz
-_eclasses_=toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	linux-info	efd923656513c879204fec6638eadee5	systemd	a964c0cbe818b5729da1dbfcee5be861
+_eclasses_=linux-info	efd923656513c879204fec6638eadee5	systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=e52d74bb1f7956e5de4b12b7892070d5

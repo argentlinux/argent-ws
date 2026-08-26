@@ -1,0 +1,11 @@
+DEFINED_PHASES=install postinst prepare prerm unpack
+DEPEND=sys-kernel/dkms
+DESCRIPTION=NVIDIA driver sources for linux
+EAPI=7
+HOMEPAGE=http://www.nvidia.com/
+KEYWORDS=amd64
+LICENSE=GPL-2 NVIDIA-r2
+RDEPEND=sys-kernel/dkms
+SLOT=0/390.59
+SRC_URI=amd64? ( http://us.download.nvidia.com/XFree86/Linux-x86_64/390.59/NVIDIA-Linux-x86_64-390.59.run )
+_md5_=d3e531875b8401d04d823a9ee7df2015

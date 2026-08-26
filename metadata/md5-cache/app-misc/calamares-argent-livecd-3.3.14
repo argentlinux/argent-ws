@@ -1,0 +1,12 @@
+DEFINED_PHASES=install prepare
+DESCRIPTION=Gentoo Linux calamares installer config
+EAPI=8
+HOMEPAGE=https://wiki.gentoo.org/wiki/No_homepage
+INHERIT=desktop
+KEYWORDS=~amd64
+LICENSE=GPL-2
+RDEPEND=app-admin/calamares
+SLOT=0
+SRC_URI=mirror://gentoo/gentoo-artwork-livecd-2007.0.tar.bz2 mirror://gentoo/gentoo-artwork-0.2.tar.bz2
+_eclasses_=desktop	e447b5f77146d69797e9f03ff177f3f1
+_md5_=87c15b442d4ffca595f4ab965b82b1ad

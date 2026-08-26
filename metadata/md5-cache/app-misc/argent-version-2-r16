@@ -1,0 +1,12 @@
+DEFINED_PHASES=install postinst prepare unpack
+DESCRIPTION=Argent system release virtual package
+EAPI=7
+HOMEPAGE=http://www.rogentos.ro
+INHERIT=multilib
+IUSE=-server
+KEYWORDS=amd64 ~arm x86
+LICENSE=GPL-2
+RDEPEND=!app-admin/eselect-init !sys-apps/hal !sys-auth/consolekit app-eselect/eselect-python sys-apps/gentoo-systemd-integration dev-lang/python:3.12 sys-apps/systemd sys-devel/gcc-config
+SLOT=2.0
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=3149d5a4edcb1de175d88c8429a61fca

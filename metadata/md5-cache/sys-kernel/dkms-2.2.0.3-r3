@@ -1,0 +1,12 @@
+DEFINED_PHASES=install prepare
+DESCRIPTION=Dynamic Kernel Module Support
+EAPI=7
+HOMEPAGE=http://linux.dell.com/dkms
+INHERIT=bash-completion-r1
+KEYWORDS=amd64
+LICENSE=GPL-2
+RDEPEND=sys-apps/gentoo-functions
+SLOT=0
+SRC_URI=http://linux.dell.com/dkms/permalink/dkms-2.2.0.3.tar.gz
+_eclasses_=bash-completion-r1	4386cfb12ede6cd8f0c1987d2e88da5f	shell-completion	63a62de3ca49c798ee6e89f190e45d0e	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=601a6ecf4f2fbcf43fea48b4b1548038

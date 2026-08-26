@@ -1,0 +1,9 @@
+DEFINED_PHASES=-
+DEPEND=firmware? ( sys-kernel/linux-firmware )
+DESCRIPTION=Virtual for Linux kernel sources
+EAPI=7
+IUSE=firmware
+KEYWORDS=amd64 x86
+RDEPEND=sys-kernel/argent-sources
+SLOT=0
+_md5_=5a17ca4c359aee180269b1c67ab2bf82

@@ -1,0 +1,10 @@
+DEFINED_PHASES=-
+DEPEND=>=dev-libs/boost-1.55.0-r2[python_targets_python3_5] >=dev-qt/qtwebengine-:6[widgets] >=kde-frameworks/ki18n-:6 >=kde-frameworks/kservice-:6 >=kde-frameworks/kwidgetsaddons-:6 sys-apps/dbus sys-apps/dmidecode sys-auth/polkit-qt[qt6(-)]
+DESCRIPTION=Calamares distribution-independent installer framework runtime meta-package (containing all the runtime dependencies)
+EAPI=8
+IUSE=networkmanager upower
+KEYWORDS=amd64
+LICENSE=GPL-2
+RDEPEND=>=dev-libs/boost-1.55.0-r2[python_targets_python3_5] >=dev-qt/qtwebengine-:6[widgets] >=kde-frameworks/ki18n-:6 >=kde-frameworks/kservice-:6 >=kde-frameworks/kwidgetsaddons-:6 sys-apps/dbus sys-apps/dmidecode sys-auth/polkit-qt[qt6(-)] dev-libs/libatasmart sys-apps/systemd[boot(-)] virtual/udev networkmanager? ( net-misc/networkmanager ) upower? ( sys-power/upower )
+SLOT=0
+_md5_=2d197d42c7d8a6be91dd85bdf6ed923d

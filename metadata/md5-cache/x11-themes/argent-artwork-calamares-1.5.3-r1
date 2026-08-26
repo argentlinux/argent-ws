@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Argent Linux 1.5 branding component for Calamares
+EAPI=8
+HOMEPAGE=http://rogentos.ro
+KEYWORDS=amd64 x86
+LICENSE=GPL-2
+SLOT=0
+SRC_URI=http://pkgwork.argentlinux.io/distfiles/x11-themes/argent-artwork-calamares/argent-artwork-calamares-1.5.3.tar.xz
+_md5_=4f38120f37bc30b3e261eac6cccb4014

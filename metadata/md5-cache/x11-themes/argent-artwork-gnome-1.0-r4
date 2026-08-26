@@ -1,0 +1,12 @@
+DEFINED_PHASES=install postinst postrm preinst
+DESCRIPTION=Argent Linux Official GNOME artwork
+EAPI=7
+HOMEPAGE=http://www.rogentos.ro
+INHERIT=gnome2-utils
+KEYWORDS=~amd64 ~arm ~x86
+LICENSE=CCPL-Attribution-ShareAlike-3.0
+RDEPEND=>=x11-themes/argent-artwork-core-2 x11-themes/argent-light-theme x11-themes/argent-dark-theme x11-themes/faenza-kupertino-icons
+SLOT=0
+SRC_URI=http://pkgwork.argentlinux.io/distfiles/x11-themes/argent-artwork-gnome/argent-artwork-gnome-1.0.tar.gz mirror://argent/x11-themes/argent-artwork-gnome/argent-artwork-gnome-1.0.tar.gz
+_eclasses_=gnome2-utils	a8cf148ec7f5ae0b1f1d33ae5f7f9e88	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	xdg-utils	42869b3c8d86a70ef3cf75165a395e09
+_md5_=e18f1b6c6a8103c1e9c2e90f8aa6aee0
