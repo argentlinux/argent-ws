@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit multiprocessing optfeature verify-sig toolchain-funcs
+inherit multiprocessing optfeature toolchain-funcs verify-sig
 
 DESCRIPTION="Create debuginfo and source file distributions"
 HOMEPAGE="https://sourceware.org/debugedit/"
@@ -42,8 +42,7 @@ BDEPEND="
 VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/debugedit.gpg
 
 PATCHES=(
-	# Workaround libelf bug #34468
-	"${FILESDIR}/${P}-workaround_libelf_bug_34468.patch"
+	"${FILESDIR}/${P}-flush-section-headers.patch"
 )
 
 src_configure() {
@@ -55,7 +54,6 @@ src_configure() {
 	fi
 
 	local myconf=(
-		# avoid bunch of BDEPs, sigh
 		DWZ=dwz
 		ac_cv_dwz_j=yes
 		HAS_CPIO=yes
@@ -63,9 +61,6 @@ src_configure() {
 		HAS_XZ=yes
 		HAS_GDB_ADD_INDEX=yes
 		HAS_EU_ELFLINT=yes
-
-		# We don't want to effectively bundle xxhash. It fails to
-		# build with -Og and such too (bug #956627).
 		--disable-inlined-xxhash
 	)
 	econf "${myconf[@]}"
@@ -77,5 +72,5 @@ src_test() {
 }
 
 pkg_postinst() {
-	 optfeature "dwz support in find-debuginfo" sys-devel/dwz
+	optfeature "dwz support in find-debuginfo" sys-devel/dwz
 }
