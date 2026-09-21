@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -19,14 +19,10 @@ fi
 
 LICENSE="LGPL-2.1+"
 SLOT="6"
-IUSE="qt5 +qt6 test"
+IUSE="+qt6 test"
 
 DEPEND="
 	app-admin/PackageKit
-	qt5? (
-		>=dev-qt/qtcore-5.10:5=
-		>=dev-qt/qtdbus-5.10:5=
-	)
 	qt6? (
 		>=dev-qt/qtbase-6.2:6=[dbus]
 	)
@@ -48,12 +44,6 @@ src_configure() {
 	if use qt6; then
 		mycmakeargs+=(
 			-DQT_VERSION_MAJOR=6
-			-DBUILD_WITH_QT6=ON
-		)
-	elif use qt5; then
-		mycmakeargs+=(
-			-DQT_VERSION_MAJOR=5
-			-DBUILD_WITH_QT6=OFF
 		)
 	fi
 
