@@ -211,9 +211,8 @@ CRATES="
 
 LLVM_COMPAT=( {20..22} )
 RUST_MIN_VER="1.90.0"
-RUST_NEEDS_LLVM=1
 
-inherit cargo llvm-r1
+inherit cargo llvm-r2
 
 DESCRIPTION="A suite of tools for thin provisioning on Linux"
 HOMEPAGE="https://github.com/jthornber/thin-provisioning-tools"
@@ -265,7 +264,7 @@ PATCHES=(
 )
 
 pkg_setup() {
-	llvm-r1_pkg_setup
+	llvm-r2_pkg_setup
 	rust_pkg_setup
 }
 
