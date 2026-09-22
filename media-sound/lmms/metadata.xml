@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>stefan.cristian+git@rogentos.ro</email>
+		<name>Stefan Cristian B.</name>
+	</maintainer>
+	<use>
+		<flag name="fltk">Build the ZynAddSubFX instrument plugin, which needs <pkg>x11-libs/fltk</pkg> for its native GUI</flag>
+		<flag name="gig">Build the GIG player instrument plugin via <pkg>media-libs/libgig</pkg></flag>
+		<flag name="lv2">Build the LV2 host plugins via <pkg>media-libs/lilv</pkg></flag>
+		<flag name="sid">Build the SID instrument plugin (Commodore 64 sound chip emulation)</flag>
+		<flag name="sndio">Enable sndio audio backend</flag>
+		<flag name="stk">Build the Mallets instrument plugin via <pkg>media-libs/stk</pkg></flag>
+		<flag name="suil">Load native LV2 plugin UIs via <pkg>media-libs/suil</pkg></flag>
+	</use>
+	<upstream>
+		<remote-id type="github">LMMS/lmms</remote-id>
+	</upstream>
+</pkgmetadata>
