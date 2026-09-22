@@ -2,16 +2,20 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>grobian@gentoo.org</email>
-		<name>Fabian Groffen</name>
+		<email>antiq.hofer@gmail.com</email>
+		<name>Jaeger H.</name>
 	</maintainer>
 	<use>
-		<flag name="gpkg">Build GLEP-78 gpkg support in qpkg</flag>
-		<flag name="gtree">Build gtree repository cache support</flag>
-		<flag name="qmanifest">Build qmanifest applet, this adds additional dependencies for GPG, OpenSSL and BLAKE2B hashing</flag>
+		<flag name="gpg">Use gpgme for OpenPGP verification of gpkg binary packages</flag>
+		<flag name="gpkg">Support GLEP 78 gpkg binary packages</flag>
+		<flag name="gtree">Support the gtree binpkg cache</flag>
+		<flag name="qmanifest">Build the qmanifest applet</flag>
+		<flag name="curl">Compile the built-in libcurl fetcher in. Without it, package and index downloads run through QFETCHCOMMAND (user choice).</flag>
+		<flag name="internal-libs">Build the source libs into q/flag>
+		<flag name="psl">Clone of net-misc/curl's psl flag. A static build (USE=static) without internal-libs links the system libcurl statically together with everything it was built against so that means psl brings in libpsl, libidn2 and libunistring with static-libs. We do not necessarily need them for portage-utils, by default psl USE is off.</flag>
+		<flag name="libxml2">In static builds (USE=static), use libarchive's libxml2 XML backend, which pulls libxml2 and ICU into the static binary (much larger). When disabled, the static build uses libarchive's small expat backend instead. No effect on non-static builds.</flag>
 	</use>
 	<upstream>
-		<remote-id type="gentoo">proj/portage-utils</remote-id>
-		<remote-id type="github">gentoo/portage-utils</remote-id>
+		<remote-id type="github">AntiqueH/portage-utils</remote-id>
 	</upstream>
 </pkgmetadata>
