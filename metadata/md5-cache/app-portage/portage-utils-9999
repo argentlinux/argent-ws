@@ -12,5 +12,5 @@ RDEPEND=!static? ( app-arch/libarchive:= virtual/zlib:= curl? ( !internal-libs? 
 REQUIRED_USE=qmanifest? ( gpg ) gtree? ( gpg ) internal-libs? ( curl )
 SLOT=0
 SRC_URI=internal-libs? ( https://curl.se/download/curl-8.20.0.tar.xz )
-_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	gnuconfig	b4fa4889c6f586d6b069215a86dd9e53	libtool	6a96cd90e5da8c7c615015479f46f1a4	autotools	8e8dec541e781133e5176ee95a872f17	git-r3	e6c2f983e006e805160436c75a0c1562
+_eclasses_=autotools	8e8dec541e781133e5176ee95a872f17	flag-o-matic	fd3558f73f6503093adee69adf41020d	git-r3	e6c2f983e006e805160436c75a0c1562	gnuconfig	b4fa4889c6f586d6b069215a86dd9e53	libtool	6a96cd90e5da8c7c615015479f46f1a4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=55f7c38ef559ba1ce14e92fc203c023d
