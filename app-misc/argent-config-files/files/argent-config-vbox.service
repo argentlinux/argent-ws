@@ -4,6 +4,7 @@ Before=sddm.service
 DefaultDependencies=no
 Conflicts=shutdown.target
 ConditionCapability=CAP_SYS_MODULE
+ConditionVirtualization=oracle
 
 [Service]
 Type=oneshot
