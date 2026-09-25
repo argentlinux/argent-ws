@@ -1,0 +1,15 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DEPEND=sys-fs/squashfs-tools sys-boot/grub:2 dev-libs/libisoburn sys-fs/mtools sys-fs/zerofree
+DESCRIPTION=Argent Versatile Advanced Script for ISO and Latest Enhancements
+EAPI=8
+HOMEPAGE=http://argentlinux.io
+INHERIT=git-r3
+IUSE=server
+KEYWORDS=amd64
+LICENSE=GPL-2
+PROPERTIES=live
+RDEPEND=sys-fs/squashfs-tools sys-boot/grub:2 dev-libs/libisoburn sys-fs/mtools sys-fs/zerofree
+SLOT=0/2.4
+_eclasses_=git-r3	e6c2f983e006e805160436c75a0c1562
+_md5_=7267e1042def0c94625e2f92a4fffc74
