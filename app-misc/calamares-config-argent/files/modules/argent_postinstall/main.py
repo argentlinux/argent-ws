@@ -9,6 +9,8 @@
 #   Calamares is Free Software: see the License-Identifier above.
 #
 
+import os
+import shutil
 import subprocess
 import libcalamares
 from libcalamares.utils import target_env_process_output
@@ -45,7 +47,17 @@ def run():
         return (_("Argent Post-Installation Error"), error_msg)
     
     libcalamares.utils.debug("Setting up Argent configuration for user: {}".format(username))
-    
+
+    root = libcalamares.globalstorage.value("rootMountPoint")
+    flathub_src = "/usr/share/argent-live/flathub.flatpakrepo"
+    if root and os.path.isfile(flathub_src) and os.path.exists(os.path.join(root, "usr/bin/flatpak")):
+        try:
+            dest_dir = os.path.join(root, "etc/flatpak/remotes.d")
+            os.makedirs(dest_dir, exist_ok=True)
+            shutil.copy2(flathub_src, dest_dir)
+        except OSError as e:
+            libcalamares.utils.warning("Could not add Flathub: {!s}".format(e))
+
     argent_commands = [
         ["mkdir", "-p", "/home/{}/.config/systemd/user/default.target.wants".format(username)],
         ["mkdir", "-p", "/home/{}/.config/systemd/user/sockets.target.wants".format(username)],
