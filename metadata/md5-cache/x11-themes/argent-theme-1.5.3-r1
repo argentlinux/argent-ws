@@ -1,0 +1,14 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DESCRIPTION=Official Argent-Linux GTK and LXQT theme
+EAPI=8
+HOMEPAGE=https://argentlinux.io
+INHERIT=git-r3
+IUSE=lxqt
+KEYWORDS=~arm x86 amd64
+LICENSE=GPLv3
+PROPERTIES=live
+RDEPEND=lxqt? ( !x11-themes/argent-theme-lxqt )
+SLOT=0
+_eclasses_=git-r3	e6c2f983e006e805160436c75a0c1562
+_md5_=fb3cde4860ab9a2e1f310658d8184133
