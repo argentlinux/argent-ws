@@ -1,0 +1,11 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Offical Argent-Linux Core Artwork
+EAPI=8
+HOMEPAGE=https://argentlinux.io
+IUSE=branding plymouth
+KEYWORDS=~arm x86 amd64
+LICENSE=CC-BY-SA-3.0
+RDEPEND=plymouth? ( sys-boot/plymouth )
+SLOT=0
+SRC_URI=http://pkgwork.argentlinux.io/distfiles/x11-themes/argent-artwork-core/argent-artwork-core-1.5.3-r2.tar.xz
+_md5_=08d3b05b9ac2de6b7f42f808d9b91b2e
