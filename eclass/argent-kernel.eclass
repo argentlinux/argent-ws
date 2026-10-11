@@ -177,7 +177,7 @@ K_DEBLOB_AVAILABLE=0
 ETYPE="sources"
 K_TARBALL_EXT="${K_TARBALL_EXT:-xz}"
 
-inherit multilib kernel-2 argent-artwork mount-boot linux-info toolchain-funcs
+inherit multilib kernel-2 mount-boot linux-info toolchain-funcs
 
 CKV="${K_ROGKERNEL_FORCE_UPPERLEVEL}.${K_ROGKERNEL_FORCE_SUBLEVEL}"
 
@@ -345,26 +345,23 @@ if [ -n "${K_ONLY_SOURCES}" ] || [ -n "${K_FIRMWARE_PACKAGE}" ]; then
 	DEPEND=""
 	RDEPEND="${RDEPEND}"
 else
-	IUSE="btrfs -grub2 dmraid +dracut installer iscsi luks lvm mdadm +plymouth splash sources_standalone"
+	IUSE="btrfs -grub2 dmraid +dracut installer iscsi luks lvm mdadm plymouth sources_standalone"
 	if [ -n "${K_ROGKERNEL_ZFS}" ]; then
 		IUSE="${IUSE} zfs"
 	fi
 	BDEPEND="app-arch/xz-utils
 		dev-build/autoconf
-		dev-build/make"
+		dev-build/make
+		>=sys-kernel/genkernel-next-5"
 	DEPEND="
-		splash? ( x11-themes/argent-artwork-core )
 		lvm? ( sys-fs/lvm2 sys-block/thin-provisioning-tools )
 		btrfs? ( sys-fs/btrfs-progs )
-		plymouth? (
-			|| ( >=sys-kernel/genkernel-next-5 )
-			sys-boot/plymouth
-		)
 		dracut? ( sys-kernel/dracut )"
 	RDEPEND="
 		sys-kernel/linux-firmware
 		dracut? ( >=sys-kernel/genkernel-next-5[dmraid(+)?,mdadm(+)?] )
 		installer? ( sys-devel/gettext )
+		plymouth? ( sys-boot/plymouth )
 	"
 	if [ -n "${K_REQUIRED_LINUX_FIRMWARE_VER}" ]; then
 		RDEPEND+=" >=sys-kernel/linux-firmware-${K_REQUIRED_LINUX_FIRMWARE_VER}"
@@ -531,7 +528,6 @@ _kernel_src_compile() {
 	local GENKERNEL_MODE="kernel"
 	GKARGS+=( "--no-menuconfig" "--all-ramdisk-modules" "--no-save-config" "--e2fsprogs" "--udev" )
 	use btrfs && GKARGS+=( "--btrfs" )
-	use plymouth && GKARGS+=( "--plymouth" "--plymouth-theme=${PLYMOUTH_THEME}" ) #reverted to use variable (check the eclass)
 	use dmraid && GKARGS+=( "--dmraid" )
 	use iscsi && GKARGS+=( "--iscsi" )
 	use mdadm && GKARGS+=( "--mdadm" )
@@ -854,9 +850,6 @@ argent-kernel_grub2_mkconfig() {
 
 argent-kernel_pkg_postinst() {
 	if _is_kernel_binary; then
-		# Update kernel initramfs to match user customizations
-		use splash && update_argent_kernel_initramfs_splash
-
 		# generate initramfs with dracut
 		if use dracut ; then
 			_dracut_initramfs_create
