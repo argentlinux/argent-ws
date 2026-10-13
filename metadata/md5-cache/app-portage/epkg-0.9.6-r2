@@ -1,0 +1,12 @@
+DEFINED_PHASES=install
+DESCRIPTION=Argent simple portage wrapper which works like any other package manager
+EAPI=8
+HOMEPAGE=http://argentlinux.io
+IUSE=+argent gentoo git
+KEYWORDS=amd64 x86
+LICENSE=BSD-2
+RDEPEND=app-portage/gentoolkit app-portage/portage-utils sys-apps/coreutils sys-apps/portage argent? ( sec-keys/openpgp-keys-argent sec-keys/openpgp-keys-gentoo-developers ) git? ( dev-vcs/git[curl] )
+REQUIRED_USE=|| ( argent gentoo ) argent? ( !gentoo ) gentoo? ( !argent )
+SLOT=0/0.9
+SRC_URI=https://gitlab.com/argent/epkg/-/archive/0.9.6-r2/epkg-0.9.6-r2.tar.gz
+_md5_=d05f1c8edb715f05509e1d48377f51c3
