@@ -58,20 +58,7 @@ def run():
         except OSError as e:
             libcalamares.utils.warning("Could not add Flathub: {!s}".format(e))
 
-    argent_commands = [
-        ["mkdir", "-p", "/home/{}/.config/systemd/user/default.target.wants".format(username)],
-        ["mkdir", "-p", "/home/{}/.config/systemd/user/sockets.target.wants".format(username)],
-        ["mkdir", "-p", "/home/{}/.config/systemd/user/pipewire.service.wants".format(username)],
-        ["ln", "-sf", "/usr/lib/systemd/user/pipewire.service", "/home/{}/.config/systemd/user/default.target.wants/".format(username)],
-        ["ln", "-sf", "/usr/lib/systemd/user/pipewire.socket", "/home/{}/.config/systemd/user/sockets.target.wants/".format(username)],
-        ["ln", "-sf", "/usr/lib/systemd/user/pipewire-pulse.socket", "/home/{}/.config/systemd/user/sockets.target.wants/".format(username)],
-        ["ln", "-sf", "/usr/lib/systemd/user/wireplumber.service", "/home/{}/.config/systemd/user/pipewire.service.wants/".format(username)],
-        ["ln", "-sf", "/usr/lib/systemd/user/wireplumber.service", "/home/{}/.config/systemd/user/pipewire-session-manager.service".format(username)],
-        ["chown", "-R", "{}:{}".format(username, username), "/home/{}/.config".format(username)]
-    ]
-    
-    commands = libcalamares.job.configuration.get("commands", [])
-    all_commands = argent_commands + commands
+    all_commands = libcalamares.job.configuration.get("commands", [])
     
     libcalamares.utils.debug("Running {} total commands".format(len(all_commands)))
     
