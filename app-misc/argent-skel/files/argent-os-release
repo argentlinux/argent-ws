@@ -1,0 +1,10 @@
+NAME="Argent"
+ID=argent
+ID_LIKE=gentoo
+PRETTY_NAME="Argent Linux @VERSION@"
+VERSION="@VERSION@"
+VERSION_ID="@VERSION@"
+ANSI_COLOR="1;32"
+HOME_URL="https://argentlinux.io/"
+SUPPORT_URL="https://argentlinux.io/support"
+BUG_REPORT_URL="https://gitlab.com/argent/"
