@@ -5,7 +5,7 @@
 
 EAPI="8"
 
-inherit git-r3
+inherit git-r3 optfeature
 
 DESCRIPTION="Argent Versatile Advanced Script for ISO and Latest Enhancements"
 HOMEPAGE="http://argentlinux.io"
@@ -22,15 +22,9 @@ DEPEND="
 	sys-fs/squashfs-tools
 	sys-boot/grub:2
 	dev-libs/libisoburn
-	sys-fs/mtools
-	sys-fs/zerofree"
+	sys-fs/mtools"
 RDEPEND="${DEPEND}"
 
-src_install() {
-	dodir /usr/bin
-	exeinto /usr/bin
-	doexe "${S}"/"${PN}"
-	dodir /lib64/"${PN}"
-	insinto /lib64/"${PN}"
-	doins "${S}/libavasile"
+pkg_postinst() {
+	optfeature "For zero-ing the free space of the ISO rootfs.img (smaller squashfs at ISO build)" sys-fs/zerofree
 }
