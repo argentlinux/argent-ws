@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,10 +6,6 @@ EAPI=8
 inherit desktop readme.gentoo-r1 toolchain-funcs wrapper xdg
 
 DESCRIPTION="Intelligent Python IDE with unique code assistance and analysis"
-
-# NOTE upstream release info
-# https://data.services.jetbrains.com/products?code=PCP,PCC&release.type=release
-# https://data.services.jetbrains.com/products?code=PCP,PCC&release.type=release&fields=name,releases
 
 HOMEPAGE="https://www.jetbrains.com/pycharm/"
 SRC_URI="
@@ -37,8 +33,8 @@ else
 	OFL-1.1 UPL-1.0 ZLIB"
 fi
 
-SLOT="0/2024"
-KEYWORDS="-* amd64 ~arm64 x86"
+SLOT="0/2026"
+KEYWORDS="-* amd64"
 IUSE="+bundled-jdk"
 
 if [[ ${PN} == *-professional ]]; then
@@ -49,10 +45,6 @@ BDEPEND="dev-util/debugedit
 	dev-util/patchelf
 "
 
-# NOTE
-#  The remote-dev-server present in pycharm-professional contains most of the
-#  libraries need for the bundled jdk. These are not in the RUNPATH of the jdk.
-#  So the dependencies are actually needed.
 RDEPEND="
 	!bundled-jdk? (
 		>=virtual/jre-17:*
@@ -69,7 +61,7 @@ RDEPEND="
 		media-libs/mesa
 		net-print/cups
 		sys-apps/dbus
-		sys-libs/zlib
+		virtual/zlib:=
 		x11-libs/cairo
 		x11-libs/libX11
 		x11-libs/libXcomposite
@@ -108,8 +100,7 @@ src_prepare() {
 	tc-export OBJCOPY
 	default
 
-	rm -v  "${S}"/help/ReferenceCardForMac.pdf || die
-
+	rm -v "${S}"/help/ReferenceCardForMac.pdf || die
 	rm -v "${S}"/plugins/python-ce/helpers/pydev/_pydevd_{bundle,frame_eval}/*{darwin,win32}* || die
 
 	if ! use amd64; then
@@ -136,20 +127,28 @@ src_prepare() {
 		-e "\$a#-----------------------------------------------------------------------" \
 		-e "\$aide.no.platform.update=Gentoo" bin/idea.properties
 
-	# excepting files that should be kept for remote plugins
-	local skip_nonx86_files=(
-		"./plugins/platform-ijent-impl/ijent-aarch64-unknown-linux-musl-release"
-		"./plugins/clion-radler/DotFiles/linux-musl-arm64/jb_zip_unarchiver"
-		"./plugins/clion-radler/DotFiles/linux-arm/jb_zip_unarchiver"
-		"./plugins/clion-radler/DotFiles/linux-musl-arm/jb_zip_unarchiver"
-		"./plugins/gateway-plugin/lib/remote-dev-workers/remote-dev-worker-linux-arm64"
-	)
-	# removing debug symbols and relocating debug files as per #876295
-	# we're escaping all the files that contain $() in their name
-	# as they should not be executed
+	if ! use arm64; then
+		skip_remote_files=(
+			"plugins/platform-ijent-impl/ijent-aarch64-unknown-linux-musl-release"
+			"plugins/platform-ijent-bundledBinaries/ijent-aarch64-unknown-linux-musl-release"
+			"plugins/clion-radler/DotFiles/linux-musl-arm64/jb_zip_unarchiver"
+			"plugins/clion-radler/DotFiles/linux-arm/jb_zip_unarchiver"
+			"plugins/clion-radler/DotFiles/linux-musl-arm/jb_zip_unarchiver"
+			"plugins/gateway-plugin/lib/remote-dev-workers/remote-dev-worker-linux-arm64"
+		)
+	elif ! use amd64 ; then
+		skip_remote_files=(
+			"plugins/platform-ijent-impl/ijent-x86_64-unknown-linux-musl-release"
+			"plugins/platform-ijent-bundledBinaries/ijent-x86_64-unknown-linux-musl-release"
+			"plugins/clion-radler/DotFiles/linux-musl-x64/jb_zip_unarchiver"
+			"plugins/clion-radler/DotFiles/linux-x86/jb_zip_unarchiver"
+			"plugins/clion-radler/DotFiles/linux-musl-x86/jb_zip_unarchiver"
+			"plugins/gateway-plugin/lib/remote-dev-workers/remote-dev-worker-linux-x64"
+		)
+	fi
 	find . -type f ! -name '*$(*)*' -print0 | while IFS= read -r -d '' file; do
-		for skip in "${skip_nonx86_files[@]}"; do
-			[[ ${file} == "${skip}" ]] && continue 2
+		for skip in "${skip_remote_files[@]}"; do
+			[[ ${file} == "./${skip}" ]] && continue 2
 		done
 		if file "${file}" | grep -qE "ELF (32|64)-bit"; then
 			${OBJCOPY} --remove-section .note.gnu.build-id "${file}" || die
@@ -157,9 +156,10 @@ src_prepare() {
 		fi
 	done
 
+	patchelf --set-rpath '$ORIGIN' "plugins/jcef-plugin/jcef/"{libjcef.so,libcef.so,jcef_helper} || die
+
 	if use bundled-jdk; then
 		patchelf --set-rpath '$ORIGIN/../lib' "jbr/bin/"* || die
-		patchelf --set-rpath '$ORIGIN' "jbr/lib/"{libjcef.so,jcef_helper} || die
 		patchelf --set-rpath '$ORIGIN:$ORIGIN/server' jbr/lib/lib*.so* || die
 	else
 		rm -r "jbr" || die
@@ -196,8 +196,10 @@ src_install() {
 
 	if use bundled-jdk; then
 		fperms 755 "${DIR}/${JRE_DIR}"/bin/{java,javac,javadoc,jcmd,jdb,jfr,jhsdb,jinfo,jmap,jps,jrunscript,jstack,jstat,jwebserver,keytool,rmiregistry,serialver}
-		fperms 755 "${DIR}"/"${JRE_DIR}"/lib/{cef_server,chrome-sandbox,jcef_helper,jexec,jspawnhelper}
+		fperms 755 "${DIR}"/"${JRE_DIR}"/lib/{jexec,jspawnhelper}
 	fi
+
+	fperms 755 "${DIR}"/plugins/jcef-plugin/jcef/{cef_server,chrome-sandbox,jcef_helper}
 
 	if [[ ${PN} == *-professional ]]; then
 		if use bundled-xvfb; then
@@ -206,13 +208,14 @@ src_install() {
 		fperms 755 "${DIR}" "${DIR}"/bin/remote-dev-server{,.sh}
 	fi
 
+	dostrip -x "${skip_remote_files[@]/#//opt/${PN}/}"
+
 	make_wrapper "${PN}" "${DIR}/bin/pycharm"
 	newicon "bin/${PN/%-*/}.png" "${PN}.png"
 	make_desktop_entry "${PN}" "${PN}" "${PN}"
 
 	readme.gentoo_create_doc
 
-	# recommended by: https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
 	dodir /usr/lib/sysctl.d
 	cat > "${ED}/usr/lib/sysctl.d/30-${PN}-inotify-watches.conf" <<-EOF || die
 		fs.inotify.max_user_watches = 524288
