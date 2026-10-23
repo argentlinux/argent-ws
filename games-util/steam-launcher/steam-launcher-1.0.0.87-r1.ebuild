@@ -1,12 +1,9 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-# Please report bugs/suggestions on: https://github.com/anyc/steam-overlay
-# or come to #gentoo-games in Libera Chat IRC
-
-inherit desktop linux-info pax-utils prefix xdg
+inherit desktop linux-info prefix xdg
 
 DESCRIPTION="Installer, launcher and supplementary files for Valve's Steam client"
 HOMEPAGE="https://store.steampowered.com"
@@ -18,9 +15,6 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+desktop-portal +dialogs +joystick +pulseaudio +steamruntime steamvr trayicon +udev video_cards_nvidia +vulkan wayland"
 RESTRICT="bindist mirror test"
-
-# This can help to determine the dependencies:
-# find ~/.steam/root/ -exec readelf -d {} + 2>/dev/null | grep -F NEEDED | sort -u | grep -F -v -f <(ls -1 ~/.steam/root/ubuntu12_32/)
 
 RDEPEND="
 	app-alternatives/tar
@@ -126,11 +120,6 @@ pkg_setup() {
 		ewarn "If you want to use Steam Input's virtual controller"
 		ewarn "implementation, please make sure CONFIG_INPUT_UINPUT"
 		ewarn "is enabled in your kernel config."
-
-		# Device Drivers
-		#  -> Input device support
-		#   -> Miscellaneous devices
-		#    -> User level driver support
 	fi
 }
 
@@ -157,11 +146,8 @@ src_prepare() {
 		-e "s#@@STEAM_RUNTIME@@#$(usex steamruntime 1 0)#g" \
 		"${FILESDIR}"/steam-wrapper.sh > steam-wrapper.sh || die
 
-	# Still need EPREFIX in the sed replacements above because the
-	# regular expression used by hprefixify doesn't match there.
 	hprefixify bin_steam.sh steam-wrapper.sh
 
-	# Allow the desktop launcher to use wrappers from the PATH.
 	sed -i "s:/usr/bin/::g" steam.desktop || die
 }
 
@@ -193,20 +179,11 @@ pkg_postinst() {
 	ewarn "Updates are handled by the client itself."
 	ewarn ""
 
-	if use steamruntime; then
-		elog "You have enabled the Steam runtime environment by default."
-		elog "Steam will use bundled libraries if they are missing from"
-		elog "your Gentoo system. Try disabling the runtime with the"
-		elog "steamruntime USE flag if you have issues."
-		elog ""
-	else
-		elog "You have disabled the Steam runtime environment by default."
-		elog "Steam will not use bundled libraries if they are missing from"
-		elog "your Gentoo system. Use games-util/esteam to install addiitonal"
-		elog "dependencies needed by your games. Try setting STEAM_RUNTIME=1"
-		elog "to temporarily enable the runtime if you have issues."
-		elog ""
-		ewarn "Notice: Valve only supports Steam with the runtime enabled!"
+	if ! use steamruntime; then
+		ewarn "Disabling the Steam runtime is largely ineffective as"
+		ewarn "even older games are now run in a container by default."
+		ewarn "This USE flag will be dropped entirely soon. Please read"
+		ewarn "the news item."
 		ewarn ""
 	fi
 
@@ -222,11 +199,5 @@ pkg_postinst() {
 		ewarn "Valve does not provide a xterm fallback for all calls of zenity."
 		ewarn "Please install gnome-extra/zenity for full support."
 		ewarn ""
-	fi
-
-	if host-is-pax; then
-		elog "If you're using PAX, please see:"
-		elog "https://wiki.gentoo.org/wiki/Steam#Hardened_Gentoo"
-		elog ""
 	fi
 }

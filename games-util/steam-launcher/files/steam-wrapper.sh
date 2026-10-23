@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# Set a default STEAM_RUNTIME value.
-: ${STEAM_RUNTIME:=@@STEAM_RUNTIME@@}
-export STEAM_RUNTIME
+if [[ ${STEAM_RUNTIME:-@@STEAM_RUNTIME@@} == 0 ]]; then
+	export STEAM_RUNTIME=0
+else
+	unset STEAM_RUNTIME
+fi
 
 # Gentoo's lsb-release doesn't set this.
 export DISTRIB_RELEASE="@@PVR@@"
