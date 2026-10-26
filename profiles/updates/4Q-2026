@@ -1,1 +1,2 @@
 move app-emulation/steam games-util/steam-launcher
+move x11-misc/sddm gui-apps/sddm
