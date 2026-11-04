@@ -1,0 +1,9 @@
+DEFINED_PHASES=-
+DESCRIPTION=Keeps NVIDIA Maxwell, Pascal and Volta GPUs on the 580 driver branch
+EAPI=8
+HOMEPAGE=https://argentlinux.io
+KEYWORDS=amd64
+LICENSE=GPL-2
+RDEPEND==x11-drivers/nvidia-drivers-580*[-kernel-open]
+SLOT=0
+_md5_=eb2bd36c5b48dc798687560b6b179d79
