@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Type=Application
 
-Exec=xdg-open http://www.gentoo.org/doc/en/index.xml
+Exec=xdg-open https://wiki.gentoo.org
 Icon=/usr/share/pixmaps/argent-weblink.png
 
 Name=Gentoo Documentation
