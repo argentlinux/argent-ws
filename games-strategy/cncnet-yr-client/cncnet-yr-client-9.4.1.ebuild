@@ -20,7 +20,14 @@ RDEPEND="
 	media-libs/alsa-lib
 	virtual/dotnet-sdk:8.0
 	virtual/opengl
-	virtual/wine[abi_x86_32]
+	|| (
+		app-emulation/wine-vanilla[wow64(-)]
+		app-emulation/wine-vanilla[abi_x86_32(-)]
+		app-emulation/wine-staging[wow64(-)]
+		app-emulation/wine-staging[abi_x86_32(-)]
+		app-emulation/wine-proton[wow64(-)]
+		app-emulation/wine-proton[abi_x86_32(-)]
+	)
 	x11-libs/libX11
 	x11-libs/libXcursor
 	x11-libs/libXext
