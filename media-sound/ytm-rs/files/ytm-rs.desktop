@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=YT Music
+GenericName=Music Player
+Comment=Native YouTube Music client
+Exec=ytm-rs %u
+Icon=ytm-rs
+Terminal=false
+Categories=AudioVideo;Audio;Player;
+Keywords=youtube;music;player;
+MimeType=x-scheme-handler/ytm-rs;
+StartupWMClass=ytm-rs

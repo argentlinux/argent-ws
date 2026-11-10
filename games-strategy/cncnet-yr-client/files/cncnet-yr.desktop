@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=CnCNet Yuri's Revenge
+Comment=Play Command & Conquer: Yuri's Revenge online through CnCNet
+Exec=cncnet-yr
+Icon=cncnet-yr
+Terminal=false
+Categories=Game;StrategyGame;
+Keywords=cncnet;red alert;yuri;command and conquer;

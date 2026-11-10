@@ -1,0 +1,39 @@
+#!/bin/sh
+set -eu
+
+pkgdir="/opt/cncnet-yr-client"
+userdir="${CNCNET_YR_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/cncnet-yr}"
+stamp="$userdir/.portage-version"
+
+pkgver="$(sed -n 's/^Version=//p' "$pkgdir/version" | head -n 1)"
+if [ ! -f "$stamp" ] || [ "$(cat "$stamp")" != "$pkgver" ]; then
+	echo "cncnet-yr: syncing client $pkgver into $userdir" >&2
+	mkdir -p "$userdir"
+	cp -R --reflink=auto "$pkgdir"/. "$userdir"/
+	chmod -R u+rwX "$userdir"
+	printf '%s\n' "$pkgver" > "$stamp"
+fi
+
+dotnet8=""
+for candidate in dotnet-bin-8.0 dotnet-8.0; do
+	if command -v "$candidate" >/dev/null 2>&1; then
+		dotnet8="$(command -v "$candidate")"
+		break
+	fi
+done
+if [ -z "$dotnet8" ]; then
+	echo "cncnet-yr: no .NET 8 runtime found, install virtual/dotnet-sdk:8.0" >&2
+	exit 1
+fi
+mkdir -p "$userdir/.bin"
+ln -sfn "$dotnet8" "$userdir/.bin/dotnet"
+export PATH="$userdir/.bin:$PATH"
+DOTNET_ROOT="$(dirname "$(readlink -f "$dotnet8")")"
+export DOTNET_ROOT
+
+if [ ! -e "$userdir/ra2md.mix" ]; then
+	echo "cncnet-yr: game data not found, copy the Yuri's Revenge .mix files into $userdir" >&2
+fi
+
+cd "$userdir"
+exec ./YRLauncherUnix.sh "$@"
